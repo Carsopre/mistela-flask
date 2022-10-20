@@ -8,6 +8,9 @@ packages = [
     {include = "mistelaflask"},
 ]
 
+[tool.poetry.scripts]
+init_db = 'scripts.db_scripts:init_db'
+
 [tool.poetry.dependencies]
 python = "^3.10"
 Flask = "^2.2.2"
