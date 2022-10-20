@@ -5,7 +5,7 @@ description = "A wedding planner flask application. It allows for RSVP options, 
 authors = ["Carles S. Soriano Perez <sorianoperez.carles@gmail.com>"]
 license = "MIT"
 packages = [
-    {include = "mistela-flask"},
+    {include = "mistelaflask"},
 ]
 
 [tool.poetry.dependencies]
@@ -22,6 +22,7 @@ black = "^22.10.0"
 isort = "^5.10.1"
 mkdocs = "^1.4.1"
 termcolor = "^2.0.1"
+coverage = "^6.5.0"
 
 
 [tool.commitizen]
