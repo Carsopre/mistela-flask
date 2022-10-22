@@ -1,4 +1,5 @@
 from flask import Blueprint, flash, redirect, render_template, request, url_for
+from flask_login import login_user
 from werkzeug.security import check_password_hash, generate_password_hash
 
 from mistelaflask import db
@@ -29,6 +30,7 @@ def login_post():
             url_for("auth.login")
         )  # if the user doesn't exist or password is wrong, reload the page
 
+    login_user(user, remember=remember)
     return redirect(url_for("main.profile"))
 
 
