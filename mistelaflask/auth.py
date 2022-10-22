@@ -1,5 +1,5 @@
 from flask import Blueprint, flash, redirect, render_template, request, url_for
-from flask_login import login_user
+from flask_login import login_required, login_user, logout_user
 from werkzeug.security import check_password_hash, generate_password_hash
 
 from mistelaflask import db
@@ -69,6 +69,7 @@ def signup_post():
     return redirect(url_for("auth.login"))
 
 
-@auth.route("/logout")
+@login_required
 def logout():
-    return "Logout"
+    logout_user()
+    return redirect(url_for("main.index"))
