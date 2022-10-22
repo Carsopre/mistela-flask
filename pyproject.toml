@@ -1,11 +1,16 @@
 [tool.poetry]
 name = "mistela-flask"
 version = "0.1.0"
-description = "A wedding planner flask application. It allows for RSVP options, authentication, and guest management"
+description = "A multi-event planner flask application. It allows for RSVP options, authentication, and guest management"
 authors = ["Carles S. Soriano Perez <sorianoperez.carles@gmail.com>"]
 license = "MIT"
 packages = [
     {include = "mistelaflask"},
+]
+readme = "README.md"
+classifiers = [
+  'Natural Language :: English',
+  'Programming Language :: Python :: 3',
 ]
 
 [tool.poetry.scripts]

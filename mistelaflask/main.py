@@ -1,4 +1,5 @@
 from flask import Blueprint, render_template
+from flask_login import current_user, login_required
 
 from mistelaflask import db
 
@@ -11,5 +12,6 @@ def index():
 
 
 @main.route("/profile")
+@login_required
 def profile():
     return render_template("profile.html")
