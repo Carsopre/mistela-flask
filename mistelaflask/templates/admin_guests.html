@@ -11,7 +11,7 @@
             </div>
         {% endif %}
         {% endwith %}
-        <form method="POST" action="/signup">
+        <form method="POST" action="/admin/guests">
             <div class="field">
                 <div class="control">
                     <input class="input is-large" type="text" name="name" placeholder="Name" autofocus="">
@@ -39,12 +39,37 @@
         </form>
     </div>
 
-    <div class="columns">
-        {% for guest in guest_list %}
-        <div class="row">
-            <p class="column is-4">{{ guest.name }}</p>
-        </div>
-        {% endfor %}
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Guest(s)</th>
+                <th><abbr title="Number of total guests">Max</abbr></th>
+                {% for event in events %}
+                    <th>{{ event.name }}</th>
+                {% endfor %}
+            </tr>
+        </thead>
+        <tbody>
+            {% for guest in guest_list %}
+            <tr>
+                <th>{{ guest["name"] }}</th>
+                <th>{{ guest["max_adults"]}}</th>
+                {% for inv in guest["invitations"] %}
+                    <th>
+                        <span class="icon">
+                            {% if inv %}
+                            Yay!
+                            <i class="fas fa-home"></i>
+                            {% else %}
+                            Ney!
+                            <i class="fas fa-train"></i>
+                            {% endif %}
+                        </span>                    
+                    </th>
+                {% endfor %}
+            </tr>
+            {% endfor %}
+        </tbody>
     </div>
 </div>
 {% endblock %}

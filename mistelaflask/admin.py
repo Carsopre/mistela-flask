@@ -40,7 +40,23 @@ def guests():
     if not current_user.admin:
         return redirect(url_for("index"))
     _events = models.Event.query.all()
-    guest_list = models.User.query.where(admin == False)
+    guest_list = []
+    for _guest in models.User.query.filter_by(admin=False):
+        guest_list.append(
+            dict(
+                name=_guest.name,
+                max_adults=_guest.max_adults,
+                invitations=[
+                    db.session.query(
+                        models.UserEventInvitation.query.filter_by(
+                            guest=_guest.id, event=_event.id
+                        ).exists()
+                    ).scalar()
+                    for _event in _events
+                ],
+            )
+        )
+
     return render_template("admin_guests.html", events=_events, guest_list=guest_list)
 
 
