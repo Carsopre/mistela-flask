@@ -10,6 +10,7 @@ class User(UserMixin, db.Model):
     name = db.Column(db.String(1000))
     password = db.Column(db.String(100))
     admin = db.Column(db.Boolean, default=False, nullable=False)
+    max_adults = db.Column(db.Integer, default=2)
 
 
 class Event(db.Model):
@@ -20,7 +21,9 @@ class Event(db.Model):
 
 class UserInvitation(db.Model):
     id = db.Column(db.Integer, primary_key=True)
+    guest = db.Column(db.Integer, db.ForeignKey("user.id"))
     remarks = db.Column(db.Text)
+    total_adults = db.Column(db.Integer)
 
 
 class UserEventInvitation(db.Model):

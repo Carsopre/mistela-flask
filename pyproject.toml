@@ -15,6 +15,8 @@ classifiers = [
 
 [tool.poetry.scripts]
 init_db = 'scripts.db_scripts:init_db'
+create_test_admin = 'scripts.db_scripts:create_test_admin'
+init_test = 'scripts.db_scripts:init_test_db'
 
 [tool.poetry.dependencies]
 python = "^3.10"
