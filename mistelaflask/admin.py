@@ -7,6 +7,14 @@ from mistelaflask import db, models
 admin = Blueprint("admin", __name__)
 
 
+@admin.route("/admin")
+@login_required
+def admin_index():
+    if not current_user.admin:
+        return redirect(url_for("index"))
+    return redirect(url_for("admin.events"))
+
+
 @admin.route("/admin/events")
 @login_required
 def events():
@@ -67,25 +75,25 @@ def create_guest():
         return redirect(url_for("index"))
     name = request.form.get("name")
     password = request.form.get("password")
-    max_guests = request.form.get("max_guests")
+    max_adults = request.form.get("max_adults")
     _user = models.User.query.filter_by(name=name).first()
     if _user:
         flash("A user with this name already exists.")
-        return redirect(url_for("guests"))
+        return redirect(url_for("admin.guests"))
     _new_user = models.User(
         name=name,
-        max_guests=max_guests,
+        max_adults=max_adults,
         password=generate_password_hash(password, method="sha256"),
     )
     db.session.add(_new_user)
     db.session.commit()
-    _user_invitation = models.UserEventInvitation(guest=_user.id)
+    _user_invitation = models.UserEventInvitation(guest=_new_user.id)
     db.session.add(_user_invitation)
     db.session.commit()
     for _event in models.Event.query.all():
-        if request.form.get(_event.id, False):
+        if request.form.get(f"event_{_event.id}", type=bool, default=False):
             _new_invitation = models.UserEventInvitation(
-                guest=_user.id, event=_event.id
+                guest=_new_user.id, event=_event.id
             )
             db.session.add(_new_invitation)
             db.session.commit()
