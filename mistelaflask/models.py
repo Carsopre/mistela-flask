@@ -12,23 +12,15 @@ class User(UserMixin, db.Model):
     admin = db.Column(db.Boolean, default=False, nullable=False)
 
 
-class MainEvent(db.Model):
-    id = db.Column(db.Integer, primary_key=True)
-    name = db.Column(db.String(1000))
-    description = db.Column(db.Text)
-
-
 class Event(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     name = db.Column(db.String(1000))
     description = db.Column(db.Text)
-    main_event_id = db.Column(db.Integer, db.ForeignKey("mainevent.id"))
 
 
 class UserInvitation(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     remarks = db.Column(db.Text)
-    main_event_id = db.Column(db.Integer, db.ForeignKey("mainevent.id"))
 
 
 class UserEventInvitation(db.Model):
