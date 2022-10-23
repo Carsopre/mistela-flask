@@ -1,6 +1,6 @@
 [tool.poetry]
 name = "mistela-flask"
-version = "0.1.0"
+version = "0.2.0"
 description = "A multi-event planner flask application. It allows for RSVP options, authentication, and guest management"
 authors = ["Carles S. Soriano Perez <sorianoperez.carles@gmail.com>"]
 license = "MIT"
@@ -35,12 +35,12 @@ coverage = "^6.5.0"
 
 [tool.commitizen]
 name = "cz_conventional_commits"
-version = "0.1.0"
+version = "0.2.0"
 changelog_file = "docs/changelog.md"
 update_changelog_on_bump = true
 tag_format = "v$major.$minor.$patch"
 version_files= [
-    "mistela-flask/__init__.py",
+    "mistelaflask/__init__.py",
     "pyproject.toml:version"]
 
 [tool.black]
