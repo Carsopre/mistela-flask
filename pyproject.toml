@@ -5,13 +5,16 @@ description = "A multi-event planner flask application. It allows for RSVP optio
 authors = ["Carles S. Soriano Perez <sorianoperez.carles@gmail.com>"]
 license = "MIT"
 packages = [
-    {include = "mistela-flask"},
+    {include = "mistelaflask"},
 ]
 readme = "README.md"
 classifiers = [
   'Natural Language :: English',
   'Programming Language :: Python :: 3',
 ]
+
+[tool.poetry.scripts]
+init_db = 'scripts.db_scripts:init_db'
 
 [tool.poetry.dependencies]
 python = "^3.10"
@@ -27,6 +30,7 @@ black = "^22.10.0"
 isort = "^5.10.1"
 mkdocs = "^1.4.1"
 termcolor = "^2.0.1"
+coverage = "^6.5.0"
 
 
 [tool.commitizen]
