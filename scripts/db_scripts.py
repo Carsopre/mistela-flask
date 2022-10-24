@@ -1,5 +1,6 @@
 from pathlib import Path
 
+from requests import session
 from werkzeug.security import generate_password_hash
 
 from mistelaflask import create_app, db, models
@@ -37,4 +38,6 @@ def init_test_db():
             admin=True,
         )
         db.session.add(admin)
+        event_names = ["ceremony", "cake", "dinner", "party"]
+        list(map( lambda x: db.session.add(models.Event(name=x)), event_names)
         db.session.commit()
