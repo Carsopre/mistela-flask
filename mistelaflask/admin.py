@@ -98,3 +98,29 @@ def create_guest():
             db.session.add(_new_invitation)
             db.session.commit()
     return redirect(url_for("admin.guests"))
+
+
+@admin.route("/admin/responses")
+@login_required
+def responses():
+    if not current_user.admin:
+        return redirect(url_for("index"))
+
+    _events = models.Event.query.all()
+    _user_list = []
+    for _guest in models.User.query.filter_by(admin=False):
+        _user_list.append(
+            dict(
+                name=_guest.name,
+                max_adults=_guest.max_adults,
+                invitations=[
+                    models.UserEventInvitation.query.filter_by(
+                        guest=_guest.id, event=_event.id
+                    )
+                    for _event in _events
+                ],
+            )
+        )
+    return render_template(
+        "admin_responses.html", events=_events, guest_list=_user_list
+    )

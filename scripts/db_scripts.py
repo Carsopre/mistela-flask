@@ -39,5 +39,5 @@ def init_test_db():
         )
         db.session.add(admin)
         event_names = ["ceremony", "cake", "dinner", "party"]
-        list(map( lambda x: db.session.add(models.Event(name=x)), event_names)
+        list(map(lambda x: db.session.add(models.Event(name=x)), event_names))
         db.session.commit()
