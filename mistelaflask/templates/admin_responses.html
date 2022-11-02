@@ -10,7 +10,8 @@
                 <th><abbr title="Number of total guests">Max</abbr></th>
                 {% for event in events %}
                     <th>{{ event.name }}</th>
-                    <th>{{ event.name }} - Guests</th>
+                    <th>{{ event.name }} - Adults</th>
+                    <th>{{ event.name }} - Children</th>
                     <th>{{ event.name }} - Remarks</th>
                 {% endfor %}
             </tr>
@@ -33,7 +34,10 @@
                         </span>                    
                     </th>
                     <th>
-                        {{ inv.n_guests }}
+                        {{ inv.n_adults }}
+                    </th>
+                    <th>
+                        {{ inv.n_children }}
                     </th>
                     <th>
                         {{ inv.remarks }}

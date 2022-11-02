@@ -24,5 +24,6 @@ class UserEventInvitation(db.Model):
     guest = db.Column(db.Integer, db.ForeignKey("user.id"))
     event = db.Column(db.Integer, db.ForeignKey("event.id"))
     response = db.Column(db.Boolean, default=False, nullable=False)
-    n_guests = db.Column(db.Integer, default=0)
+    n_adults = db.Column(db.Integer, default=0)
+    n_children = db.Column(db.Integer, default=0)
     remarks = db.Column(db.String(1000))
