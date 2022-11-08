@@ -9,10 +9,10 @@ admin = Blueprint("admin", __name__)
 
 @admin.route("/admin")
 @login_required
-def admin_index():
+def index():
     if not current_user.admin:
-        return redirect(url_for("index"))
-    return redirect(url_for("admin.events"))
+        return redirect(url_for("main.index"))
+    return render_template("admin_index.html")
 
 
 @admin.route("/admin/events")

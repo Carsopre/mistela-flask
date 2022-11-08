@@ -8,6 +8,8 @@ main = Blueprint("main", __name__)
 
 @main.route("/")
 def index():
+    if not current_user:
+        return redirect(url_for("/login"))
     return render_template("index.html")
 
 
