@@ -89,7 +89,7 @@ def init_test_db():
                 name="party",
                 description="We will play some musice to dance and finish the day with a warm party",
                 start_time=_correct_datetime(hour=21),
-                duration=4,
+                duration=4 * 60,
             ),
         ]
 

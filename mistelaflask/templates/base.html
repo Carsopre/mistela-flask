@@ -26,11 +26,11 @@
                             </a>
                             {% endif %}
                             {% if current_user.is_authenticated %}
-                            <a href="{{ url_for('main.profile') }}" class="navbar-item">
-                                Profile
-                            </a>
                             <a href="{{ url_for('main.events') }}" class="navbar-item">
                                 Events
+                            </a>
+                            <a href="{{ url_for('main.responses') }}" class="navbar-item">
+                                RSVP
                             </a>
                             <a href="{{ url_for('auth.logout') }}" class="navbar-item">
                                 Logout
