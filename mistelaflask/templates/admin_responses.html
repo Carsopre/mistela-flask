@@ -27,9 +27,11 @@
                             {% if inv.response %}
                             Yay!
                             <i class="fas fa-home"></i>
-                            {% else %}
+                            {% elif inv.response == False %}
                             Ney!
                             <i class="fas fa-train"></i>
+                            {% else %}
+                            -
                             {% endif %}
                         </span>                    
                     </th>

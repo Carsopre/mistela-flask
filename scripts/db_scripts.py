@@ -53,6 +53,8 @@ def init_test_db():
         )
         db.session.add(_day_guest)
         db.session.add(_night_guest)
+        db.session.commit()
+
         wedding_date = datetime(2023, 5, 20, 16, 0, 0)
 
         def _correct_datetime(**kwargs):
@@ -93,6 +95,7 @@ def init_test_db():
 
         for _event in events:
             db.session.add(_event)
+            db.session.commit()
             _invitation = models.UserEventInvitation(
                 guest=_day_guest.id, event=_event.id
             )

@@ -1,10 +1,12 @@
 {% extends "base.html" %}
 
+{% if current_user.is_authenticated %}
 {% block content %}
 <h1 class="title">
-  Flask Login Example
+  Our Wedding
 </h1>
 <h2 class="subtitle">
   Easy authentication and authorization in Flask.
 </h2>
 {% endblock %}
+{% endif %}
