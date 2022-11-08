@@ -60,13 +60,38 @@ def responses():
             dict(
                 event_name=_event.name,
                 max_adults=current_user.max_adults,
+                response=_invitation.response,
+                remarks=_invitation.remarks,
+                n_adults=_invitation.n_adults,
+                n_children=_invitation.n_children,
             )
         )
 
     return render_template("guest_responses.html", user_invitations=_user_invitations)
 
 
-@main.route("/responses", methods=["UPDATE"])
+@main.route("/responses/", methods=["POST"])
 @login_required
 def update_responses():
-    pass
+    for _invitation in models.UserEventInvitation.query.filter_by(
+        guest=current_user.id
+    ):
+        _event = models.Event.query.filter_by(id=_invitation.event).first()
+        _invitation.response = (
+            True if request.form.get(f"{_event.name}_accepted") else False
+        )
+        # _invitation.n_adults = min(
+        #     current_user.max_adults,
+        #     int(
+        #         request.form.get(
+        #             f"{_event.name}_total_adults", str(_invitation.n_adults)
+        #         )
+        #     ),
+        # )
+        # _invitation.n_children = int(
+        #     request.form.get(f"{_event.name}_total_children", _invitation.n_children)
+        # )
+        _invitation.remarks = request.form.get(f"{_event.name}_remarks", "")
+        db.session.add(_invitation)
+        db.session.commit()
+    return redirect(url_for("main.responses"))

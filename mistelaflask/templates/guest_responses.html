@@ -4,29 +4,32 @@
 <div class="column">
     <h3 class="title">Your invitations</h3>
 
-    <form method="UPDATE" action="/responses">
+    <form method="POST" action="/responses">
     {% for _invitation in user_invitations %}
-        <label class="checkbox">
-            <input type="checkbox" name="{{_invitation.event_name}}_accepted">
-                {{ _invitation.event_name }}
-        </label>
         <div class="field">
             <div class="control">
-                <input class="input" type="text" name="{{_invitation.event_name}}_remarks" placeholder="Remarks">
+            <input type="checkbox" name="{{_invitation.event_name}}_accepted" {% if _invitation.response %}checked{% endif %}>
+                {{ _invitation.event_name }}
+                {{ _invitation.response }}
+            </div>
+        </div>
+        <div class="field" >
+            <div class="control">
+                <input class="input" type="text" name="{{_invitation.event_name}}_remarks" value="{{_invitation.remarks}}" placeholder="Remarks">
             </div>
         </div>
         <div class="field">
             <div class="control">
-                <input class="input" type="number" min="0" max="{{_invitation.max_adults}}" name="{{_invitation.event_name}}_total_adults" placeholder="Total adults">
+                <input class="input" type="number" min="0" max="{{_invitation.max_adults}}" value="{{_invitation.n_adults}}" name="{{_invitation.event_name}}_total_adults" placeholder="Total adults">
             </div>  
         </div>
         <div class="field">
             <div class="control">
-                <input class="input" type="number" min="0" name="{{_invitation.event_name}}_total_children" placeholder="Total children">
+                <input class="input" type="number" min="0" name="{{_invitation.event_name}}_total_children" value="{{_invitation.n_children}}" placeholder="Total children">
             </div>  
         </div>
     {% endfor %}
-    <button class="button is-block is-info is-large is-fullwidth">Update invitation</button>
+    <button class="button is-block is-info is-large is-fullwidth">Save preferences</button>
     </form>
 </div>
 {% endblock %}
