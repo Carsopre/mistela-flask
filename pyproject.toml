@@ -19,7 +19,7 @@ create_test_admin = 'scripts.db_scripts:create_test_admin'
 test_db = 'scripts.db_scripts:init_test_db'
 
 [tool.poetry.dependencies]
-python = "^3.10"
+python = "~3.9"
 Flask = "^2.2.2"
 commitizen = "^2.35.0"
 flask-sqlalchemy = "^3.0.2"
