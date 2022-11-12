@@ -6,6 +6,7 @@ from flask_login import current_user, login_required
 from mistelaflask import db, models
 
 main = Blueprint("main", __name__)
+app = Flask(__name__)
 
 
 @main.route("/")
