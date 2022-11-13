@@ -1,3 +1,5 @@
+import os
+
 from flask import Flask
 from flask_login import LoginManager
 from flask_sqlalchemy import SQLAlchemy
@@ -5,15 +7,17 @@ from flask_sqlalchemy import SQLAlchemy
 __version__ = "0.3.0"
 
 # init SQLAlchemy so we can use it later in our models
-
 db = SQLAlchemy()
+default_database_uri = "sqlite:///db.sqlite"
 
 
-def create_app():
+def create_app() -> Flask:
     app = Flask(__name__)
 
-    app.config["SECRET_KEY"] = "secret-key-goes-here"
-    app.config["SQLALCHEMY_DATABASE_URI"] = "sqlite:///db.sqlite"
+    app.config["SECRET_KEY"] = os.environ["SECRET_KEY"]
+    app.config["SQLALCHEMY_DATABASE_URI"] = os.environ.get(
+        "DATABASE_URI", default_database_uri
+    )
 
     db.init_app(app)
 

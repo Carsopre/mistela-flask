@@ -1,6 +1,6 @@
 from datetime import timedelta
 
-from flask import Blueprint, Flask, redirect, render_template, request, url_for
+from flask import Blueprint, redirect, render_template, request, url_for
 from flask_login import current_user, login_required
 
 from mistelaflask import db, models
