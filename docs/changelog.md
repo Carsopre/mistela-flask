@@ -1,3 +1,13 @@
+## v0.4.0 (2022-11-13)
+
+### Feat
+
+- **mistelaflask/__init__.py**: SECRET_KEY and DATABASE_URI are now read from the environment variables
+
+### Fix
+
+- **pyproject.toml**: Forgot a closing statement
+
 ## v0.3.0 (2022-11-13)
 
 ### Feat

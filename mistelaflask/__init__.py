@@ -4,7 +4,7 @@ from flask import Flask
 from flask_login import LoginManager
 from flask_sqlalchemy import SQLAlchemy
 
-__version__ = "0.3.0"
+__version__ = "0.4.0"
 
 # init SQLAlchemy so we can use it later in our models
 db = SQLAlchemy()
