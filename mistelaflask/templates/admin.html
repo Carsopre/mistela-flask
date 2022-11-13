@@ -24,21 +24,17 @@
                             <a href="{{ url_for('admin.index') }}" class="navbar-item">
                                 Admin page
                             </a>
-                            {% endif %}
-                            {% if current_user.is_authenticated %}
-                            <a href="{{ url_for('main.events') }}" class="navbar-item">
+                            <a href="{{ url_for('admin.guests') }}" class="navbar-item">
+                                Guests
+                            </a>
+                            <a href="{{ url_for('admin.events') }}" class="navbar-item">
                                 Events
                             </a>
-                            <a href="{{ url_for('main.responses') }}" class="navbar-item">
-                                RSVP
+                            <a href="{{ url_for('admin.responses') }}" class="navbar-item">
+                                Responses
                             </a>
                             <a href="{{ url_for('auth.logout') }}" class="navbar-item">
                                 Logout
-                            </a>
-                            {% endif %}
-                            {% if not current_user.is_authenticated %}
-                            <a href="{{ url_for('auth.login') }}" class="navbar-item">
-                                Login
                             </a>
                             {% endif %}
                         </div>

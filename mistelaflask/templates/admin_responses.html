@@ -1,0 +1,53 @@
+{% extends "admin.html" %}
+
+{% block content %}
+<div class="column">
+    <h3 class="title">Manage guests</h3>
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Guest(s)</th>
+                <th><abbr title="Number of total guests">Max</abbr></th>
+                {% for event in events %}
+                    <th>{{ event.name }}</th>
+                    <th>{{ event.name }} - Adults</th>
+                    <th>{{ event.name }} - Children</th>
+                    <th>{{ event.name }} - Remarks</th>
+                {% endfor %}
+            </tr>
+        </thead>
+        <tbody>
+            {% for guest in guest_list %}
+            <tr>
+                <th>{{ guest["name"] }}</th>
+                <th>{{ guest["max_adults"] }}</th>
+                {% for inv in guest["invitations"] %}
+                    <th>
+                        <span class="icon">
+                            {% if inv.response %}
+                            Yay!
+                            <i class="fas fa-home"></i>
+                            {% elif inv.response == False %}
+                            Ney!
+                            <i class="fas fa-train"></i>
+                            {% else %}
+                            -
+                            {% endif %}
+                        </span>                    
+                    </th>
+                    <th>
+                        {{ inv.n_adults }}
+                    </th>
+                    <th>
+                        {{ inv.n_children }}
+                    </th>
+                    <th>
+                        {{ inv.remarks }}
+                    </th>
+                {% endfor %}
+            </tr>
+            {% endfor %}
+        </tbody>
+    </div>
+</div>
+{% endblock %}

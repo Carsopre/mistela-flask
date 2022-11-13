@@ -7,6 +7,25 @@ class User(UserMixin, db.Model):
     id = db.Column(
         db.Integer, primary_key=True
     )  # primary keys are required by SQLAlchemy
-    email = db.Column(db.String(100), unique=True)
-    password = db.Column(db.String(100))
     name = db.Column(db.String(1000))
+    password = db.Column(db.String(100))
+    admin = db.Column(db.Boolean, default=False, nullable=False)
+    max_adults = db.Column(db.Integer, default=2)
+
+
+class Event(db.Model):
+    id = db.Column(db.Integer, primary_key=True)
+    name = db.Column(db.String(1000))
+    start_time = db.Column(db.DateTime)
+    duration = db.Column(db.Integer)  # In Minutes
+    description = db.Column(db.Text)
+
+
+class UserEventInvitation(db.Model):
+    id = db.Column(db.Integer, primary_key=True)
+    guest = db.Column(db.Integer, db.ForeignKey("user.id"))
+    event = db.Column(db.Integer, db.ForeignKey("event.id"))
+    response = db.Column(db.Boolean, default=None, nullable=True)
+    n_adults = db.Column(db.Integer, default=0)
+    n_children = db.Column(db.Integer, default=0)
+    remarks = db.Column(db.String(1000))
