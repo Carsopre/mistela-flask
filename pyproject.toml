@@ -11,8 +11,13 @@ readme = "README.md"
 repository = "https://github.com/carsopre/mistela-flask"
 classifiers = [
   'Natural Language :: English',
+  'Development Status :: 2 - Pre-Alpha,
   'Programming Language :: Python :: 3',
   'Framework :: Flask',
+  'Intended Audience :: Developers',
+  'Intended Audience :: Education',
+  'Topic :: Internet :: WWW/HTTP :: WSGI :: Application',
+  'Topic :: Software Development :: Libraries :: Python Modules',
 ]
 
 [tool.poetry.scripts]
