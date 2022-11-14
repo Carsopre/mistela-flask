@@ -111,3 +111,24 @@ def init_test_db():
         db.session.add(_night_invitation)
 
         db.session.commit()
+
+
+def create_multi_user():
+    pass
+    # if not current_user.admin:
+    #     flash("Admin rights required for this operation.")
+    #     return redirect(url_for("main.index"))
+    # names = request.form.get("user_list", "")
+    # for name in names.splitlines():
+    #     _full_name = name.strip()
+    #     _username = _full_name[0:3] + _full_name[-4:-1]
+    #     _otp = secrets.token_hex(6)
+    #     _user = models.User(
+    #         username=_username,
+    #         name=_full_name,
+    #         otp=_otp,
+    #         admin=False,
+    #         max_adults=2,
+    #     )
+    #     db.session.add(_user)
+    # db.session.commit()

@@ -22,8 +22,6 @@ def create_app() -> Flask:
     app.config["SQLALCHEMY_DATABASE_URI"] = os.environ.get(
         "DATABASE_URI", default_database_uri
     )
-    app.config["FLASK_ADMIN_SWATCH"] = "cerulean"
-    admin = Admin(app, name="microblog", template_mode="bootstrap3")
 
     db.init_app(app)
 
@@ -33,9 +31,11 @@ def create_app() -> Flask:
 
     from mistelaflask.models import Event, User, UserEventInvitation
 
-    admin.add_view(ModelView(User, db.session))
-    admin.add_view(ModelView(Event, db.session))
-    admin.add_view(ModelView(UserEventInvitation, db.session))
+    # app.config["FLASK_ADMIN_SWATCH"] = "cerulean"
+    # admin = Admin(app, name="microblog", template_mode="bootstrap4")
+    # admin.add_view(ModelView(User, db.session))
+    # admin.add_view(ModelView(Event, db.session))
+    # admin.add_view(ModelView(UserEventInvitation, db.session))
 
     @login_manager.user_loader
     def load_user(user_id):
