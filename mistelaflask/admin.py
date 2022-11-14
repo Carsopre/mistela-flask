@@ -4,10 +4,10 @@ from werkzeug.security import check_password_hash, generate_password_hash
 
 from mistelaflask import db, models
 
-admin = Blueprint("admin", __name__)
+mistela_admin = Blueprint("mistela_admin", __name__)
 
 
-@admin.route("/admin")
+@mistela_admin.route("/admin")
 @login_required
 def index():
     if not current_user.admin:
@@ -15,7 +15,7 @@ def index():
     return render_template("admin_index.html")
 
 
-@admin.route("/admin/events")
+@mistela_admin.route("/admin/events")
 @login_required
 def events():
     if not current_user.admin:
@@ -24,7 +24,7 @@ def events():
     return render_template("admin_events.html", events=_events)
 
 
-@admin.route("/admin/events", methods=["POST"])
+@mistela_admin.route("/admin/events", methods=["POST"])
 @login_required
 def create_event():
     if not current_user.admin:
@@ -39,10 +39,10 @@ def create_event():
     _new_event = models.Event(name=name, description=description)
     db.session.add(_new_event)
     db.session.commit()
-    return redirect(url_for("admin.events"))
+    return redirect(url_for("mistela_admin.events"))
 
 
-@admin.route("/admin/guests")
+@mistela_admin.route("/admin/guests")
 @login_required
 def guests():
     class GuestInvitation:
@@ -76,7 +76,7 @@ def guests():
     return render_template("admin_guests.html", events=_events, guest_list=guest_list)
 
 
-@admin.route("/admin/guests", methods=["POST"])
+@mistela_admin.route("/admin/guests", methods=["POST"])
 @login_required
 def create_guest():
     if not current_user.admin:
@@ -87,7 +87,7 @@ def create_guest():
     _user = models.User.query.filter_by(name=name).first()
     if _user:
         flash("A user with this name already exists.")
-        return redirect(url_for("admin.guests"))
+        return redirect(url_for("mistela_admin.guests"))
     _new_user = models.User(
         name=name,
         max_adults=max_adults,
@@ -105,16 +105,16 @@ def create_guest():
             )
             db.session.add(_new_invitation)
             db.session.commit()
-    return redirect(url_for("admin.guests"))
+    return redirect(url_for("mistela_admin.guests"))
 
 
-@admin.route("/admin/guests/<int:guest_id>", methods=["POST"])
+@mistela_admin.route("/admin/guests/<int:guest_id>", methods=["POST"])
 @login_required
 def update_guest(guest_id: int):
     pass
 
 
-@admin.route("/admin/responses")
+@mistela_admin.route("/admin/responses")
 @login_required
 def responses():
     if not current_user.admin:

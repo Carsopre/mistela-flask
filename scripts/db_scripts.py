@@ -1,9 +1,14 @@
+import os
+import secrets
 from datetime import datetime
 from pathlib import Path
 
 from werkzeug.security import generate_password_hash
 
 from mistelaflask import create_app, db, models
+
+os.environ["SECRET_KEY"] = secrets.token_hex(16)  # Required environment variable.
+os.environ["DATABASE_URI"] = "sqlite:///db.sqlite"
 
 
 def init_db():
@@ -97,11 +102,11 @@ def init_test_db():
             db.session.add(_event)
             db.session.commit()
             _invitation = models.UserEventInvitation(
-                guest=_day_guest.id, event=_event.id
+                guest_id=_day_guest.id, event_id=_event.id
             )
             db.session.add(_invitation)
         _night_invitation = models.UserEventInvitation(
-            guest=_night_guest.id, event=events[-1].id
+            guest_id=_night_guest.id, event_id=events[-1].id
         )
         db.session.add(_night_invitation)
 

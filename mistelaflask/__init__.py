@@ -1,14 +1,18 @@
 import os
 
 from flask import Flask
+from flask_admin import Admin
+from flask_admin.contrib.sqla import ModelView
 from flask_login import LoginManager
 from flask_sqlalchemy import SQLAlchemy
 
+# set optional bootswatch theme
 __version__ = "0.4.0"
 
 # init SQLAlchemy so we can use it later in our models
 db = SQLAlchemy()
 default_database_uri = "sqlite:///db.sqlite"
+admin: Admin = None
 
 
 def create_app() -> Flask:
@@ -18,6 +22,8 @@ def create_app() -> Flask:
     app.config["SQLALCHEMY_DATABASE_URI"] = os.environ.get(
         "DATABASE_URI", default_database_uri
     )
+    app.config["FLASK_ADMIN_SWATCH"] = "cerulean"
+    admin = Admin(app, name="microblog", template_mode="bootstrap3")
 
     db.init_app(app)
 
@@ -25,7 +31,11 @@ def create_app() -> Flask:
     login_manager.login_view = "auth.login"
     login_manager.init_app(app)
 
-    from mistelaflask.models import User
+    from mistelaflask.models import Event, User, UserEventInvitation
+
+    admin.add_view(ModelView(User, db.session))
+    admin.add_view(ModelView(Event, db.session))
+    admin.add_view(ModelView(UserEventInvitation, db.session))
 
     @login_manager.user_loader
     def load_user(user_id):
@@ -38,7 +48,7 @@ def create_app() -> Flask:
     app.register_blueprint(auth_blueprint)
 
     # blueprint for non-auth parts of app
-    from mistelaflask.admin import admin as admin_blueprint
+    from mistelaflask.admin import mistela_admin as admin_blueprint
 
     app.register_blueprint(admin_blueprint)
 

@@ -12,6 +12,9 @@ class User(UserMixin, db.Model):
     admin = db.Column(db.Boolean, default=False, nullable=False)
     max_adults = db.Column(db.Integer, default=2)
 
+    def __str__(self) -> str:
+        return self.name
+
 
 class Event(db.Model):
     id = db.Column(db.Integer, primary_key=True)
@@ -20,11 +23,18 @@ class Event(db.Model):
     duration = db.Column(db.Integer)  # In Minutes
     description = db.Column(db.Text)
 
+    def __str__(self) -> str:
+        return self.name
+
 
 class UserEventInvitation(db.Model):
     id = db.Column(db.Integer, primary_key=True)
-    guest = db.Column(db.Integer, db.ForeignKey("user.id"))
-    event = db.Column(db.Integer, db.ForeignKey("event.id"))
+    guest_id = db.Column(db.Integer, db.ForeignKey("user.id"))
+    guest = db.relationship(
+        "User", backref=db.backref("guest_invitations", lazy="dynamic")
+    )
+    event_id = db.Column(db.Integer, db.ForeignKey("event.id"))
+    event = db.relationship("Event", backref=db.backref("event_guests", lazy="dynamic"))
     response = db.Column(db.Boolean, default=None, nullable=True)
     n_adults = db.Column(db.Integer, default=0)
     n_children = db.Column(db.Integer, default=0)
