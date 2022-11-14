@@ -45,23 +45,31 @@ def create_event():
 @admin.route("/admin/guests")
 @login_required
 def guests():
+    class GuestInvitation:
+        invited: bool
+
     if not current_user.admin:
         return redirect(url_for("index"))
     _events = models.Event.query.all()
     guest_list = []
     for _guest in models.User.query.filter_by(admin=False):
+        _invitations = []
+        for _event in _events:
+            gi = GuestInvitation()
+            gi.invited = db.session.query(
+                models.UserEventInvitation.query.filter_by(
+                    guest=_guest.id, event=_event.id
+                ).exists()
+            ).scalar()
+            gi.event = _event
+            _invitations.append(gi)
+
         guest_list.append(
             dict(
+                guest_id=_guest.id,
                 name=_guest.name,
                 max_adults=_guest.max_adults,
-                invitations=[
-                    db.session.query(
-                        models.UserEventInvitation.query.filter_by(
-                            guest=_guest.id, event=_event.id
-                        ).exists()
-                    ).scalar()
-                    for _event in _events
-                ],
+                invitations=_invitations,
             )
         )
 
@@ -98,6 +106,12 @@ def create_guest():
             db.session.add(_new_invitation)
             db.session.commit()
     return redirect(url_for("admin.guests"))
+
+
+@admin.route("/admin/guests/<int:guest_id>", methods=["POST"])
+@login_required
+def update_guest(guest_id: int):
+    pass
 
 
 @admin.route("/admin/responses")

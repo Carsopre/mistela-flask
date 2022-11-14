@@ -38,7 +38,8 @@
             <button class="button is-block is-info is-large is-fullwidth">Add Guest</button>
         </form>
     </div>
-
+</div>
+<div class="column is-8 is-offset-2">
     <table class="table">
         <thead>
             <tr>
@@ -51,25 +52,24 @@
         </thead>
         <tbody>
             {% for guest in guest_list %}
-            <tr>
-                <th>{{ guest["name"] }}</th>
-                <th>{{ guest["max_adults"]}}</th>
-                {% for inv in guest["invitations"] %}
+            <tr>                
+                <form method="POST" action="/admin/guests/{{guest['guest_id']}}">
+                    <th>{{ guest["name"] }}= {{guest['guest_id']}}</th>
                     <th>
-                        <span class="icon">
-                            {% if inv %}
-                            Yay!
-                            <i class="fas fa-home"></i>
-                            {% else %}
-                            Ney!
-                            <i class="fas fa-train"></i>
-                            {% endif %}
-                        </span>                    
+                        <input class="input" type="number" min="0" value="{{ guest['max_adults']}}" name="guest_{{guest['guest_id']}}_max_adults">
                     </th>
-                {% endfor %}
-            </tr>
+                    {% for _gi in guest["invitations"] %}
+                        <th>
+                            <input type="checkbox" name="guest_{{guest['guest_id']}}_{{_gi.event.name}}" {% if _gi.invited %}checked{% endif %}>
+                        </th>
+                    {% endfor %}
+                    <th>
+                        <button class="button is-block is-info">Update</button>
+                    </th>
+                </form>
+            </tr>            
             {% endfor %}
         </tbody>
-    </div>
+    </table>
 </div>
 {% endblock %}
