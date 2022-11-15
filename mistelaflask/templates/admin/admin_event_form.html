@@ -1,0 +1,13 @@
+{% macro event_form(event_name,event_description) %}
+<div class="field">
+    <div class="control">
+        <input value="{{event_name}}" class="input is-medium" type="text" name="name" placeholder="Name" autofocus="">
+    </div>
+</div>
+
+<div class="field">
+    <div class="control">
+        <input value="{{event_description}}" class="input is-medium" type="text" name="description" placeholder="Description" autofocus="">
+    </div>
+</div>
+{% endmacro %}

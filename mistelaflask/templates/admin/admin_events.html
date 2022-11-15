@@ -10,9 +10,12 @@
             </tr>
         </thead>
         <tbody>
-            {% for event in events %}              
+            {% for event in events %}
             <tr>
-                <th> -- </th>
+                <th>
+                    <a href="{{ url_for('admin.events_detail', event_id=event.id) }}"><i class="fas fa-pencil"></i></a>
+                    <a href="{{ url_for('admin.events_remove', event_id=event.id) }}"><i class="fas fa-trash"></i></a>
+                </th>
                 <th>{{ event.name }}</th>
                 <th>{{ event.description }}</th>
             </tr>

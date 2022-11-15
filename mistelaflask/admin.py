@@ -24,9 +24,33 @@ def events():
     return render_template("admin/admin_events.html", events=_events)
 
 
-@admin.route("/admin/events/add", methods=["GET"])
+@admin.route("/admin/events/detail/<int:event_id>", methods=["GET"])
 @login_required
-def create_event():
+def events_detail(event_id: int):
+    if not current_user.admin:
+        return redirect(url_for("index"))
+    _event = models.Event.query.filter_by(id=event_id).first()
+    return render_template(
+        "admin/admin_events_detail.html",
+        event=_event,
+    )
+
+
+@admin.route("/admin/events/remove/<int:event_id>", methods=["GET"])
+@login_required
+def events_remove(event_id: int):
+    if not current_user.admin:
+        return redirect(url_for("index"))
+    _event: models.Event = models.Event.query.filter_by(id=event_id).first()
+    _name = _event.name
+    models.Event.query.filter_by(id=event_id).delete()
+    db.session.commit()
+    flash(f"Event {_name} has been removed.")
+    return redirect(url_for("admin.events"))
+
+
+@admin.route("/admin/events/add", methods=["GET"])
+def events_add():
     if not current_user.admin:
         return redirect(url_for("index"))
     return render_template("admin/admin_events_add.html")
@@ -34,7 +58,7 @@ def create_event():
 
 @admin.route("/admin/events/add", methods=["POST"])
 @login_required
-def create_event_add():
+def events_create():
     if not current_user.admin:
         return redirect(url_for("index"))
     name = request.form.get("name")
