@@ -1,8 +1,8 @@
-{% extends "admin/admin_events_base.html" %}
+{% extends "admin/events/admin_events_base.html" %}
 
 {% block event_content %}
     <form method="PUT" action="/admin/events/detail/{event.id}">
-        {% from 'admin/admin_event_form.html' import event_form %}
+        {% from 'admin/events/admin_event_form.html' import event_form %}
         {{ event_form(event.name, event.description) }}
         <button class="button is-block is-info is-medium is-fullwidth">Update event</button>
     </form>

@@ -15,13 +15,17 @@ def index():
     return render_template("admin/admin_index.html")
 
 
+def render_event_template(template_name: str, **context):
+    return render_template("admin/events/" + template_name, **context)
+
+
 @admin.route("/admin/events")
 @login_required
 def events():
     if not current_user.admin:
         return redirect(url_for("index"))
     _events = models.Event.query.all()
-    return render_template("admin/admin_events.html", events=_events)
+    return render_event_template("admin_events.html", events=_events)
 
 
 @admin.route("/admin/events/detail/<int:event_id>", methods=["GET"])
@@ -30,8 +34,8 @@ def events_detail(event_id: int):
     if not current_user.admin:
         return redirect(url_for("index"))
     _event = models.Event.query.filter_by(id=event_id).first()
-    return render_template(
-        "admin/admin_events_detail.html",
+    return render_event_template(
+        "admin_events_detail.html",
         event=_event,
     )
 
@@ -53,7 +57,7 @@ def events_remove(event_id: int):
 def events_add():
     if not current_user.admin:
         return redirect(url_for("index"))
-    return render_template("admin/admin_events_add.html")
+    return render_event_template("admin_events_add.html")
 
 
 @admin.route("/admin/events/add", methods=["POST"])

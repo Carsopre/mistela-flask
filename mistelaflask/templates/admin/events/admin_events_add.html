@@ -1,8 +1,8 @@
-{% extends "admin/admin_events_base.html" %}
+{% extends "admin/events/admin_events_base.html" %}
 
 {% block event_content %}
     <form method="POST" action="/admin/events/add">
-        {% from 'admin/admin_event_form.html' import event_form %}
+        {% from 'admin/events/admin_event_form.html' import event_form %}
         {{ event_form() }}
         <button class="button is-block is-info is-medium is-fullwidth">Save event</button>
     </form>
