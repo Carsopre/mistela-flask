@@ -38,19 +38,11 @@
                     {% endif %}
                 </td>
                 <td class="has-text-centered">
-                    {% if guest.password %}
-                        <i class="fas fa-check"></i>
-                    {% else %}
-                        <i class="fas fa-xmark"></i>
-                    {% endif %}
+                    <i class="fas {{ 'fa-check' if guest.password else 'fa-xmark'}}"></i>
                 </td>
                 {% for _invite in invitations %}
                     <td class="has-text-centered">
-                    {% if _invite.invited %}
-                        <i class="fas fa-check"></i>
-                    {% else %}
-                        <i class="fas fa-xmark"></i>
-                    {% endif %}
+                        <i class="fas {{ 'fa-check' if _invite.invited else 'fa-xmark'}}"></i>
                     </td>
                 {% endfor %}
             </tr>

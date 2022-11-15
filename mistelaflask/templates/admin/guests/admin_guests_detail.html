@@ -3,7 +3,7 @@
 {% block guest_content %}
     <form method="POST" action="/admin/guests/detail/{{guest.id}}">
         {% from 'admin/guests/admin_guest_form.html' import guest_form %}
-        {{ guest_form(guest.name, guest.max_adults, guest.otp) }}
-        <button class="button is-block is-info is-medium is-fullwidth">Update event</button>
+        {{ guest_form(guest, invitations) }}
+        <button class="button is-block is-info is-medium is-fullwidth">Update guest</button>
     </form>
 {% endblock %}
