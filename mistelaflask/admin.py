@@ -15,8 +15,12 @@ def index():
     return render_template("admin/admin_index.html")
 
 
-def render_event_template(template_name: str, **context):
+def render_events_template(template_name: str, **context):
     return render_template("admin/events/" + template_name, **context)
+
+
+def render_guests_template(template_name: str, **context):
+    return render_template("admin/guests/" + template_name, **context)
 
 
 @admin.route("/admin/events")
@@ -25,7 +29,7 @@ def events():
     if not current_user.admin:
         return redirect(url_for("index"))
     _events = models.Event.query.all()
-    return render_event_template("admin_events_list.html", events=_events)
+    return render_events_template("admin_events_list.html", events=_events)
 
 
 @admin.route("/admin/events/detail/<int:event_id>", methods=["GET"])
@@ -34,7 +38,7 @@ def events_detail(event_id: int):
     if not current_user.admin:
         return redirect(url_for("index"))
     _event = models.Event.query.filter_by(id=event_id).first()
-    return render_event_template(
+    return render_events_template(
         "admin_events_detail.html",
         event=_event,
     )
@@ -57,7 +61,7 @@ def events_remove(event_id: int):
 def events_add():
     if not current_user.admin:
         return redirect(url_for("index"))
-    return render_event_template("admin_events_add.html")
+    return render_events_template("admin_events_add.html")
 
 
 @admin.route("/admin/events/add", methods=["POST"])
@@ -109,8 +113,8 @@ def guests():
             )
         )
 
-    return render_template(
-        "admin/admin_guests.html", events=_events, guest_list=guest_list
+    return render_guests_template(
+        "admin_guests.html", events=_events, guest_list=guest_list
     )
 
 
