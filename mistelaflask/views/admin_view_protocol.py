@@ -7,6 +7,8 @@ from flask_login import login_required
 
 
 class AdminViewProtocol(Protocol):
+    view_name: str
+
     @classmethod
     def register(cls, blueprint: Blueprint) -> AdminViewProtocol:
         pass

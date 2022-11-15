@@ -4,38 +4,19 @@ from flask import Blueprint, flash, redirect, render_template, request, url_for
 from flask_login import current_user, login_required
 
 from mistelaflask import db, models
+from mistelaflask.views.admin_view_base import add_url_rules
 from mistelaflask.views.admin_view_protocol import AdminViewProtocol
 
 
 class AdminViewGuests(AdminViewProtocol):
+    view_name: str = "guests"
     def _render_guests_template(self, template_name: str, **context):
-        return render_template("admin/guests/" + template_name, **context)
+        return render_template(f"admin/{self.view_name}/" + template_name, **context)
 
     @classmethod
     def register(cls, admin_blueprint: Blueprint) -> AdminViewGuests:
         _view = cls()
-        admin_blueprint.add_url_rule("/guests", "guests_list", _view._list_view)
-        admin_blueprint.add_url_rule(
-            "/guests/detail/<int:guest_id>",
-            "guests_detail",
-            _view._detail_view,
-            methods=["GET"],
-        )
-        admin_blueprint.add_url_rule(
-            "/guests/detail/<int:guest_id>",
-            "guests_update",
-            _view._update_view,
-            methods=["POST", "PUT"],
-        )
-        admin_blueprint.add_url_rule(
-            "/guests/remove/<int:guest_id>", "guests_remove", _view._remove_view
-        )
-        admin_blueprint.add_url_rule(
-            "/guests/add", "guests_add", _view._add_view, methods=["GET"]
-        )
-        admin_blueprint.add_url_rule(
-            "/guests/add", "guests_create", _view._create_view, methods=["POST"]
-        )
+        add_url_rules(admin_blueprint, _view)
         return _view
 
     @login_required
@@ -65,10 +46,10 @@ class AdminViewGuests(AdminViewProtocol):
         )
 
     @login_required
-    def _detail_view(self, guest_id: int):
+    def _detail_view(self, model_id: int):
         if not current_user.admin:
             return redirect(url_for("index"))
-        _guest = models.User.query.filter_by(id=guest_id).first()
+        _guest = models.User.query.filter_by(id=model_id).first()
         _events = models.Event.query.all()
         _invitations = []
         for _event in _events:
@@ -83,12 +64,12 @@ class AdminViewGuests(AdminViewProtocol):
         )
 
     @login_required
-    def _remove_view(self, guest_id: int):
+    def _remove_view(self, model_id: int):
         if not current_user.admin:
             return redirect(url_for("index"))
-        _guest: models.User = models.User.query.filter_by(id=guest_id).first()
+        _guest: models.User = models.User.query.filter_by(id=model_id).first()
         _name = _guest.name
-        models.User.query.filter_by(id=guest_id).delete()
+        models.User.query.filter_by(id=model_id).delete()
         db.session.commit()
         flash(f"User {_name} has been removed.", category="danger")
         return redirect(url_for("admin.guests_list"))
@@ -115,10 +96,10 @@ class AdminViewGuests(AdminViewProtocol):
             db.session.commit()
 
     @login_required
-    def _update_view(self, guest_id: int):
+    def _update_view(self, model_id: int):
         if not current_user.admin:
             return redirect(url_for("index"))
-        _guest: models.User = models.User.query.filter_by(id=guest_id).first()
+        _guest: models.User = models.User.query.filter_by(id=model_id).first()
         if not _guest:
             flash("Guest not found.", category="danger")
             return redirect(url_for("admin.guests_list"))

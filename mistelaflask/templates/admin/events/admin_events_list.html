@@ -14,8 +14,8 @@
             {% for event in events %}
             <tr>
                 <td class="has-text-centered">
-                    <a href="{{ url_for('admin.events_detail', event_id=event.id) }}"><i class="fas fa-pencil"></i></a>
-                    <a href="{{ url_for('admin.events_remove', event_id=event.id) }}"><i class="fas fa-trash"></i></a>
+                    <a href="{{ url_for('admin.events_detail', model_id=event.id) }}"><i class="fas fa-pencil"></i></a>
+                    <a href="{{ url_for('admin.events_remove', model_id=event.id) }}"><i class="fas fa-trash"></i></a>
                 </td>
                 <td class="has-text-left">{{ event.id}}</td>
                 <td class="has-text-left">{{ event.name }}</td>
