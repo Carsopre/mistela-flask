@@ -1,7 +1,7 @@
 {% extends "admin/events/admin_events_base.html" %}
 
 {% block event_content %}
-    <table class="table">
+    <table class="table is-striped">
         <thead>
             <tr>
                 <th>Actions</th>
@@ -12,12 +12,12 @@
         <tbody>
             {% for event in events %}
             <tr>
-                <th>
+                <td class="has-text-centered">
                     <a href="{{ url_for('admin.events_detail', event_id=event.id) }}"><i class="fas fa-pencil"></i></a>
                     <a href="{{ url_for('admin.events_remove', event_id=event.id) }}"><i class="fas fa-trash"></i></a>
-                </th>
-                <th>{{ event.name }}</th>
-                <th>{{ event.description }}</th>
+                </td>
+                <td class="has-text-left">{{ event.name }}</td>
+                <td class="has-text-left">{{ event.description }}</td>
             </tr>
             {% endfor %}
         </tbody>
