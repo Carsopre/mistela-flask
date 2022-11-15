@@ -19,8 +19,12 @@
                 </div> 
             {% endif %}
             {% endwith %}
-            {% block event_content %}
-            {% endblock %}
+            <div class="columns is-mobile is-centered">
+                <div class="column is-half">
+                    {% block event_content %}
+                    {% endblock %}
+                </div>
+            </div>
         </div>
     </div>
 </div>
