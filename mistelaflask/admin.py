@@ -4,18 +4,18 @@ from werkzeug.security import check_password_hash, generate_password_hash
 
 from mistelaflask import db, models
 
-mistela_admin = Blueprint("mistela_admin", __name__)
+admin = Blueprint("admin", __name__)
 
 
-@mistela_admin.route("/admin")
+@admin.route("/admin")
 @login_required
 def index():
     if not current_user.admin:
         return redirect(url_for("main.index"))
-    return render_template("admin_index.html")
+    return render_template("admin/admin_index.html")
 
 
-@mistela_admin.route("/admin/events")
+@admin.route("/admin/events")
 @login_required
 def events():
     if not current_user.admin:
@@ -24,7 +24,7 @@ def events():
     return render_template("admin_events.html", events=_events)
 
 
-@mistela_admin.route("/admin/events", methods=["POST"])
+@admin.route("/admin/events", methods=["POST"])
 @login_required
 def create_event():
     if not current_user.admin:
@@ -42,7 +42,7 @@ def create_event():
     return redirect(url_for("mistela_admin.events"))
 
 
-@mistela_admin.route("/admin/guests")
+@admin.route("/admin/guests")
 @login_required
 def guests():
     class GuestInvitation:
@@ -76,7 +76,7 @@ def guests():
     return render_template("admin_guests.html", events=_events, guest_list=guest_list)
 
 
-@mistela_admin.route("/admin/guests", methods=["POST"])
+@admin.route("/admin/guests", methods=["POST"])
 @login_required
 def create_guest():
     if not current_user.admin:
@@ -108,13 +108,13 @@ def create_guest():
     return redirect(url_for("mistela_admin.guests"))
 
 
-@mistela_admin.route("/admin/guests/<int:guest_id>", methods=["POST"])
+@admin.route("/admin/guests/<int:guest_id>", methods=["POST"])
 @login_required
 def update_guest(guest_id: int):
     pass
 
 
-@mistela_admin.route("/admin/responses")
+@admin.route("/admin/responses")
 @login_required
 def responses():
     if not current_user.admin:

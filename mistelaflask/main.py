@@ -14,10 +14,8 @@ def index():
         return redirect(url_for("auth.login"))
 
     _events = []
-    for _invitation in models.UserEventInvitation.query.filter_by(
-        guest=current_user.id
-    ):
-        _event = models.Event.query.filter_by(id=_invitation.event).first()
+    for _invitation in models.UserEventInvitation.query.filter_by(guest=current_user):
+        _event = models.Event.query.filter_by(id=_invitation.event.id).first()
         _events.append(_event)
     _events.sort(key=(lambda x: x.start_time))
 
