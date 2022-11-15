@@ -7,7 +7,7 @@ from mistelaflask import db, models
 admin = Blueprint("admin", __name__)
 
 
-@admin.route("/admin")
+@admin.route("/admin/")
 @login_required
 def index():
     if not current_user.admin:
