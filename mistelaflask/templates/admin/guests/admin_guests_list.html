@@ -1,0 +1,27 @@
+{% extends "admin/guests/admin_guests_base.html" %}
+
+{% block event_content %}
+    <table class="table is-striped">
+        <thead>
+            <tr>
+                <th>Actions</th>
+                <th>Id</th>
+                <th>Name</th>
+                <th>Description</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for guest in guests %}
+            <tr>
+                <td class="has-text-centered">
+                    <a href="{{ url_for('admin.guests_detail', guest_id=guest.id) }}"><i class="fas fa-pencil"></i></a>
+                    <a href="{{ url_for('admin.guests_remove', guest_id=guest.id) }}"><i class="fas fa-trash"></i></a>
+                </td>
+                <td class="has-text-left">{{ guest.id}}</td>
+                <td class="has-text-left">{{ guest.name }}</td>
+                <td class="has-text-left">{{ event.description }}</td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+{% endblock %}
