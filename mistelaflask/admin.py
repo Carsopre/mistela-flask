@@ -25,7 +25,7 @@ def events():
     if not current_user.admin:
         return redirect(url_for("index"))
     _events = models.Event.query.all()
-    return render_event_template("admin_events.html", events=_events)
+    return render_event_template("admin_events_list.html", events=_events)
 
 
 @admin.route("/admin/events/detail/<int:event_id>", methods=["GET"])
