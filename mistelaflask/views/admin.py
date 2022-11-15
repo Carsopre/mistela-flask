@@ -3,6 +3,7 @@ from flask_login import current_user, login_required
 from werkzeug.security import check_password_hash, generate_password_hash
 
 from mistelaflask import db, models
+from mistelaflask.views.admin_events import AdminEventView
 
 admin = Blueprint("admin", __name__, url_prefix="/admin")
 
@@ -15,71 +16,11 @@ def index():
     return render_template("admin/admin_index.html")
 
 
-def render_events_template(template_name: str, **context):
-    return render_template("admin/events/" + template_name, **context)
-
-
 def render_guests_template(template_name: str, **context):
     return render_template("admin/guests/" + template_name, **context)
 
 
-@admin.route("/events")
-@login_required
-def events():
-    if not current_user.admin:
-        return redirect(url_for("index"))
-    _events = models.Event.query.all()
-    return render_events_template("admin_events_list.html", events=_events)
-
-
-@admin.route("/events/detail/<int:event_id>", methods=["GET"])
-@login_required
-def events_detail(event_id: int):
-    if not current_user.admin:
-        return redirect(url_for("index"))
-    _event = models.Event.query.filter_by(id=event_id).first()
-    return render_events_template(
-        "admin_events_detail.html",
-        event=_event,
-    )
-
-
-@admin.route("/events/remove/<int:event_id>", methods=["GET"])
-@login_required
-def events_remove(event_id: int):
-    if not current_user.admin:
-        return redirect(url_for("index"))
-    _event: models.Event = models.Event.query.filter_by(id=event_id).first()
-    _name = _event.name
-    models.Event.query.filter_by(id=event_id).delete()
-    db.session.commit()
-    flash(f"Event {_name} has been removed.")
-    return redirect(url_for("admin.events"))
-
-
-@admin.route("/events/add", methods=["GET"])
-def events_add():
-    if not current_user.admin:
-        return redirect(url_for("index"))
-    return render_events_template("admin_events_add.html")
-
-
-@admin.route("/events/add", methods=["POST"])
-@login_required
-def events_create():
-    if not current_user.admin:
-        return redirect(url_for("index"))
-    name = request.form.get("name")
-    description = request.form.get("description")
-
-    _event = models.Event.query.filter_by(name=name).first()
-    if _event:
-        flash("An event with this name already exists.")
-        return redirect(url_for("events"))
-    _new_event = models.Event(name=name, description=description)
-    db.session.add(_new_event)
-    db.session.commit()
-    return redirect(url_for("mistela_admin.events"))
+event_view = AdminEventView.register(admin)
 
 
 @admin.route("/guests")
