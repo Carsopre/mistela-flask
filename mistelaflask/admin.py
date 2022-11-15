@@ -12,7 +12,7 @@ admin = Blueprint("admin", __name__)
 def index():
     if not current_user.admin:
         return redirect(url_for("main.index"))
-    return render_template("admin/admin_index.html")
+    return render_template("admin_index.html")
 
 
 @admin.route("/admin/events")
@@ -58,7 +58,7 @@ def guests():
             gi = GuestInvitation()
             gi.invited = db.session.query(
                 models.UserEventInvitation.query.filter_by(
-                    guest=_guest.id, event=_event.id
+                    guest=_guest, event=_event
                 ).exists()
             ).scalar()
             gi.event = _event
@@ -100,9 +100,7 @@ def create_guest():
     db.session.commit()
     for _event in models.Event.query.all():
         if request.form.get(f"event_{_event.id}", type=bool, default=False):
-            _new_invitation = models.UserEventInvitation(
-                guest=_new_user.id, event=_event.id
-            )
+            _new_invitation = models.UserEventInvitation(guest=_new_user, event=_event)
             db.session.add(_new_invitation)
             db.session.commit()
     return redirect(url_for("mistela_admin.guests"))
@@ -129,7 +127,7 @@ def responses():
                 max_adults=_guest.max_adults,
                 invitations=[
                     models.UserEventInvitation.query.filter_by(
-                        guest=_guest.id, event=_event.id
+                        guest=_guest, event=_event
                     )
                     for _event in _events
                 ],
