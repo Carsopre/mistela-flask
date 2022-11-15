@@ -7,12 +7,12 @@ from mistelaflask import db, models
 from mistelaflask.views.admin_view_protocol import AdminViewProtocol
 
 
-class AdminEventView(AdminViewProtocol):
+class AdminViewEvents(AdminViewProtocol):
     def _render_events_template(self, template_name: str, **context):
         return render_template("admin/events/" + template_name, **context)
 
     @classmethod
-    def register(cls, admin_blueprint: Blueprint) -> AdminEventView:
+    def register(cls, admin_blueprint: Blueprint) -> AdminViewEvents:
         _view = cls()
         admin_blueprint.add_url_rule("/events", "events_list", _view._list_view)
         admin_blueprint.add_url_rule(
