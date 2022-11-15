@@ -12,7 +12,7 @@ admin = Blueprint("admin", __name__)
 def index():
     if not current_user.admin:
         return redirect(url_for("main.index"))
-    return render_template("admin_index.html")
+    return render_template("admin/admin_index.html")
 
 
 @admin.route("/admin/events")
@@ -21,7 +21,7 @@ def events():
     if not current_user.admin:
         return redirect(url_for("index"))
     _events = models.Event.query.all()
-    return render_template("admin_events.html", events=_events)
+    return render_template("admin/admin_events.html", events=_events)
 
 
 @admin.route("/admin/events", methods=["POST"])
@@ -73,7 +73,9 @@ def guests():
             )
         )
 
-    return render_template("admin_guests.html", events=_events, guest_list=guest_list)
+    return render_template(
+        "admin/admin_guests.html", events=_events, guest_list=guest_list
+    )
 
 
 @admin.route("/admin/guests", methods=["POST"])
@@ -134,5 +136,5 @@ def responses():
             )
         )
     return render_template(
-        "admin_responses.html", events=_events, guest_list=_user_list
+        "admin/admin_responses.html", events=_events, guest_list=_user_list
     )
