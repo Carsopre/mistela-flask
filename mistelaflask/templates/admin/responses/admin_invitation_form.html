@@ -1,0 +1,56 @@
+{% macro invitation_form(guest, invitations) %}
+<div class="field is-horizontal">
+    <div class="field-label is-normal">
+        <label class="label">Username</label>
+    </div>  
+    <div class="field-body">
+        <div class="control">
+            <input value="{{guest.username if guest.username else ''}}" class="input" type="text" name="username" placeholder="Name" autofocus="">
+        </div>
+    </div>
+</div>
+<div class="field is-horizontal">
+    <div class="field-label is-normal">
+        <label class="label">Name</label>
+    </div>  
+    <div class="field-body">
+        <div class="control">
+            <input value="{{guest.name if guest.name else ''}}" class="input" type="text" name="name" placeholder="Name" autofocus="">
+        </div>
+    </div>
+</div>
+<div class="field is-horizontal">
+    <div class="field-label is-normal">
+        <label class="label">Max. adults</label>
+    </div>  
+    <div class="field-body">
+        <div class="control">
+            <input value="{{guest.max_adults}}" class="input" type="number" name="max_adults" placeholder="Allowed guests">
+        </div>
+    </div>
+</div>
+<div class="field is-horizontal">
+    <div class="field-label is-normal">
+        <label class="label">OTP</label>
+    </div>  
+    <div class="field-body">
+        <div class="control">
+            <input value="{{guest.otp if guest.otp else ''}}" class="input" type="text" name="otp" placeholder="One-Time-Password">
+        </div>
+    </div>
+</div>
+{% for _event, _is_invited in invitations %}
+<div class="field is-horizontal">
+    <div class="field-label">
+        <label class="label">
+            {{_event.name | capitalize}}
+        </label>
+    </div>
+    <div class="field-body">
+        <div class="control">
+            <input type="checkbox" name="event_{{ _event.name }}"  {% if _is_invited %}checked{% endif %}>
+        </div>
+    </div>
+</div>
+{% endfor %}
+{% endmacro %}
