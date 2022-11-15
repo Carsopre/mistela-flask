@@ -30,27 +30,40 @@ class AdminViewInvitations(AdminViewProtocol):
 
     @login_required
     def _list_view(self) -> Response:
-        pass
+        if not current_user.admin:
+            return redirect(url_for("index"))
+        flash("Functionality not implemented.", "danger")
+        return redirect(url_for("admin.index"))
 
     @login_required
     def _detail_view(self, model_id: int) -> Response:
-        pass
+        flash("Functionality not implemented.", "danger")
+        return redirect(url_for("admin.index"))
+
 
     @login_required
     def _remove_view(self, model_id: int) -> Response:
-        pass
+        flash("Functionality not implemented.", "danger")
+        return redirect(url_for("admin.index"))
+
 
     @login_required
     def _update_view(self, model_id: int) -> Response:
-        pass
+        flash("Functionality not implemented.", "danger")
+        return redirect(url_for("admin.index"))
+
 
     @login_required
     def _add_view(self) -> Response:
-        pass
+        flash("Functionality not implemented.", "danger")
+        return redirect(url_for("admin.index"))
+
 
     @login_required
     def _create_view(self) -> Response:
-        pass
+        flash("Functionality not implemented.", "danger")
+        return redirect(url_for("admin.index"))
+
 
 
 # @admin.route("/responses")

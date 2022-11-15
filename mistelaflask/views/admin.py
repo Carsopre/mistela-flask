@@ -1,7 +1,6 @@
 from flask import Blueprint, redirect, render_template, url_for
 from flask_login import current_user, login_required
 
-from mistelaflask import models
 from mistelaflask.views.admin_view_events import AdminViewEvents
 from mistelaflask.views.admin_view_guests import AdminViewGuests
 from mistelaflask.views.admin_view_invitations import AdminViewInvitations
