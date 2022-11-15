@@ -1,0 +1,18 @@
+{% extends "admin/admin_events_base.html" %}
+
+{% block event_content %}
+    <form method="POST" action="/admin/events">
+        <div class="field">
+            <div class="control">
+                <input class="input is-medium" type="text" name="name" placeholder="Name" autofocus="">
+            </div>
+        </div>
+
+        <div class="field">
+            <div class="control">
+                <input class="input is-medium" type="text" name="description" placeholder="Description" autofocus="">
+            </div>
+        </div>
+        <button class="button is-block is-info is-medium is-fullwidth">Add event</button>
+    </form>
+{% endblock %}

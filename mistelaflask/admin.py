@@ -24,9 +24,17 @@ def events():
     return render_template("admin/admin_events.html", events=_events)
 
 
-@admin.route("/admin/events", methods=["POST"])
+@admin.route("/admin/events/add", methods=["GET"])
 @login_required
 def create_event():
+    if not current_user.admin:
+        return redirect(url_for("index"))
+    return render_template("admin/admin_events_add.html")
+
+
+@admin.route("/admin/events/add", methods=["POST"])
+@login_required
+def create_event_add():
     if not current_user.admin:
         return redirect(url_for("index"))
     name = request.form.get("name")
@@ -78,9 +86,9 @@ def guests():
     )
 
 
-@admin.route("/admin/guests", methods=["POST"])
+@admin.route("/admin/guests/add", methods=["POST"])
 @login_required
-def create_guest():
+def create_guest_post():
     if not current_user.admin:
         return redirect(url_for("index"))
     name = request.form.get("name")
