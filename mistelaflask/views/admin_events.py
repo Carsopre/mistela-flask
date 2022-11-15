@@ -4,60 +4,60 @@ from flask import Blueprint, flash, redirect, render_template, request, url_for
 from flask_login import current_user, login_required
 
 from mistelaflask import db, models
+from mistelaflask.views.admin_view_protocol import AdminViewProtocol
 
 
-def render_events_template(template_name: str, **context):
-    return render_template("admin/events/" + template_name, **context)
+class AdminEventView(AdminViewProtocol):
+    def _render_events_template(self, template_name: str, **context):
+        return render_template("admin/events/" + template_name, **context)
 
-
-class AdminEventView:
     @classmethod
     def register(cls, admin_blueprint: Blueprint) -> AdminEventView:
         _view = cls()
-        admin_blueprint.add_url_rule("/events", "events_list", _view.events_list)
+        admin_blueprint.add_url_rule("/events", "events_list", _view._list_view)
         admin_blueprint.add_url_rule(
             "/events/detail/<int:event_id>",
             "events_detail",
-            _view.events_detail,
+            _view._detail_view,
             methods=["GET"],
         )
         admin_blueprint.add_url_rule(
             "/events/detail/<int:event_id>",
             "events_update",
-            _view.events_update,
+            _view._update_view,
             methods=["POST", "PUT"],
         )
         admin_blueprint.add_url_rule(
-            "/events/remove/<int:event_id>", "events_remove", _view.events_remove
+            "/events/remove/<int:event_id>", "events_remove", _view._remove_view
         )
         admin_blueprint.add_url_rule(
-            "/events/add", "events_add", _view.events_add, methods=["GET"]
+            "/events/add", "events_add", _view._add_view, methods=["GET"]
         )
         admin_blueprint.add_url_rule(
-            "/events/add", "events_create", _view.events_create, methods=["POST"]
+            "/events/add", "events_create", _view._create_view, methods=["POST"]
         )
 
         return _view
 
     @login_required
-    def events_list(self):
+    def _list_view(self):
         if not current_user.admin:
             return redirect(url_for("index"))
         _events = models.Event.query.all()
-        return render_events_template("admin_events_list.html", events=_events)
+        return self._render_events_template("admin_events_list.html", events=_events)
 
     @login_required
-    def events_detail(self, event_id: int):
+    def _detail_view(self, event_id: int):
         if not current_user.admin:
             return redirect(url_for("index"))
         _event = models.Event.query.filter_by(id=event_id).first()
-        return render_events_template(
+        return self._render_events_template(
             "admin_events_detail.html",
             event=_event,
         )
 
     @login_required
-    def events_remove(self, event_id: int):
+    def _remove_view(self, event_id: int):
         if not current_user.admin:
             return redirect(url_for("index"))
         _event: models.Event = models.Event.query.filter_by(id=event_id).first()
@@ -68,7 +68,7 @@ class AdminEventView:
         return redirect(url_for("admin.events_list"))
 
     @login_required
-    def events_update(self, event_id: int):
+    def _update_view(self, event_id: int):
         if not current_user.admin:
             return redirect(url_for("index"))
         _event: models.Event = models.Event.query.filter_by(id=event_id).first()
@@ -82,13 +82,14 @@ class AdminEventView:
         flash(f"Event '{_event.id}' updated", category="info")
         return redirect(url_for("admin.events_list"))
 
-    def events_add(self):
+    @login_required
+    def _add_view(self):
         if not current_user.admin:
             return redirect(url_for("index"))
-        return render_events_template("admin_events_add.html")
+        return self._render_events_template("admin_events_add.html")
 
     @login_required
-    def events_create(self):
+    def _create_view(self):
         if not current_user.admin:
             return redirect(url_for("index"))
         name = request.form.get("name")
