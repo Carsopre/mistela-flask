@@ -59,18 +59,10 @@ class AdminViewGuests(AdminViewProtocol):
                 ).scalar()
                 gi.event = _event
                 _invitations.append(gi)
-
-            guest_list.append(
-                dict(
-                    guest_id=_guest.id,
-                    name=_guest.name,
-                    max_adults=_guest.max_adults,
-                    invitations=_invitations,
-                )
-            )
+            guest_list.append((_guest, _invitations))
 
         return self._render_guests_template(
-            "admin_guests.html", events=_events, guest_list=guest_list
+            "admin_guests_list.html", events=_events, guest_list=guest_list
         )
 
     @login_required
