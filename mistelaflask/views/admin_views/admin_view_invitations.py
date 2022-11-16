@@ -14,6 +14,11 @@ class AdminViewInvitations(AdminViewBase):
     def register(cls, admin_blueprint: Blueprint) -> AdminViewInvitations:
         _view = cls()
         _view._add_base_url_rules(admin_blueprint)
+        admin_blueprint.add_url_rule(
+            f"/{_view.view_name}/summary/",
+            f"{_view.view_name}_summary",
+            _view._summary_view,
+        )
         return _view
 
     @admin_required
@@ -92,3 +97,43 @@ class AdminViewInvitations(AdminViewBase):
             category="success",
         )
         return redirect(url_for("admin.events_list"))
+
+    @admin_required
+    def _summary_view(self) -> Response:
+        class SummaryModel:
+            event: models.Event
+            t_adults: int
+            t_children: int
+            t_babies: int
+
+        _summary_events = []
+
+        def get_summary(
+            event: models.Event, adults: int, children: int, babies: int
+        ) -> SummaryModel:
+            _summary = SummaryModel()
+            _summary.event = event
+            _summary.t_adults = adults
+            _summary.t_children = children
+            _summary.t_babies = babies
+            return _summary
+
+        for _event in models.Event.query.all():
+            _invitations = models.UserEventInvitation.query.filter_by(
+                event_id=_event.id
+            )
+            _tuples = [
+                (_inv.n_adults, _inv.n_children, _inv.n_babies)
+                for _inv in _invitations
+                if _inv.response
+            ]
+            _t_adults = _t_children = _t_babies = 0
+            if _tuples:
+                _t_adults, _t_children, _t_babies = sum(_tuples)
+
+            _summary_events.append(
+                get_summary(_event, _t_adults, _t_children, _t_babies)
+            )
+        return self._render_admin_view_template(
+            "admin_invitations_summary.html", summaries=_summary_events
+        )
