@@ -1,7 +1,7 @@
 {% extends "admin/guests/admin_guests_base.html" %}
 
 {% block guest_content %}
-<form method="POST" action="/admin/guests/add/batch">
+<form method="POST" action="/admin/guests/add/batch/">
     <div class="columns">  
         <div class="column is-5">
             <div class="field is-horizontal">
@@ -10,7 +10,7 @@
                 </div>  
                 <div class="field-body">
                     <div class="control">
-                        <textarea class="textarea" name="name_list" placeholder="Names list" autofocus="">
+                        <textarea class="textarea" name="names_list" placeholder="Names list" autofocus="">
                             </textarea>
                     </div>
                 </div>

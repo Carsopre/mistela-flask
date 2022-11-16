@@ -29,13 +29,7 @@ def create_app() -> Flask:
     login_manager.login_view = "auth.login"
     login_manager.init_app(app)
 
-    from mistelaflask.models import Event, User, UserEventInvitation
-
-    # app.config["FLASK_ADMIN_SWATCH"] = "cerulean"
-    # admin = Admin(app, name="microblog", template_mode="bootstrap4")
-    # admin.add_view(ModelView(User, db.session))
-    # admin.add_view(ModelView(Event, db.session))
-    # admin.add_view(ModelView(UserEventInvitation, db.session))
+    from mistelaflask.models import User
 
     @login_manager.user_loader
     def load_user(user_id):

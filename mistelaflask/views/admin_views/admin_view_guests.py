@@ -23,7 +23,7 @@ class AdminViewGuests(AdminViewBase):
         admin_blueprint.add_url_rule(
             f"/{_view.view_name}/add/batch/",
             f"{_view.view_name}_create_batch",
-            _view._add_batch_view,
+            _view._create_batch_view,
             methods=["POST"],
         )
         return _view
@@ -41,7 +41,7 @@ class AdminViewGuests(AdminViewBase):
                 gi = GuestInvitation()
                 gi.invited = db.session.query(
                     models.UserEventInvitation.query.filter_by(
-                        guest=_guest, event=_event
+                        guest_id=_guest.id, event_id=_event.id
                     ).exists()
                 ).scalar()
                 gi.event = _event
@@ -60,7 +60,7 @@ class AdminViewGuests(AdminViewBase):
         for _event in _events:
             _is_invited = db.session.query(
                 models.UserEventInvitation.query.filter_by(
-                    guest=_guest, event=_event
+                    event_id=_event.id, guest_id=_guest.id
                 ).exists()
             ).scalar()
             _invitations.append((_event, _is_invited))
@@ -88,13 +88,15 @@ class AdminViewGuests(AdminViewBase):
         for _event in models.Event.query.all():
             _form_value = True if request.form.get(f"event_{_event.name}") else False
             _exists = models.UserEventInvitation.query.filter_by(
-                event=_event, guest=guest
+                event_id=_event.id, guest_id=guest.id
             ).first()
             if _form_value and not _exists:
-                db.session.add(models.UserEventInvitation(guest=guest, event=_event))
+                db.session.add(
+                    models.UserEventInvitation(guest_id=guest.id, event=_event.id)
+                )
             elif not _form_value and _exists:
                 models.UserEventInvitation.query.filter_by(
-                    event=_event, guest=guest
+                    event_id=_event.id, guest_id=guest.id
                 ).delete()
             db.session.commit()
 
@@ -143,4 +145,41 @@ class AdminViewGuests(AdminViewBase):
 
     @admin_required
     def _create_batch_view(self):
-        pass
+        _names_list = request.form.get("names_list", "")
+
+        # Extract other properties
+        _max_adults = request.form.get("max_adults", 2, type=int)
+        _otp = request.form.get("otp")
+
+        # Extract invitations
+        _invitations = []
+        for _event in models.Event.query.all():
+            _invited = True if request.form.get(f"event_{_event.name}") else False
+            if _invited:
+                _invitations.append(_event)
+
+        for name in _names_list.splitlines():
+            _full_name = name.strip()
+            _username = _full_name[0:3] + _full_name[-4:-1]
+            if models.User.query.filter_by(username=_username).first():
+                pass
+            _user = models.User(
+                username=_username,
+                name=_full_name,
+                otp=_otp,
+                admin=False,
+                max_adults=_max_adults,
+            )
+            db.session.add(_user)
+            db.session.commit()
+            db.session.refresh(_user)
+
+            for _event_invite in _invitations:
+                db.session.add(
+                    models.UserEventInvitation(
+                        event_id=_event_invite.id, guest_id=_user.id
+                    )
+                )
+                db.session.commit()
+
+        return redirect(url_for("admin.guests_list"))
