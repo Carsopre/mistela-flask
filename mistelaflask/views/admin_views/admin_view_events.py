@@ -13,18 +13,20 @@ class AdminViewEvents(AdminViewBase):
     @classmethod
     def register(cls, admin_blueprint: Blueprint) -> AdminViewEvents:
         _view = cls()
-        _view._add_base_url_rules(admin_blueprint, _view)
+        _view._add_base_url_rules(admin_blueprint)
         return _view
 
     @admin_required
     def _list_view(self):
         _events = models.Event.query.all()
-        return self._render_events_template("admin_events_list.html", events=_events)
+        return self._render_admin_view_template(
+            "admin_events_list.html", events=_events
+        )
 
     @admin_required
     def _detail_view(self, model_id: int):
         _event = models.Event.query.filter_by(id=model_id).first()
-        return self._render_events_template(
+        return self._render_admin_view_template(
             "admin_events_detail.html",
             event=_event,
         )
@@ -53,7 +55,7 @@ class AdminViewEvents(AdminViewBase):
 
     @admin_required
     def _add_view(self):
-        return self._render_events_template("admin_events_add.html")
+        return self._render_admin_view_template("admin_events_add.html")
 
     @admin_required
     def _create_view(self):

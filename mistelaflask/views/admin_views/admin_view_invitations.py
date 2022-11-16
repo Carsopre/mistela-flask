@@ -9,7 +9,6 @@ from flask import (
     request,
     url_for,
 )
-from flask_login import admin_required, current_user
 
 from mistelaflask import db, models
 from mistelaflask.utils import admin_required
@@ -22,7 +21,7 @@ class AdminViewInvitations(AdminViewBase):
     @classmethod
     def register(cls, admin_blueprint: Blueprint) -> AdminViewInvitations:
         _view = cls()
-        _view._add_base_url_rules(admin_blueprint, _view)
+        _view._add_base_url_rules(admin_blueprint)
         return _view
 
     @admin_required

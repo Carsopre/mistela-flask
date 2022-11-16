@@ -9,7 +9,7 @@ from mistelaflask.views.admin_views.admin_view_protocol import AdminViewProtocol
 
 
 class AdminViewBase(AdminViewProtocol):
-    def _render_events_template(self, template_name: str, **context):
+    def _render_admin_view_template(self, template_name: str, **context):
         return render_template(f"admin/{self.view_name}/" + template_name, **context)
 
     def _add_base_url_rules(self, admin_blueprint: Blueprint):

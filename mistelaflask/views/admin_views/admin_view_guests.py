@@ -13,7 +13,7 @@ class AdminViewGuests(AdminViewBase):
     @classmethod
     def register(cls, admin_blueprint: Blueprint) -> AdminViewGuests:
         _view = cls()
-        _view._add_base_url_rules(admin_blueprint, _view)
+        _view._add_base_url_rules(admin_blueprint)
         admin_blueprint.add_url_rule(
             f"/{_view.view_name}/add/batch/",
             f"{_view.view_name}_add_batch",
@@ -48,7 +48,7 @@ class AdminViewGuests(AdminViewBase):
                 _invitations.append(gi)
             guest_list.append((_guest, _invitations))
 
-        return self._render_guests_template(
+        return self._render_admin_view_template(
             "admin_guests_list.html", events=_events, guest_list=guest_list
         )
 
@@ -64,7 +64,7 @@ class AdminViewGuests(AdminViewBase):
                 ).exists()
             ).scalar()
             _invitations.append((_event, _is_invited))
-        return self._render_guests_template(
+        return self._render_admin_view_template(
             "admin_guests_detail.html", guest=_guest, invitations=_invitations
         )
 
@@ -114,11 +114,10 @@ class AdminViewGuests(AdminViewBase):
 
     @admin_required
     def _add_view(self):
-
         _invitations = []
         for _event in models.Event.query.all():
             _invitations.append((_event, False))
-        return self._render_guests_template(
+        return self._render_admin_view_template(
             "admin_guests_add.html", guest=models.User(), invitations=_invitations
         )
 
@@ -138,7 +137,9 @@ class AdminViewGuests(AdminViewBase):
 
     @admin_required
     def _add_batch_view(self):
-        pass
+        return self._render_admin_view_template(
+            "admin_guests_add_batch.html", events=models.Event.query.all()
+        )
 
     @admin_required
     def _create_batch_view(self):
