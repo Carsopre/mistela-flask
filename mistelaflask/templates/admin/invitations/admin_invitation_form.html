@@ -1,0 +1,33 @@
+{% macro invitation_form(invitation, events, guests) %}
+<div class="field is-horizontal">
+    <div class="field-label is-normal">
+        <label class="label">Event</label>
+    </div>  
+    <div class="field-body">
+        <div class="select" name="select_event">
+            <select>
+              {% for _event in events %}
+              {% set _selected_event = invitation.event_id == _event.id %}
+                
+                <option {{selected if _selected_event}}>{{_event.name | capitalize }}</option>
+              {% endfor %}
+            </select>
+          </div>
+    </div>
+</div>
+<div class="field is-horizontal">
+    <div class="field-label is-normal">
+        <label class="label">Username</label>
+    </div>  
+    <div class="field-body">
+        <div class="select" name="select_guest">
+            <select>
+              {% for _guest in guests %}
+              {% set _selected_guest = invitation.guest_id == _guest.id %}
+              <option {{ selected if _selected_guest }}>{{_guest.id}} | {{_guest.username}}</option>
+              {% endfor %}
+            </select>
+          </div>
+    </div>
+</div>
+{% endmacro %}

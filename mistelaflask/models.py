@@ -36,9 +36,11 @@ class UserEventInvitation(db.Model):
     response = db.Column(db.Boolean, default=None, nullable=True)
     n_adults = db.Column(db.Integer, default=0)
     n_children = db.Column(db.Integer, default=0)
+    n_babies = db.Column(db.Integer, default=0)
     remarks = db.Column(db.String(1000))
 
-    # guest = db.relationship(
-    #     "User", backref=db.backref("guest_invitations", lazy="dynamic")
-    # )
-    # event = db.relationship("Event", backref=db.backref("event_guests", lazy="dynamic"))
+    guest = db.relationship(
+        "User",
+        backref=db.backref("guest_invitations", lazy="dynamic"),
+    )
+    event = db.relationship("Event", backref=db.backref("event_guests", lazy="dynamic"))

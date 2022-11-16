@@ -1,0 +1,41 @@
+{% extends "admin/invitations/admin_invitations_base.html" %}
+
+{% block invitation_content %}
+<div class="table-container">
+    <table class="table is-striped is-full-width">
+        <thead>
+            <tr>
+                <th>Actions</th>
+                <th>Id</th>
+                <th>Guest</th>
+                <th>Event</th>
+                <th>Assisting</th>
+                <th>Adults</th>
+                <th>Children</th>
+                <th>Babies</th>
+                <th>Remarks</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for inv in invitations %}
+            <tr>
+                <td class="has-text-centered">
+                    <a href="{{ url_for('admin.invitations_detail', model_id=inv.id) }}"><i class="fas fa-pencil"></i></a>
+                    <a href="{{ url_for('admin.invitations_remove', model_id=inv.id) }}"><i class="fas fa-trash"></i></a>
+                </td>
+                <td class="has-text-left">{{ inv.id}}</td>
+                <td class="has-text-left">{{ inv.guest.name }}</td>
+                <td class="has-text-left">{{ inv.event.name }}</td>
+                <td class="has-text-centered">
+                    <i class="fas {{ 'fa-check' if inv.response else 'fa-question' if inv.response == None else 'fa-xmark'}}"></i>
+                </td>
+                <td class="has-text-left">{{ inv.n_adults }}</td>
+                <td class="has-text-left">{{ inv.n_children }}</td>
+                <td class="has-text-left">{{ inv.n_babies }}</td>
+                <td class="has-text-left">{{ inv.remarks }}</td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</div>
+{% endblock %}

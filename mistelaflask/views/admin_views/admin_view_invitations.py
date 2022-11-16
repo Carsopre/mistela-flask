@@ -1,14 +1,6 @@
 from __future__ import annotations
 
-from flask import (
-    Blueprint,
-    Response,
-    flash,
-    redirect,
-    render_template,
-    request,
-    url_for,
-)
+from flask import Blueprint, Response, flash, redirect, request, url_for
 
 from mistelaflask import db, models
 from mistelaflask.utils import admin_required
@@ -26,18 +18,26 @@ class AdminViewInvitations(AdminViewBase):
 
     @admin_required
     def _list_view(self) -> Response:
-        flash("Functionality not implemented.", "danger")
-        return redirect(url_for("admin.index"))
+        return self._render_admin_view_template(
+            "admin_invitations_list.html",
+            invitations=models.UserEventInvitation.query.all(),
+        )
 
     @admin_required
     def _detail_view(self, model_id: int) -> Response:
-        flash("Functionality not implemented.", "danger")
-        return redirect(url_for("admin.index"))
+        return self._render_admin_view_template(
+            "admin_invitations_detail.html",
+            invitation=models.UserEventInvitation.query.filter_by(id=model_id),
+            guests=models.User.query.filter_by(admin=False).all(),
+            events=models.Event.query.all(),
+        )
 
     @admin_required
     def _remove_view(self, model_id: int) -> Response:
-        flash("Functionality not implemented.", "danger")
-        return redirect(url_for("admin.index"))
+        models.UserEventInvitation.query.filter_by(id=model_id).delete()
+        db.session.commit()
+        flash(f"Invitation {model_id} has been removed.", category="danger")
+        return redirect(url_for("admin.invitations_list"))
 
     @admin_required
     def _update_view(self, model_id: int) -> Response:
@@ -46,36 +46,33 @@ class AdminViewInvitations(AdminViewBase):
 
     @admin_required
     def _add_view(self) -> Response:
-        flash("Functionality not implemented.", "danger")
-        return redirect(url_for("admin.index"))
+        return self._render_admin_view_template(
+            "admin_invitations_add.html",
+            invitation=models.UserEventInvitation(),
+            guests=models.User.query.filter_by(admin=False).all(),
+            events=models.Event.query.all(),
+        )
 
     @admin_required
     def _create_view(self) -> Response:
-        flash("Functionality not implemented.", "danger")
-        return redirect(url_for("admin.index"))
+        _selected_event = request.form.get("select_event")
+        _selected_guest = request.form.get("select_guest")
 
+        _invite = models.UserEventInvitation.query.filter_by(
+            user_id=_selected_guest, event_id=_selected_event
+        ).first()
+        if _invite:
+            flash("An invite with this name already exists.", category="danger")
+            return redirect(url_for("admin.invitations_create"))
+        db.session.add(
+            models.UserEventInvitation(
+                user_id=_selected_guest, event_id=_selected_event
+            )
+        )
+        db.session.commit()
 
-# @admin.route("/responses")
-# @admin_required
-# def responses():
-#     if not current_user.admin:
-#         return redirect(url_for("index"))
-
-#     _events = models.Event.query.all()
-#     _user_list = []
-#     for _guest in models.User.query.filter_by(admin=False):
-#         _user_list.append(
-#             dict(
-#                 name=_guest.name,
-#                 max_adults=_guest.max_adults,
-#                 invitations=[
-#                     models.UserEventInvitation.query.filter_by(
-#                         guest=_guest, event=_event
-#                     )
-#                     for _event in _events
-#                 ],
-#             )
-#         )
-#     return render_template(
-#         "admin/admin_responses.html", events=_events, guest_list=_user_list
-#     )
+        flash(
+            f"Added invitation for event '{_selected_event}' and user '{_selected_guest}'.",
+            category="success",
+        )
+        return redirect(url_for("admin.events_list"))

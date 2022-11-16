@@ -36,8 +36,12 @@ class AdminViewEvents(AdminViewBase):
         _event: models.Event = models.Event.query.filter_by(id=model_id).first()
         _name = _event.name
         models.Event.query.filter_by(id=model_id).delete()
+        models.UserEventInvitation.query.filter_by(event_id=model_id).delete()
         db.session.commit()
-        flash(f"Event {_name} has been removed.", category="danger")
+        flash(
+            f"Event {_name} and related invitatinos have been removed.",
+            category="danger",
+        )
         return redirect(url_for("admin.events_list"))
 
     @admin_required
