@@ -1,3 +1,18 @@
+## v0.5.0 (2022-11-16)
+
+### Feat
+
+- **admin_invitation_edit_bulk**: It is now possible to do a bulk edit from the admin menu
+- **admin_invitations_summary.html**: Added summary for invitations
+- **admin_views/invitations**: Added templates for create, read, delete invitations
+- **admin_required**: Added method admin_required to replace and enforce a better decorator
+- **admin/guests**: We can now do full CRUD operations on Guests (users without admin rights)
+- **admin/guests**: We can now display an admin menu for listing all registered guests and their invitations
+- **admin_view_guests.py**: Created new admin view guests file and class
+- **admin_events**: Added better admin page for events via tabs
+- **auth.py**: Users can now do a first login with a OTP
+- **flask_admin**: Added flask admin layer to better handle the models CRUD panel
+
 ## v0.4.0 (2022-11-13)
 
 ### Feat
