@@ -100,7 +100,11 @@
     </div>  
     <div class="field-body">
         <div class="control">
-            <input value="{{invitation.remarks}}" class="input" type="text" name="remarks">
+            {% if invitation.remarks == None %}
+                <input value="" class="input" type="text" name="remarks">
+            {% else %}
+                <input value="{{invitation.remarks}}"class="input" type="text" name="remarks">
+            {% endif %}
         </div>
     </div>
 </div>

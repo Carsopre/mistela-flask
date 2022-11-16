@@ -46,8 +46,22 @@ class AdminViewInvitations(AdminViewBase):
 
     @admin_required
     def _update_view(self, model_id: int) -> Response:
-        flash("Functionality not implemented.", "danger")
-        return redirect(url_for("admin.index"))
+        _invitation = models.UserEventInvitation.query.filter_by(id=model_id).first()
+        if not _invitation:
+            flash("Invalid id not found {}".format(model_id))
+            return redirect(url_for("admin.invitations_list"))
+
+        _response = request.form.get("response", None)
+        if _response:
+            _response = _response.lower() == "true"
+        _invitation.response = _response
+        _invitation.n_adults = request.form.get("n_adults", 0)
+        _invitation.n_children = request.form.get("n_children", 0)
+        _invitation.n_babies = request.form.get("n_babies", 0)
+        _invitation.remarks = request.form.get("remarks", "")
+        db.session.add(_invitation)
+        db.session.commit()
+        return redirect(url_for("admin.invitations_list"))
 
     @admin_required
     def _add_view(self) -> Response:
@@ -67,7 +81,8 @@ class AdminViewInvitations(AdminViewBase):
 
         if not _sel_event_id or not _sel_guest_id:
             flash("Invalid input data")
-            return redirect(url_for("admin_invitaitons_create"))
+            return redirect(url_for("admin.invitations_create"))
+
         _sel_guest_id = int(_sel_guest_id)
         _sel_event_id = int(_sel_event_id)
         _invite = models.UserEventInvitation.query.filter_by(
@@ -96,7 +111,7 @@ class AdminViewInvitations(AdminViewBase):
             f"Added invitation for event '{_sel_event_id}' and user '{_sel_guest_id}'.",
             category="success",
         )
-        return redirect(url_for("admin.events_list"))
+        return redirect(url_for("admin.invitations_list"))
 
     @admin_required
     def _summary_view(self) -> Response:
@@ -129,7 +144,7 @@ class AdminViewInvitations(AdminViewBase):
             ]
             _t_adults = _t_children = _t_babies = 0
             if _tuples:
-                _t_adults, _t_children, _t_babies = sum(_tuples)
+                _t_adults, _t_children, _t_babies = map(sum, zip(*_tuples))
 
             _summary_events.append(
                 get_summary(_event, _t_adults, _t_children, _t_babies)
