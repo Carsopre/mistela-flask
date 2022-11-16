@@ -32,7 +32,7 @@
                 <td class="has-text-left">{{ inv.n_adults }}</td>
                 <td class="has-text-left">{{ inv.n_children }}</td>
                 <td class="has-text-left">{{ inv.n_babies }}</td>
-                <td class="has-text-left">{{ inv.remarks }}</td>
+                <td class="has-text-left">{{ inv.remarks if inv.remarks }}</td>
             </tr>
             {% endfor %}
         </tbody>

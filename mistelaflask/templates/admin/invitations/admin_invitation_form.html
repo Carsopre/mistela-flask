@@ -5,11 +5,8 @@
     </div>  
     <div class="field-body">
         <div class="select" >
-            {% if invitation.id == None %}
-            <select name="select_event">
-            {% else %}
-            <select name="select_event" disabled>
-            {% endif %}
+            {% set _disable_sel_event = invitation.id != None %}
+            <select name="select_event" {{ 'disabled' if _disable_sel_event}}>
                 {% for _event in events %}
               {% set _selected_event = invitation.event_id == _event.id %}
                 <option {{'selected' if _selected_event}} value="{{_event.id}}">{{_event.name | capitalize }}</option>
@@ -24,11 +21,8 @@
     </div>  
     <div class="field-body">
         <div class="select">
-            {% if invitation.id == None %}
-            <select name="select_guest">
-            {% else %}
-            <select name="select_guest" disabled>
-            {% endif %}
+            {% set _disable_sel_guest = invitation.id != None %}
+            <select name="select_guest" {{ 'disabled' if _disable_sel_guest}}>
               {% for _guest in guests %}
               {% set _selected_guest = invitation.guest_id == _guest.id %}
               <option {{ 'selected' if _selected_guest }} value="{{_guest.id}}">{{_guest.username}}</option>
@@ -46,20 +40,9 @@
     <div class="field-body">
         <div class="select">
             <select name="response">
-                {% if invitation.response == None %}
-                <option value="True">Yes</option>
-                <option value="False">No</option>
-                <option value="" selected>?</option>
-                {% else %}
-                    {% if invitation.response %}
-                    <option value="True"}} selected>Yes</option>
-                    <option value="False"}}>No</option>
-                    {% else %}
-                    <option value="True"}}>Yes</option>
-                    <option value="False"}} selected>No</option>                    
-                    {% endif %}
-                    <option value="">?</option>
-                {% endif %}
+                <option value="True" {% if invitation.response == True %}selected{% endif %}>Yes</option>
+                <option value="False" {% if invitation.response == False %}selected{% endif %}>No</option>
+                <option value="" {% if invitation.response == None %}selected{% endif %}>?</option>
             </select>
         </div>
     </div>
@@ -70,7 +53,7 @@
     </div>  
     <div class="field-body">
         <div class="control">
-            <input value="{{invitation.n_adults}}" class="input" type="number" name="n_adults">
+            <input value="{{invitation.n_adults}}" min=0  class="input" type="number" name="n_adults">
         </div>
     </div>
 </div>
@@ -80,7 +63,7 @@
     </div>  
     <div class="field-body">
         <div class="control">
-            <input value="{{invitation.n_children}}" class="input" type="number" name="n_children">
+            <input value="{{invitation.n_children}}" min=0 class="input" type="number" name="n_children">
         </div>
     </div>
 </div>
@@ -90,7 +73,7 @@
     </div>  
     <div class="field-body">
         <div class="control">
-            <input value="{{invitation.n_babies}}" class="input" type="number" name="n_babies">
+            <input value="{{invitation.n_babies}}" min=0 class="input" type="number" name="n_babies">
         </div>
     </div>
 </div>

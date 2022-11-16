@@ -15,9 +15,21 @@ class AdminViewInvitations(AdminViewBase):
         _view = cls()
         _view._add_base_url_rules(admin_blueprint)
         admin_blueprint.add_url_rule(
-            f"/{_view.view_name}/summary/",
-            f"{_view.view_name}_summary",
+            f"/invitations/summary/",
+            f"invitations_summary",
             _view._summary_view,
+        )
+        admin_blueprint.add_url_rule(
+            "/invitations/edit/bulk/",
+            "invitations_bulk_list",
+            _view._bulk_list_view,
+            methods=["GET"],
+        )
+        admin_blueprint.add_url_rule(
+            "/invitations/edit/bulk/",
+            "invitations_bulk_edit",
+            _view._bulk_edit_view,
+            methods=["POST"],
         )
         return _view
 
@@ -54,6 +66,8 @@ class AdminViewInvitations(AdminViewBase):
         _response = request.form.get("response", None)
         if _response:
             _response = _response.lower() == "true"
+        else:
+            _response = None
         _invitation.response = _response
         _invitation.n_adults = request.form.get("n_adults", 0)
         _invitation.n_children = request.form.get("n_children", 0)
@@ -152,3 +166,33 @@ class AdminViewInvitations(AdminViewBase):
         return self._render_admin_view_template(
             "admin_invitations_summary.html", summaries=_summary_events
         )
+
+    @admin_required
+    def _bulk_list_view(self) -> Response:
+        return self._render_admin_view_template(
+            "admin_invitation_edit_bulk.html",
+            invitations=models.UserEventInvitation.query.all(),
+        )
+
+    @admin_required
+    def _bulk_edit_view(self) -> Response:
+        for _invite in models.UserEventInvitation.query.all():
+            _response = request.form.get(f"response_{_invite.id}", _invite.response)
+            if _response:
+                _response = _response.lower() == "true"
+            else:
+                _response = None
+            _invite.response = _response
+            _invite.n_adults = int(
+                request.form.get(f"n_adults_{_invite.id}", _invite.n_adults)
+            )
+            _invite.n_children = int(
+                request.form.get(f"n_children_{_invite.id}", _invite.n_children)
+            )
+            _invite.n_babies = int(
+                request.form.get(f"n_babies_{_invite.id}", _invite.n_babies)
+            )
+            _invite.remarks = request.form.get(f"remarks_{_invite.id}", _invite.remarks)
+            db.session.add(_invite)
+            db.session.commit()
+        return redirect(url_for("admin.invitations_list"))
