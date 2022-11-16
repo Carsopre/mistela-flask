@@ -12,8 +12,9 @@ from flask import (
 from flask_login import admin_required, current_user
 
 from mistelaflask import db, models
-from mistelaflask.views.admin_view_base import add_url_rules, admin_required
-from mistelaflask.views.admin_view_protocol import AdminViewProtocol
+from mistelaflask.utils import admin_required
+from mistelaflask.views.admin_views.admin_view_base import add_url_rules
+from mistelaflask.views.admin_views.admin_view_protocol import AdminViewProtocol
 
 
 class AdminViewInvitations(AdminViewProtocol):
@@ -38,30 +39,25 @@ class AdminViewInvitations(AdminViewProtocol):
         flash("Functionality not implemented.", "danger")
         return redirect(url_for("admin.index"))
 
-
     @admin_required
     def _remove_view(self, model_id: int) -> Response:
         flash("Functionality not implemented.", "danger")
         return redirect(url_for("admin.index"))
-
 
     @admin_required
     def _update_view(self, model_id: int) -> Response:
         flash("Functionality not implemented.", "danger")
         return redirect(url_for("admin.index"))
 
-
     @admin_required
     def _add_view(self) -> Response:
         flash("Functionality not implemented.", "danger")
         return redirect(url_for("admin.index"))
 
-
     @admin_required
     def _create_view(self) -> Response:
         flash("Functionality not implemented.", "danger")
         return redirect(url_for("admin.index"))
-
 
 
 # @admin.route("/responses")

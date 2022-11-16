@@ -48,7 +48,7 @@ def create_app() -> Flask:
     app.register_blueprint(auth_blueprint)
 
     # blueprint for non-auth parts of app
-    from mistelaflask.views.admin import admin as admin_blueprint
+    from mistelaflask.views.admin_views import admin_view as admin_blueprint
 
     app.register_blueprint(admin_blueprint)
 

@@ -3,8 +3,9 @@ from __future__ import annotations
 from flask import Blueprint, flash, redirect, render_template, request, url_for
 
 from mistelaflask import db, models
-from mistelaflask.views.admin_view_base import add_url_rules, admin_required
-from mistelaflask.views.admin_view_protocol import AdminViewProtocol
+from mistelaflask.utils import admin_required
+from mistelaflask.views.admin_views.admin_view_base import add_url_rules
+from mistelaflask.views.admin_views.admin_view_protocol import AdminViewProtocol
 
 
 class AdminViewGuests(AdminViewProtocol):
