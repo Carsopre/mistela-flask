@@ -27,7 +27,7 @@ class AdminViewInvitations(AdminViewBase):
     def _detail_view(self, model_id: int) -> Response:
         return self._render_admin_view_template(
             "admin_invitations_detail.html",
-            invitation=models.UserEventInvitation.query.filter_by(id=model_id),
+            invitation=models.UserEventInvitation.query.filter_by(id=model_id).first(),
             guests=models.User.query.filter_by(admin=False).all(),
             events=models.Event.query.all(),
         )
@@ -48,31 +48,47 @@ class AdminViewInvitations(AdminViewBase):
     def _add_view(self) -> Response:
         return self._render_admin_view_template(
             "admin_invitations_add.html",
-            invitation=models.UserEventInvitation(),
+            invitation=models.UserEventInvitation(
+                n_adults=2, n_children=0, n_babies=0, remarks=""
+            ),
             guests=models.User.query.filter_by(admin=False).all(),
             events=models.Event.query.all(),
         )
 
     @admin_required
     def _create_view(self) -> Response:
-        _selected_event = request.form.get("select_event")
-        _selected_guest = request.form.get("select_guest")
+        _sel_event_id = request.form.get("select_event")
+        _sel_guest_id = request.form.get("select_guest")
 
+        if not _sel_event_id or not _sel_guest_id:
+            flash("Invalid input data")
+            return redirect(url_for("admin_invitaitons_create"))
+        _sel_guest_id = int(_sel_guest_id)
+        _sel_event_id = int(_sel_event_id)
         _invite = models.UserEventInvitation.query.filter_by(
-            user_id=_selected_guest, event_id=_selected_event
+            user_id=_sel_guest_id, event_id=_sel_event_id
         ).first()
         if _invite:
             flash("An invite with this name already exists.", category="danger")
             return redirect(url_for("admin.invitations_create"))
+        _response = request.form.get("response", None)
+        if _response:
+            _response = bool(_response)
         db.session.add(
             models.UserEventInvitation(
-                user_id=_selected_guest, event_id=_selected_event
+                user_id=_sel_guest_id,
+                event_id=_sel_event_id,
+                response=_response,
+                n_adults=request.form.get("n_adults", 0),
+                n_children=request.form.get("n_children", 0),
+                n_babies=request.form.get("n_babies", 0),
+                remarks=request.form.get("remarks", ""),
             )
         )
         db.session.commit()
 
         flash(
-            f"Added invitation for event '{_selected_event}' and user '{_selected_guest}'.",
+            f"Added invitation for event '{_sel_event_id}' and user '{_sel_guest_id}'.",
             category="success",
         )
         return redirect(url_for("admin.events_list"))
