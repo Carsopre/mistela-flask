@@ -9,10 +9,10 @@ from flask import (
     request,
     url_for,
 )
-from flask_login import current_user, login_required
+from flask_login import admin_required, current_user
 
 from mistelaflask import db, models
-from mistelaflask.views.admin_view_base import add_url_rules
+from mistelaflask.views.admin_view_base import add_url_rules, admin_required
 from mistelaflask.views.admin_view_protocol import AdminViewProtocol
 
 
@@ -28,38 +28,36 @@ class AdminViewInvitations(AdminViewProtocol):
         add_url_rules(admin_blueprint, _view)
         return _view
 
-    @login_required
+    @admin_required
     def _list_view(self) -> Response:
-        if not current_user.admin:
-            return redirect(url_for("index"))
         flash("Functionality not implemented.", "danger")
         return redirect(url_for("admin.index"))
 
-    @login_required
+    @admin_required
     def _detail_view(self, model_id: int) -> Response:
         flash("Functionality not implemented.", "danger")
         return redirect(url_for("admin.index"))
 
 
-    @login_required
+    @admin_required
     def _remove_view(self, model_id: int) -> Response:
         flash("Functionality not implemented.", "danger")
         return redirect(url_for("admin.index"))
 
 
-    @login_required
+    @admin_required
     def _update_view(self, model_id: int) -> Response:
         flash("Functionality not implemented.", "danger")
         return redirect(url_for("admin.index"))
 
 
-    @login_required
+    @admin_required
     def _add_view(self) -> Response:
         flash("Functionality not implemented.", "danger")
         return redirect(url_for("admin.index"))
 
 
-    @login_required
+    @admin_required
     def _create_view(self) -> Response:
         flash("Functionality not implemented.", "danger")
         return redirect(url_for("admin.index"))
@@ -67,7 +65,7 @@ class AdminViewInvitations(AdminViewProtocol):
 
 
 # @admin.route("/responses")
-# @login_required
+# @admin_required
 # def responses():
 #     if not current_user.admin:
 #         return redirect(url_for("index"))

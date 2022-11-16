@@ -1,0 +1,50 @@
+{% extends "admin/guests/admin_guests_base.html" %}
+
+{% block guest_content %}
+    <form method="POST" action="/admin/guests/add/batch">
+        <div class="field is-horizontal">
+            <div class="field-label is-normal">
+                <label class="label">Name</label>
+            </div>  
+            <div class="field-body">
+                <div class="control">
+                    <input class="input" type="textarea" name="name_list" placeholder="Names list" autofocus="">
+                </div>
+            </div>
+        </div>
+        <div class="field is-horizontal">
+            <div class="field-label is-normal">
+                <label class="label">Max. adults</label>
+            </div>  
+            <div class="field-body">
+                <div class="control">
+                    <input class="input" type="number" name="max_adults" placeholder="Allowed guests">
+                </div>
+            </div>
+        </div>
+        <div class="field is-horizontal">
+            <div class="field-label is-normal">
+                <label class="label">OTP</label>
+            </div>  
+            <div class="field-body">
+                <div class="control">
+                    <input class="input" type="text" name="otp" placeholder="One-Time-Password">
+                </div>
+            </div>
+        </div>
+        {% for _event, _is_invited in invitations %}
+        <div class="field is-horizontal">
+            <div class="field-label">
+                <label class="label">
+                    {{_event.name | capitalize}}
+                </label>
+            </div>
+            <div class="field-body">
+                <div class="control">
+                    <input type="checkbox" name="event_{{ _event.name }}">
+                </div>
+            </div>
+        </div>
+        <button class="button is-block is-info is-medium is-fullwidth">Add guest</button>
+    </form>
+{% endblock %}
