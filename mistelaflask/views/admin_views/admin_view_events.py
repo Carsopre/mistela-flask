@@ -1,23 +1,19 @@
 from __future__ import annotations
 
-from flask import Blueprint, flash, redirect, render_template, request, url_for
+from flask import Blueprint, flash, redirect, request, url_for
 
 from mistelaflask import db, models
 from mistelaflask.utils import admin_required
-from mistelaflask.views.admin_views.admin_view_base import add_url_rules
-from mistelaflask.views.admin_views.admin_view_protocol import AdminViewProtocol
+from mistelaflask.views.admin_views.admin_view_base import AdminViewBase
 
 
-class AdminViewEvents(AdminViewProtocol):
+class AdminViewEvents(AdminViewBase):
     view_name: str = "events"
-
-    def _render_events_template(self, template_name: str, **context):
-        return render_template("admin/events/" + template_name, **context)
 
     @classmethod
     def register(cls, admin_blueprint: Blueprint) -> AdminViewEvents:
         _view = cls()
-        add_url_rules(admin_blueprint, _view)
+        _view._add_base_url_rules(admin_blueprint, _view)
         return _view
 
     @admin_required

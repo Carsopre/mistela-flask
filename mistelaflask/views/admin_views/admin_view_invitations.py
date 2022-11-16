@@ -13,20 +13,16 @@ from flask_login import admin_required, current_user
 
 from mistelaflask import db, models
 from mistelaflask.utils import admin_required
-from mistelaflask.views.admin_views.admin_view_base import add_url_rules
-from mistelaflask.views.admin_views.admin_view_protocol import AdminViewProtocol
+from mistelaflask.views.admin_views.admin_view_base import AdminViewBase
 
 
-class AdminViewInvitations(AdminViewProtocol):
+class AdminViewInvitations(AdminViewBase):
     view_name: str = "invitations"
-
-    def render_guests_template(self, template_name: str, **context):
-        return render_template(f"admin/{self.view_name}/" + template_name, **context)
 
     @classmethod
     def register(cls, admin_blueprint: Blueprint) -> AdminViewInvitations:
         _view = cls()
-        add_url_rules(admin_blueprint, _view)
+        _view._add_base_url_rules(admin_blueprint, _view)
         return _view
 
     @admin_required

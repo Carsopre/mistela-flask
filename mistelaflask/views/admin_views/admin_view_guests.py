@@ -1,23 +1,19 @@
 from __future__ import annotations
 
-from flask import Blueprint, flash, redirect, render_template, request, url_for
+from flask import Blueprint, flash, redirect, request, url_for
 
 from mistelaflask import db, models
 from mistelaflask.utils import admin_required
-from mistelaflask.views.admin_views.admin_view_base import add_url_rules
-from mistelaflask.views.admin_views.admin_view_protocol import AdminViewProtocol
+from mistelaflask.views.admin_views.admin_view_base import AdminViewBase
 
 
-class AdminViewGuests(AdminViewProtocol):
+class AdminViewGuests(AdminViewBase):
     view_name: str = "guests"
-
-    def _render_guests_template(self, template_name: str, **context):
-        return render_template(f"admin/{self.view_name}/" + template_name, **context)
 
     @classmethod
     def register(cls, admin_blueprint: Blueprint) -> AdminViewGuests:
         _view = cls()
-        add_url_rules(admin_blueprint, _view)
+        _view._add_base_url_rules(admin_blueprint, _view)
         admin_blueprint.add_url_rule(
             f"/{_view.view_name}/add/batch/",
             f"{_view.view_name}_add_batch",
