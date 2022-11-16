@@ -8,6 +8,43 @@ from mistelaflask.models import User
 auth = Blueprint("auth", __name__)
 
 
+@auth.route("/otp")
+def login_otp():
+    return render_template("otp_login.html")
+
+
+@auth.route("/otp", methods=["POST"])
+def login_otp_post():
+    _username = request.form.get("username")
+    _otp = request.form.get("otp", None)
+    if not _otp:
+        flash("The OTP is required for the first log-in. Contact us in case of error.")
+        return redirect(url_for("auth.login_otp"))
+    _password = request.form.get("password", None)
+    if not _password:
+        flash("Please provide a new password. The provided OTP is only valid once.")
+        return redirect(url_for("auth.login_otp"))
+
+    remember = True if request.form.get("remember") else False
+
+    user = User.query.filter_by(username=_username, otp=_otp).first()
+
+    # check if the user actually exists
+    # take the user-supplied password, hash it, and compare it to the hashed password in the database
+    if not user:
+        flash("Please check your login details and try again.")
+        return redirect(
+            url_for("auth.login_otp")
+        )  # if the user doesn't exist or password is wrong, reload the page
+
+    user.otp = None
+    user.password = generate_password_hash(_password, method="sha256")
+    login_user(user, remember=remember)
+    db.session.add(user)
+    db.session.commit()
+    return redirect(url_for("main.index"))
+
+
 @auth.route("/login")
 def login():
     return render_template("login.html")

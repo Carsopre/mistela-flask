@@ -1,0 +1,9 @@
+{% extends "admin/guests/admin_guests_base.html" %}
+
+{% block guest_content %}
+    <form method="POST" action="/admin/guests/add">
+        {% from 'admin/guests/admin_guest_form.html' import guest_form %}
+        {{ guest_form(guest, invitations) }}
+        <button class="button is-block is-info is-medium is-fullwidth">Add guest</button>
+    </form>
+{% endblock %}

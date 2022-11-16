@@ -1,0 +1,18 @@
+{% extends "admin/admin.html" %}
+
+{% block content %}
+<h1 class="title">
+  Admin page
+</h1>
+  {% with messages = get_flashed_messages(with_categories=true) %}
+    {% if messages %}
+      <div class="box">
+        <ul class=flashes>
+            {% for category, message in messages %}
+                <li class="notification is-{{ category }} is-light">{{ message }}</li>
+            {% endfor %}
+            </ul>
+      </div>
+    {% endif %}
+  {% endwith %}
+{% endblock %}

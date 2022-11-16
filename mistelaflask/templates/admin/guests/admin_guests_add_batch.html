@@ -1,0 +1,59 @@
+{% extends "admin/guests/admin_guests_base.html" %}
+
+{% block guest_content %}
+<form method="POST" action="/admin/guests/add/batch/">
+    <div class="columns">  
+        <div class="column is-5">
+            <div class="field is-horizontal">
+                <div class="field-label is-normal">
+                    <label class="label">Names list</label>
+                </div>  
+                <div class="field-body">
+                    <div class="control">
+                        <textarea class="textarea" name="names_list" placeholder="Names list" autofocus="">
+                            </textarea>
+                    </div>
+                </div>
+            </div>
+        </div>      
+        <div class="column is-7">
+            <div class="field is-horizontal">
+                <div class="field-label is-normal">
+                    <label class="label">Max. adults</label>
+                </div>  
+                <div class="field-body">
+                    <div class="control">
+                        <input class="input" type="number" name="max_adults" placeholder="Allowed guests">
+                    </div>
+                </div>
+            </div>
+            <div class="field is-horizontal">
+                <div class="field-label is-normal">
+                    <label class="label">OTP</label>
+                </div>  
+                <div class="field-body">
+                    <div class="control">
+                        <input class="input" type="text" name="otp" placeholder="One-Time-Password">
+                    </div>
+                </div>
+            </div>
+            {% for _event in events %}
+            <div class="field is-horizontal">
+                <div class="field-label">
+                    <label class="label">
+                        {{_event.name | capitalize}}
+                    </label>
+                </div>
+                <div class="field-body">
+                    <div class="control">
+                        <input type="checkbox" name="event_{{ _event.name }}">
+                    </div>
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+        
+    </div>
+    <button class="button is-block is-info is-medium is-fullwidth">Generate guests</button>
+</form>
+{% endblock %}

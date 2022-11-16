@@ -1,0 +1,49 @@
+{% extends "admin/invitations/admin_invitations_base.html" %}
+
+{% block invitation_content %}
+<div class="table-container">
+    <table class="table is-striped is-full-width">
+        <thead>
+            <tr>
+                <th>Guest</th>
+                <th>Event</th>
+                <th>Assisting</th>
+                <th>Adults</th>
+                <th>Children</th>
+                <th>Babies</th>
+                <th>Remarks</th>
+            </tr>
+        </thead>
+        <tbody>
+            <form method="POST" action="/admin/invitations/edit/bulk/">
+            <tr>
+                <button class="button is-block is-info is-centered">Bulk change</button>
+            </tr>
+            {% for _inv in invitations %}
+            <tr>
+                <td class="has-text-left">{{ _inv.guest.name }}</td>
+                <td class="has-text-left">{{ _inv.event.name }}</td>
+                <td class="has-text-centered">
+                    <select name="response_{{_inv.id}}">
+                        <option value="True" {% if _inv.response == True %}selected{% endif %}>Yes</option>
+                        <option value="False" {% if _inv.response == False %}selected{% endif %}>No</option>
+                        <option value="" {% if _inv.response == None %}selected{% endif %}>?</option>
+                    </select>
+                </td>
+                <td class="has-text-left">
+                    <input value="{{_inv.n_adults}}" min=0 class="input" type="number" name="n_babies_{{_inv.id}}">
+                </td>                
+                <td class="has-text-left">
+                    <input value="{{_inv.n_children}}" min=0 class="input" type="number" name="n_babies_{{_inv.id}}">
+                </td>
+                <td class="has-text-left">
+                    <input value="{{_inv.n_babies}}" min=0 class="input" type="number" name="n_babies_{{_inv.id}}">
+                </td>
+                <td class="has-text-left">{{ _inv.remarks if _inv.remarks }}</td>
+            </tr>
+            {% endfor %}
+            </form>
+        </tbody>
+    </table>
+</div>
+{% endblock %}

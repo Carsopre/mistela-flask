@@ -1,0 +1,94 @@
+{% macro invitation_form(invitation, events, guests) %}
+<div class="field is-horizontal">
+    <div class="field-label is-normal">
+        <label class="label">Event</label>
+    </div>  
+    <div class="field-body">
+        <div class="select" >
+            {% set _disable_sel_event = invitation.id != None %}
+            <select name="select_event" {{ 'disabled' if _disable_sel_event}}>
+                {% for _event in events %}
+              {% set _selected_event = invitation.event_id == _event.id %}
+                <option {{'selected' if _selected_event}} value="{{_event.id}}">{{_event.name | capitalize }}</option>
+              {% endfor %}
+            </select>
+          </div>
+    </div>
+</div>
+<div class="field is-horizontal">
+    <div class="field-label is-normal">
+        <label class="label">Username</label>
+    </div>  
+    <div class="field-body">
+        <div class="select">
+            {% set _disable_sel_guest = invitation.id != None %}
+            <select name="select_guest" {{ 'disabled' if _disable_sel_guest}}>
+              {% for _guest in guests %}
+              {% set _selected_guest = invitation.guest_id == _guest.id %}
+              <option {{ 'selected' if _selected_guest }} value="{{_guest.id}}">{{_guest.username}}</option>
+              {% endfor %}
+            </select>
+          </div>
+    </div>
+</div>
+<div class="field is-horizontal">
+    <div class="field-label">
+        <label class="label">
+            Response
+        </label>
+    </div>
+    <div class="field-body">
+        <div class="select">
+            <select name="response">
+                <option value="True" {% if invitation.response == True %}selected{% endif %}>Yes</option>
+                <option value="False" {% if invitation.response == False %}selected{% endif %}>No</option>
+                <option value="" {% if invitation.response == None %}selected{% endif %}>?</option>
+            </select>
+        </div>
+    </div>
+</div>
+<div class="field is-horizontal">
+    <div class="field-label is-normal">
+        <label class="label">Adults</label>
+    </div>  
+    <div class="field-body">
+        <div class="control">
+            <input value="{{invitation.n_adults}}" min=0  class="input" type="number" name="n_adults">
+        </div>
+    </div>
+</div>
+<div class="field is-horizontal">
+    <div class="field-label is-normal">
+        <label class="label">Children</label>
+    </div>  
+    <div class="field-body">
+        <div class="control">
+            <input value="{{invitation.n_children}}" min=0 class="input" type="number" name="n_children">
+        </div>
+    </div>
+</div>
+<div class="field is-horizontal">
+    <div class="field-label is-normal">
+        <label class="label">Babies</label>
+    </div>  
+    <div class="field-body">
+        <div class="control">
+            <input value="{{invitation.n_babies}}" min=0 class="input" type="number" name="n_babies">
+        </div>
+    </div>
+</div>
+<div class="field is-horizontal">
+    <div class="field-label is-normal">
+        <label class="label">Remarks</label>
+    </div>  
+    <div class="field-body">
+        <div class="control">
+            {% if invitation.remarks == None %}
+                <input value="" class="input" type="text" name="remarks">
+            {% else %}
+                <input value="{{invitation.remarks}}"class="input" type="text" name="remarks">
+            {% endif %}
+        </div>
+    </div>
+</div>
+{% endmacro %}

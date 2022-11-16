@@ -1,0 +1,31 @@
+{% extends "admin/invitations/admin_invitations_base.html" %}
+
+{% block invitation_content %}
+<div class="column is-half is-offset-one-quarter">
+    <table class="table is-striped">
+        <thead>
+            <tr>               
+                <th>Event</th>
+                <th><abbr title="Adults">
+                        <i class="fa fa-2x fa-user-group"></i>
+                    </abbr></th>
+                <th><abbr title="Children">
+                    <span>
+                        <i class="fa fa-2x fa-children"></i>
+                    </span></abbr></th>
+                <th><abbr title="Babies"><i class="fa fa-2x fa-baby"></i></abbr></th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for _event_summary in summaries %}
+            <tr>
+                <td class="has-text-left">{{ _event_summary.event.name }}</td>
+                <td class="has-text-centered">{{ _event_summary.t_adults }}</td>
+                <td class="has-text-centered">{{ _event_summary.t_children }}</td>
+                <td class="has-text-centered">{{ _event_summary.t_babies }}</td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</div>
+{% endblock %}
