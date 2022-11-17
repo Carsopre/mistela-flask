@@ -1,11 +1,21 @@
-{% macro event_form(event_name,event_description) %}
+{% macro event_form(event) %}
 <div class="field is-horizontal">
     <div class="field-label is-normal">
         <label class="label">Name</label>
     </div>  
     <div class="field-body">
         <div class="control">
-            <input value="{{event_name}}" class="input" type="text" name="name" placeholder="Name" autofocus="">
+            <input value="{{event.name}}" class="input" type="text" name="name" placeholder="Name" autofocus="">
+        </div>
+    </div>
+</div>
+<div class="field is-horizontal">
+    <div class="field-label is-normal">
+        <label class="label"><a href="http://www.fontawesome.com" target="_blank">Icon</a></label>
+    </div>  
+    <div class="field-body">
+        <div class="control">
+            <input value="{{ event.icon if event.icon }}" class="input" type="text" name="icon" placeholder="Font-awesome icon" autofocus="">
         </div>
     </div>
 </div>
@@ -15,7 +25,7 @@
     </div>  
     <div class="field-body">
         <div class="control">
-            <input value="{{event_description}}" class="input" type="text" name="description" placeholder="Description" autofocus="">
+            <input value="{{event.description}}" class="input" type="text" name="description" placeholder="Description" autofocus="">
         </div>
     </div>
 </div>

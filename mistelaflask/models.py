@@ -20,6 +20,7 @@ class User(UserMixin, db.Model):
 
 class Event(db.Model):
     id = db.Column(db.Integer, primary_key=True)
+    icon = db.Column(db.String(1000))
     name = db.Column(db.String(1000))
     start_time = db.Column(db.DateTime)
     duration = db.Column(db.Integer)  # In Minutes

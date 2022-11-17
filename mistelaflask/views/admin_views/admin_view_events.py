@@ -59,7 +59,7 @@ class AdminViewEvents(AdminViewBase):
 
     @admin_required
     def _add_view(self):
-        return self._render_admin_view_template("admin_events_add.html")
+        return self._render_admin_view_template("admin_events_add.html", event=models.Event())
 
     @admin_required
     def _create_view(self):

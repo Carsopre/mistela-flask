@@ -11,8 +11,8 @@
                     <th>Event</th>
                     <th>Assisting</th>
                     <th class="has-text-centered">Adults</th>
-                    <th class="has-text-centered">Children</th>
-                    <th class="has-text-centered">Babies</th>
+                    <th class="has-text-centered"><abbr title="From 3 to 9 years old">Children</abbr></th>
+                    <th class="has-text-centered"><abbr title="From 0 to 2 years old">Babies</abbr></th>
                     <th>Remarks</th>
                 </tr>
             </thead>
@@ -20,7 +20,7 @@
                 {% for _inv in user_invitations %}
                 <tr>
                     <td class="has-text-left">
-                        {{_inv.event.name | capitalize}}
+                        <i class={{_inv.icon}}>{{_inv.event.name | capitalize}}</i>
                     </td>
                     <td class="has-text-centered">
                         <select name="response_{{_inv.id}}">
