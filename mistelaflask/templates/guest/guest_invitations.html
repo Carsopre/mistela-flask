@@ -3,33 +3,113 @@
 {% block content %}
 <div class="column">
     <h3 class="title">Your invitations</h3>
+    <div class="box table-container">
+        <form method="POST" action="/invitations/">
+        <table class="table is-striped is-full-width">
+            <thead>
+                <tr>
+                    <th>Event</th>
+                    <th>Assisting</th>
+                    <th class="has-text-centered">Adults</th>
+                    <th class="has-text-centered">Children</th>
+                    <th class="has-text-centered">Babies</th>
+                    <th>Remarks</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for _inv in user_invitations %}
+                <tr>
+                    <td class="has-text-left">
+                        {{_inv.event.name | capitalize}}
+                    </td>
+                    <td class="has-text-centered">
+                        <select name="response_{{_inv.id}}">
+                            <option value="True" {% if _inv.response == True %}selected{% endif %}>Yes</option>
+                            <option value="False" {% if _inv.response == False %}selected{% endif %}>No</option>
+                            <option value="" {% if _inv.response == None %}selected{% endif %}>?</option>
+                        </select>
+                    </td>
+                    <td class="has-text-left">
+                        <input value="{{_inv.n_adults}}" min=0  max={{_inv.guest.max_adults}} class="input" type="number" name="n_babies_{{_inv.id}}">
+                    </td>                
+                    <td class="has-text-left">
+                        <input value="{{_inv.n_children}}" min=0 class="input" type="number" name="n_babies_{{_inv.id}}">
+                    </td>
+                    <td class="has-text-left">
+                        <input value="{{_inv.n_babies}}" min=0 class="input" type="number" name="n_babies_{{_inv.id}}">
+                    </td>
+                    <td class="has-text-left">
+                        <input value="{{ _inv.remarks if _inv.remarks }}" class="input" type="text" name="remarks_{{_inv.id}}">
+                    </td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+        <button class="button is-block is-info is-large is-fullwidth">Save preferences</button>
+        </form>
 
-    <form method="POST" action="/responses">
-    {% for _invitation in user_invitations %}
-        <div class="field">
-            <div class="control">
-            <input type="checkbox" name="{{_invitation.event_name}}_accepted" {% if _invitation.response %}checked{% endif %}>
-                {{ _invitation.event_name }}
-                {{ _invitation.response }}
-            </div>
+        <!-- <form method="POST" action="/invitations">
+            {% for _inv in user_invitations %}
+                <div class="field is-horizontal">
+                    <div class="field-label is-normal">
+                        <label class="label">
+                            Assisting
+                        </label>
+                    </div>
+                    <div class="field-body">
+                        <div class="select">
+                            <select name="response">
+                                <option value="True" {% if _inv.response == True %}selected{% endif %}>Yes</option>
+                                <option value="False" {% if _inv.response == False %}selected{% endif %}>No</option>
+                                <option value="" {% if _inv.response == None %}selected{% endif %}>Unsure</option>
+                            </select>
+                        </div>
+                    </div>
+                </div>
+                <div class="field is-horizontal">
+                    <div class="field-label is-normal">
+                        <label class="label">Adults</label>
+                    </div>  
+                    <div class="field-body">
+                        <div class="control">
+                            <input value="{{_inv.n_adults}}" min=0  max={{_inv.guest.max_adults}} class="input" type="number" name="n_adults_{{_inv.id}}">
+                        </div>
+                    </div>
+                </div>
+                <div class="field is-horizontal">
+                    <div class="field-label is-normal">
+                        <label class="label">Children</label>
+                    </div>  
+                    <div class="field-body">
+                        <div class="control">
+                            <input value="{{_inv.n_children}}" min=0 class="input" type="number" name="n_children_{{_inv.id}}">
+                        </div>
+                    </div>
+                </div>
+                <div class="field is-horizontal">
+                    <div class="field-label is-normal">
+                        <label class="label">Babies</label>
+                    </div>  
+                    <div class="field-body">
+                        <div class="control">
+                            <input value="{{_inv.n_babies}}" min=0 class="input" type="number" name="n_babies_{{_inv.id}}">
+                        </div>
+                    </div>
+                </div>
+                <div class="field is-horizontal">
+                    <div class="field-label is-normal">
+                        <label class="label">Remarks</label>
+                    </div>  
+                    <div class="field-body">
+                        <div class="control">
+                            <input value="{{_inv.remarks if _inv.remarks}}"class="input" type="text" name="remarks_{{_inv.id}}">
+                        </div>
+                    </div>
+                </div>
+            {% endfor %}
+            <button class="button is-block is-info is-large is-fullwidth">Save preferences</button>
+        </form> -->
         </div>
-        <div class="field" >
-            <div class="control">
-                <input class="input" type="text" name="{{_invitation.event_name}}_remarks" value="{{_invitation.remarks}}" placeholder="Remarks">
-            </div>
-        </div>
-        <div class="field">
-            <div class="control">
-                <input class="input" type="number" min="0" max="{{_invitation.max_adults}}" value="{{_invitation.n_adults}}" name="{{_invitation.event_name}}_total_adults" placeholder="Total adults">
-            </div>  
-        </div>
-        <div class="field">
-            <div class="control">
-                <input class="input" type="number" min="0" name="{{_invitation.event_name}}_total_children" value="{{_invitation.n_children}}" placeholder="Total children">
-            </div>  
-        </div>
-    {% endfor %}
-    <button class="button is-block is-info is-large is-fullwidth">Save preferences</button>
-    </form>
+    </div>
 </div>
 {% endblock %}

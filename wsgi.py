@@ -17,28 +17,31 @@ from mistelaflask import Flask, create_app, db, models
 
 
 def init_test_db() -> Flask:
-    app = create_app()
+    _app = create_app()
     if "sqlite" in os.environ["DATABASE_URI"]:
         _db_file = Path(__file__).parent / "instance" / "db.sqlite"
         _db_file.unlink(missing_ok=True)
-    with app.app_context():
+
+    with _app.app_context():
         db.create_all()
         admin = models.User(
-            name="admin",
+            username="admin",
             password=generate_password_hash("admin", method="sha256"),
             admin=True,
         )
         db.session.add(admin)
         # All day guest
         _day_guest = models.User(
-            name="day_guest",
-            password=generate_password_hash("day_guest", method="sha256"),
+            username="dayguest",
+            name="Day Guest",
+            otp="1234",
             admin=False,
             max_adults=2,
         )
         _night_guest = models.User(
-            name="night_guest",
-            password=generate_password_hash("night_guest", method="sha256"),
+            username="nightguest",
+            name="Night Guest",
+            otp="5678",
             admin=False,
             max_adults=2,
         )
@@ -88,16 +91,15 @@ def init_test_db() -> Flask:
             db.session.add(_event)
             db.session.commit()
             _invitation = models.UserEventInvitation(
-                guest=_day_guest.id, event=_event.id
+                guest_id=_day_guest.id, event_id=_event.id
             )
             db.session.add(_invitation)
         _night_invitation = models.UserEventInvitation(
-            guest=_night_guest.id, event=events[-1].id
+            guest_id=_night_guest.id, event_id=events[-1].id
         )
         db.session.add(_night_invitation)
-
         db.session.commit()
-    return app
+    return _app
 
 
 os.environ["SECRET_KEY"] = secrets.token_hex(16)  # Required environment variable.
