@@ -2,113 +2,83 @@
 
 {% block content %}
 <div class="column">
-    <h3 class="title">Your invitations</h3>
-    <div class="box table-container">
+    <h3 class="title">Your invitation</h3>
+    <div class="box column is-8 is-offset-2">
+        {% set response_submitted = (invitation.response == True or invitation.response == False) %}       
+        {% if not response_submitted %}
+        <div class="notification is-info">
+            Important! You can only save once your invitation!
+        </div>
+        {% endif %}
+        <div class="notification is-info is-light">
+            Babies (from 0 to 2 years) || Children (from 3 to 9 years)
+        </div>
         <form method="POST" action="/invitations/">
-        <table class="table is-striped is-full-width">
-            <thead>
-                <tr>
-                    <th>Event</th>
-                    <th>Assisting</th>
-                    <th class="has-text-centered">Adults</th>
-                    <th class="has-text-centered"><abbr title="From 3 to 9 years old">Children</abbr></th>
-                    <th class="has-text-centered"><abbr title="From 0 to 2 years old">Babies</abbr></th>
-                    <th>Remarks</th>
-                </tr>
-            </thead>
-            <tbody>
-                {% for _inv in user_invitations %}
-                <tr>
-                    <td class="has-text-left">
-                        <i class={{_inv.icon}}>{{_inv.event.name | capitalize}}</i>
-                    </td>
-                    <td class="has-text-centered">
-                        <select name="response_{{_inv.id}}">
-                            <option value="True" {% if _inv.response == True %}selected{% endif %}>Yes</option>
-                            <option value="False" {% if _inv.response == False %}selected{% endif %}>No</option>
-                            <option value="" {% if _inv.response == None %}selected{% endif %}>?</option>
+            <div class="field is-horizontal">
+                <div class="field-label column is-6">
+                    <label class="label">
+                        Will you be assisting to our event?
+                    </label>
+                </div>
+                <div class="field-body column is-2">
+                    <div class="select is-fullwidth">
+                        <select name="response" {% if response_submitted %}disabled{% endif %}>
+                            <option value="True" {% if invitation.response == True %}selected{% endif %}>Yes</option>
+                            <option value="False" {% if invitation.response == False %}selected{% endif %}>No</option>
+                            <option value="" {% if invitation.response == None %}selected{% endif %}>?</option>
                         </select>
-                    </td>
-                    <td class="has-text-left">
-                        <input value="{{_inv.n_adults}}" min=0  max={{_inv.guest.max_adults}} class="input" type="number" name="n_babies_{{_inv.id}}">
-                    </td>                
-                    <td class="has-text-left">
-                        <input value="{{_inv.n_children}}" min=0 class="input" type="number" name="n_babies_{{_inv.id}}">
-                    </td>
-                    <td class="has-text-left">
-                        <input value="{{_inv.n_babies}}" min=0 class="input" type="number" name="n_babies_{{_inv.id}}">
-                    </td>
-                    <td class="has-text-left">
-                        <input value="{{ _inv.remarks if _inv.remarks }}" class="input" type="text" name="remarks_{{_inv.id}}">
-                    </td>
-                </tr>
-                {% endfor %}
-            </tbody>
-        </table>
-        <button class="button is-block is-info is-large is-fullwidth">Save preferences</button>
-        </form>
-
-        <!-- <form method="POST" action="/invitations">
-            {% for _inv in user_invitations %}
-                <div class="field is-horizontal">
-                    <div class="field-label is-normal">
-                        <label class="label">
-                            Assisting
-                        </label>
-                    </div>
-                    <div class="field-body">
-                        <div class="select">
-                            <select name="response">
-                                <option value="True" {% if _inv.response == True %}selected{% endif %}>Yes</option>
-                                <option value="False" {% if _inv.response == False %}selected{% endif %}>No</option>
-                                <option value="" {% if _inv.response == None %}selected{% endif %}>Unsure</option>
-                            </select>
-                        </div>
                     </div>
                 </div>
-                <div class="field is-horizontal">
-                    <div class="field-label is-normal">
-                        <label class="label">Adults</label>
-                    </div>  
-                    <div class="field-body">
-                        <div class="control">
-                            <input value="{{_inv.n_adults}}" min=0  max={{_inv.guest.max_adults}} class="input" type="number" name="n_adults_{{_inv.id}}">
-                        </div>
+            </div>
+            <div class="field is-horizontal">
+                <div class="field-label is-normal column is-6">
+                    <label class="label">Adults</label>
+                </div>  
+                <div class="field-body column is-2">
+                    <div class="control">
+                        <input value="{{invitation.n_adults}}" min=0 max="{{invitation.guest.max_adults}}" class="input" type="number" name="n_adults" {% if response_submitted %}disabled{% endif %}>
                     </div>
                 </div>
-                <div class="field is-horizontal">
-                    <div class="field-label is-normal">
-                        <label class="label">Children</label>
-                    </div>  
-                    <div class="field-body">
-                        <div class="control">
-                            <input value="{{_inv.n_children}}" min=0 class="input" type="number" name="n_children_{{_inv.id}}">
-                        </div>
+            </div>
+            <div class="field is-horizontal">
+                <div class="field-label is-normal column is-6">
+                    <label class="label">Children</label>
+                </div>  
+                <div class="field-body column is-2">
+                    <div class="control">
+                        <input value="{{invitation.n_children}}" min=0 max="4" class="input" type="number" name="n_children" {% if response_submitted %}disabled{% endif %}>
                     </div>
                 </div>
-                <div class="field is-horizontal">
-                    <div class="field-label is-normal">
-                        <label class="label">Babies</label>
-                    </div>  
-                    <div class="field-body">
-                        <div class="control">
-                            <input value="{{_inv.n_babies}}" min=0 class="input" type="number" name="n_babies_{{_inv.id}}">
-                        </div>
+            </div>
+            <div class="field is-horizontal">
+                <div class="field-label is-normal column is-6">
+                    <label class="label">Babies</label>
+                </div>  
+                <div class="field-body column is-2">
+                    <div class="control">
+                        <input value="{{invitation.n_babies}}" min=0 max="2" class="input" type="number" name="n_babies" {% if response_submitted %}disabled{% endif %}>
                     </div>
                 </div>
-                <div class="field is-horizontal">
-                    <div class="field-label is-normal">
-                        <label class="label">Remarks</label>
-                    </div>  
-                    <div class="field-body">
-                        <div class="control">
-                            <input value="{{_inv.remarks if _inv.remarks}}"class="input" type="text" name="remarks_{{_inv.id}}">
-                        </div>
+            </div>
+            <div class="field is-horizontal">
+                <div class="field-label is-normal column is-6">
+                    <label class="label">Remarks</label>
+                </div>  
+                <div class="field-body column is-4">
+                    <div class="control">
+                        <textarea value="{{ invitation.remarks if invitation.remarks}}" class="input" type="textarea" name="remarks" {% if response_submitted %}disabled{% endif %}>
+                        </textarea>
                     </div>
                 </div>
-            {% endfor %}
+            </div>
+        {% if response_submitted %}
+            <div class="notification is-danger is-light">
+                Please contact us to modify your invitation.
+            </div>
+        {% else %}
             <button class="button is-block is-info is-large is-fullwidth">Save preferences</button>
-        </form> -->
+        {% endif %}
+        </form>
         </div>
     </div>
 </div>

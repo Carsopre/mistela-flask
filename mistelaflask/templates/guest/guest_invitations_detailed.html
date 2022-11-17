@@ -1,0 +1,56 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div class="column">
+    <h3 class="title">Your invitations</h3>
+    <div class="box table-container">
+        <div class="notification is-info is-light">
+            Please fill for each event number of adults, children (3 to 9 years old) and babies (0 to 2 years old).
+        </div>
+        <form method="POST" action="/invitations/">
+        <table class="table is-striped is-full-width">
+            <thead>
+                <tr>
+                    <th>Event</th>
+                    <th>Assisting</th>
+                    <th class="has-text-centered">Adults</th>
+                    <th class="has-text-centered"><abbr title="From 3 to 9 years old">Children</abbr></th>
+                    <th class="has-text-centered"><abbr title="From 0 to 2 years old">Babies</abbr></th>
+                    <th>Remarks</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for _inv in user_invitations %}
+                <tr>
+                    <td class="has-text-left">
+                        <i class={{_inv.icon}}>{{_inv.event.name | capitalize}}</i>
+                    </td>
+                    <td class="has-text-centered">
+                        <select name="response_{{_inv.id}}">
+                            <option value="True" {% if _inv.response == True %}selected{% endif %}>Yes</option>
+                            <option value="False" {% if _inv.response == False %}selected{% endif %}>No</option>
+                            <option value="" {% if _inv.response == None %}selected{% endif %}>Not Sure</option>
+                        </select>
+                    </td>
+                    <td class="has-text-left">
+                        <input value="{{_inv.n_adults}}" min=0  max={{_inv.guest.max_adults}} class="input" type="number" name="n_babies_{{_inv.id}}">
+                    </td>                
+                    <td class="has-text-left">
+                        <input value="{{_inv.n_children}}" min=0 max=4 class="input" type="number" name="n_babies_{{_inv.id}}">
+                    </td>
+                    <td class="has-text-left">
+                        <input value="{{_inv.n_babies}}" min=0 max=2 class="input" type="number" name="n_babies_{{_inv.id}}">
+                    </td>
+                    <td class="has-text-left">
+                        <input value="{{ _inv.remarks if _inv.remarks }}" class="input" type="text" name="remarks_{{_inv.id}}">
+                    </td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+        <button class="button is-block is-info is-large is-fullwidth">Save preferences</button>
+        </form>
+        </div>
+    </div>
+</div>
+{% endblock %}

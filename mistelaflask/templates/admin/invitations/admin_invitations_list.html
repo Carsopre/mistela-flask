@@ -9,11 +9,11 @@
                 <th>Id</th>
                 <th>Guest</th>
                 <th>Event</th>
-                <th>Assisting</th>
-                <th>Adults</th>
-                <th>Children</th>
-                <th>Babies</th>
-                <th>Remarks</th>
+                <th class="has-text-centered">Assisting</th>
+                <th class="has-text-centered">Adults</th>
+                <th class="has-text-centered">Children</th>
+                <th class="has-text-centered">Babies</th>
+                <th class="has-text-centered">Remarks</th>
             </tr>
         </thead>
         <tbody>
@@ -29,10 +29,10 @@
                 <td class="has-text-centered">
                     <i class="fas {{ 'fa-check' if inv.response else 'fa-question' if inv.response == None else 'fa-xmark'}}"></i>
                 </td>
-                <td class="has-text-left">{{ inv.n_adults }}</td>
-                <td class="has-text-left">{{ inv.n_children }}</td>
-                <td class="has-text-left">{{ inv.n_babies }}</td>
-                <td class="has-text-left">{{ inv.remarks if inv.remarks }}</td>
+                <td class="has-text-centered">{{ inv.n_adults }}</td>
+                <td class="has-text-centered">{{ inv.n_children }}</td>
+                <td class="has-text-centered">{{ inv.n_babies }}</td>
+                <td class="has-text-centered">{{ inv.remarks if inv.remarks }}</td>
             </tr>
             {% endfor %}
         </tbody>

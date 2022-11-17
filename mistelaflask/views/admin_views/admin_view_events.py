@@ -51,26 +51,29 @@ class AdminViewEvents(AdminViewBase):
             flash("Event not found.", category="danger")
             return redirect(url_for("admin.events_list"))
 
-        _event.name = request.form.get("name")
-        _event.description = request.form.get("description")
+        _event.name = request.form.get("name", _event.name)
+        _event.description = request.form.get("description", _event.description)
+        _event.icon = request.form.get("icon", _event.icon)
         db.session.commit()
         flash(f"Event '{_event.id}' updated", category="info")
         return redirect(url_for("admin.events_list"))
 
     @admin_required
     def _add_view(self):
-        return self._render_admin_view_template("admin_events_add.html", event=models.Event())
+        return self._render_admin_view_template(
+            "admin_events_add.html", event=models.Event()
+        )
 
     @admin_required
     def _create_view(self):
         name = request.form.get("name")
         description = request.form.get("description")
-
+        icon = request.form.get("icon")
         _event = models.Event.query.filter_by(name=name).first()
         if _event:
             flash("An event with this name already exists.", category="danger")
             return redirect(url_for("events_create"))
-        _new_event = models.Event(name=name, description=description)
+        _new_event = models.Event(name=name, description=description, icon=icon)
         db.session.add(_new_event)
         db.session.commit()
         flash(f"Added event '{name}'.", category="success")

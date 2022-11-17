@@ -70,14 +70,14 @@ def init_test_db():
         events = [
             models.Event(
                 name="reception",
-                icon="fa sign-post",
+                icon="fa fa-signs-post",
                 start_time=_correct_datetime(hour=16, minute=00),
                 duration=30,
                 description="Guests can gather at the venue and enjoy a welcome drink.",
             ),
             models.Event(
                 name="ceremony",
-                icon="fa fa-ring",
+                icon="fa fa-ring fa-rotate-90",
                 start_time=_correct_datetime(hour=16, minute=30),
                 duration=45,
                 description="Wedding ceremony with ring exchange.",
