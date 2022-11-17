@@ -46,7 +46,7 @@ def create_app() -> Flask:
 
     app.register_blueprint(admin_blueprint)
 
-    from mistelaflask.main import main as main_blueprint
+    from mistelaflask.views.guest_views import main_view as guest_blueprint
 
-    app.register_blueprint(main_blueprint)
+    app.register_blueprint(guest_blueprint)
     return app

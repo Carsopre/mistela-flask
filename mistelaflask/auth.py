@@ -10,7 +10,7 @@ auth = Blueprint("auth", __name__)
 
 @auth.route("/otp")
 def login_otp():
-    return render_template("otp_login.html")
+    return render_template("auth/otp_login.html")
 
 
 @auth.route("/otp", methods=["POST"])
@@ -47,7 +47,7 @@ def login_otp_post():
 
 @auth.route("/login")
 def login():
-    return render_template("login.html")
+    return render_template("auth/login.html")
 
 
 @auth.route("/login", methods=["POST"])
