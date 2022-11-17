@@ -1,3 +1,9 @@
+## v0.6.0 (2022-11-17)
+
+### Feat
+
+- **guest_invitations.html**: Guest can now manage their own invitations
+
 ## v0.5.0 (2022-11-16)
 
 ### Feat
