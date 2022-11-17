@@ -38,20 +38,22 @@ def init_test_db():
     with _app.app_context():
         db.create_all()
         admin = models.User(
-            name="admin",
+            username="admin",
             password=generate_password_hash("admin", method="sha256"),
             admin=True,
         )
         db.session.add(admin)
         # All day guest
         _day_guest = models.User(
-            name="day_guest",
+            username="dayguest",
+            name="Day Guest",
             otp="1234",
             admin=False,
             max_adults=2,
         )
         _night_guest = models.User(
-            name="night_guest",
+            username="nightguest",
+            name="Night Guest",
             otp="5678",
             admin=False,
             max_adults=2,

@@ -7,7 +7,7 @@ class User(UserMixin, db.Model):
     id = db.Column(
         db.Integer, primary_key=True
     )  # primary keys are required by SQLAlchemy
-    username = db.Column(db.String(1000))
+    username = db.Column(db.String(1000), unique=True)
     name = db.Column(db.String(1000))
     password = db.Column(db.String(100))
     admin = db.Column(db.Boolean, default=False, nullable=False)

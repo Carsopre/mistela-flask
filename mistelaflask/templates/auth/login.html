@@ -2,13 +2,6 @@
 
 {% block content %}
 <div class="column is-4 is-offset-4">
-    {% with messages = get_flashed_messages() %}
-    {% if messages %}
-        <div class="notification is-danger">
-            {{ messages[0] }}
-        </div>
-    {% endif %}
-    {% endwith %}
     <h3 class="title">Login</h3>
     <div class="box">
         {% with messages = get_flashed_messages() %}
@@ -24,7 +17,7 @@
         <form method="POST" action="/login">
             <div class="field">
                 <div class="control">
-                    <input class="input" type="text" name="name" placeholder="Your Username" autofocus="">
+                    <input class="input" type="text" name="username" placeholder="Your Username" autofocus="">
                 </div>
             </div>
 

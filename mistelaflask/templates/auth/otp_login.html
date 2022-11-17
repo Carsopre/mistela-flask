@@ -2,13 +2,6 @@
 
 {% block content %}
 <div class="column is-4 is-offset-4">
-    {% with messages = get_flashed_messages() %}
-    {% if messages %}
-        <div class="notification is-danger">
-            {{ messages[0] }}
-        </div>
-    {% endif %}
-    {% endwith %}
     <h3 class="title">OTP Login</h3>
     <div class="box">
         {% with messages = get_flashed_messages() %}
@@ -19,7 +12,7 @@
         {% endif %}
         {% endwith %}
         <div class="notification is-info is-light">
-            <a href="{{ url_for('auth.login')}}">Click here to log with Username and password</a>
+            <a href="{{ url_for('auth.login')}}">Click here to log with Username and Password</a>
          </div>
         <form method="POST" action="/otp">
             <div class="field">

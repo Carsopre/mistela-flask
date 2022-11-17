@@ -39,9 +39,9 @@ def login_otp_post():
 
     user.otp = None
     user.password = generate_password_hash(_password, method="sha256")
-    login_user(user, remember=remember)
     db.session.add(user)
     db.session.commit()
+    login_user(user, remember=remember)
     return redirect(url_for("main.index"))
 
 
@@ -53,21 +53,21 @@ def login():
 @auth.route("/login", methods=["POST"])
 def login_post():
     # login code goes here
-    name = request.form.get("name")
-    password = request.form.get("password")
+    _username = request.form.get("username")
+    _password = request.form.get("password")
     remember = True if request.form.get("remember") else False
 
-    user = User.query.filter_by(name=name).first()
+    _user = User.query.filter_by(username=_username).first()
 
     # check if the user actually exists
     # take the user-supplied password, hash it, and compare it to the hashed password in the database
-    if not user or not check_password_hash(user.password, password):
+    if not _user or not check_password_hash(_user.password, _password):
         flash("Please check your login details and try again.")
         return redirect(
             url_for("auth.login")
         )  # if the user doesn't exist or password is wrong, reload the page
 
-    login_user(user, remember=remember)
+    login_user(_user, remember=remember)
     return redirect(url_for("main.index"))
 
 
