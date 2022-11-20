@@ -4,7 +4,7 @@ from flask import Blueprint, redirect, render_template, url_for
 from flask_login import current_user
 
 from mistelaflask import models
-from mistelaflask.views.guest_views.guest_events_invitations import GuestViewEvents
+from mistelaflask.views.guest_views.guest_view_events import GuestViewEvents
 from mistelaflask.views.guest_views.guest_view_invitations import GuestViewInvitations
 
 main_view = Blueprint("main", __name__)
