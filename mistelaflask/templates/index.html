@@ -3,17 +3,13 @@
 {% block content %}
 {% if current_user.is_authenticated %}
 <h1 class="title">
-  Our Event
+  2023.05.20 - Myriam & Carles
 </h1>
 <h2 class="subtitle">
-  Timeline
+  We are getting married and would love to share this day with you.
 </h2>
-  <div class="box">
-  {% for _event in timeline %}
-    <div class="row">
-      {{ _event.start_time }} - {{ _event.end_time}} :<b>{{_event.name}}</b>
-    </div>
-  {% endfor %}
-  </div>
+<div class="box">
+</div>
+
 {% endif %}
 {% endblock %}

@@ -6,7 +6,8 @@ from pathlib import Path
 import pip
 
 try:
-    pip.main(["install", "mistela-flask"])
+    # pip.main(["install", "mistela-flask"])
+    pip.main(["install", "."])
 except Exception as e_info:
     pass
 
