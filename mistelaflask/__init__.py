@@ -1,3 +1,4 @@
+import datetime
 import os
 
 from flask import Flask
@@ -28,6 +29,10 @@ def create_app() -> Flask:
     @app.context_processor
     def inject_general_variables():
         return dict(version=__version__)
+
+    @app.template_filter()
+    def format_datetime(date_value: datetime.datetime, strftime_format: str) -> str:
+        return date_value.strftime(strftime_format)
 
     login_manager = LoginManager()
     login_manager.login_view = "auth.login"
