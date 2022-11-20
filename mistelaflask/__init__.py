@@ -25,6 +25,10 @@ def create_app() -> Flask:
 
     db.init_app(app)
 
+    @app.context_processor
+    def inject_general_variables():
+        return dict(version = __version__)
+
     login_manager = LoginManager()
     login_manager.login_view = "auth.login"
     login_manager.init_app(app)
@@ -50,3 +54,4 @@ def create_app() -> Flask:
 
     app.register_blueprint(guest_blueprint)
     return app
+
