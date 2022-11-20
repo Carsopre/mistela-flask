@@ -118,3 +118,4 @@ def init_test_db():
         db.session.add(_night_invitation)
 
         db.session.commit()
+        return _app
