@@ -4,6 +4,7 @@ from flask import Blueprint, redirect, render_template, url_for
 from flask_login import current_user
 
 from mistelaflask import models
+from mistelaflask.views.guest_views.guest_events_invitations import GuestViewEvents
 from mistelaflask.views.guest_views.guest_view_invitations import GuestViewInvitations
 
 main_view = Blueprint("main", __name__)
@@ -34,5 +35,4 @@ def index():
 
 
 invitations_view = GuestViewInvitations.register(main_view)
-# guest_view = AdminViewGuests.register(admin_view)
-# invitation_view = AdminViewInvitations.register(admin_view)
+events_view = GuestViewEvents.register(main_view)

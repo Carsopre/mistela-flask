@@ -3,7 +3,7 @@
 {% block content %}
 <div class="column">
     <h3 class="title">Your invitation</h3>
-    <div class="box column is-8 is-offset-2">
+    <div class="box column is-6 is-offset-3">
         {% set response_submitted = (invitation.response == True or invitation.response == False) %}       
         {% if not response_submitted %}
         <div class="notification is-info">
@@ -11,7 +11,10 @@
         </div>
         {% endif %}
         <div class="notification is-info is-light">
-            Babies (from 0 to 2 years) || Children (from 3 to 9 years)
+            Please let us know whether you are coming alone or with your partner.
+            Contact us in case of any issues with your response.
+            </br>
+            <b>Babies (from 0 to 2 years) || Children (from 3 to 9 years)</b>
         </div>
         <form method="POST" action="/invitations/">
             <div class="field is-horizontal">
@@ -66,8 +69,7 @@
                 </div>  
                 <div class="field-body column is-4">
                     <div class="control">
-                        <textarea value="{{ invitation.remarks if invitation.remarks}}" class="input" type="textarea" name="remarks" {% if response_submitted %}disabled{% endif %}>
-                        </textarea>
+                        <textarea value="{{ invitation.remarks if invitation.remarks}}" class="input" type="textarea" name="remarks" {% if response_submitted %}disabled{% endif %}></textarea>
                     </div>
                 </div>
             </div>
