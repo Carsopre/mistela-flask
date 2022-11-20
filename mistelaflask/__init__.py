@@ -7,7 +7,7 @@ from flask_login import LoginManager
 from flask_sqlalchemy import SQLAlchemy
 
 # set optional bootswatch theme
-__version__ = "0.5.0"
+__version__ = "0.7.0"
 
 # init SQLAlchemy so we can use it later in our models
 db = SQLAlchemy()
@@ -27,7 +27,7 @@ def create_app() -> Flask:
 
     @app.context_processor
     def inject_general_variables():
-        return dict(version = __version__)
+        return dict(version=__version__)
 
     login_manager = LoginManager()
     login_manager.login_view = "auth.login"
@@ -54,4 +54,3 @@ def create_app() -> Flask:
 
     app.register_blueprint(guest_blueprint)
     return app
-

@@ -1,3 +1,15 @@
+## v0.7.0 (2022-11-20)
+
+### Feat
+
+- **GuestViewEvents**: Added view for events (timeline)
+- **guest_invitations**: Guests handle their invitation as 'one' instead of per event
+- **guest_invitations.html**: Guest can now manage their own invitations
+
+### Fix
+
+- **auth.py**: Fix mismatch between user and username
+
 ## v0.5.0 (2022-11-16)
 
 ### Feat
