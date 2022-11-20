@@ -7,7 +7,8 @@ import pip
 
 try:
     # pip.main(["install", "mistela-flask"])
-    pip.main(["install", "."])
+    _current_dir = Path(__file__).parent
+    pip.main(["install", _current_dir])
 except Exception as e_info:
     pass
 
