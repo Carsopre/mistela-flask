@@ -1,0 +1,29 @@
+{% extends "admin/locations/admin_locations_base.html" %}
+
+{% block location_content %}
+    <table class="table is-striped">
+        <thead>
+            <tr>
+                <th>Actions</th>
+                <th>Id</th>
+                <th>Name</th>
+                <th>Description</th>
+                <th>URL Link</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for location in locations %}
+            <tr>
+                <td class="has-text-centered">
+                    <a href="{{ url_for('admin.locations_detail', model_id=location.id) }}"><i class="fas fa-pencil"></i></a>
+                    <a href="{{ url_for('admin.locations_remove', model_id=location.id) }}"><i class="fas fa-trash"></i></a>
+                </td>
+                <td class="has-text-left">{{ location.id}}</td>
+                <td class="has-text-left">{{ location.name }}</td>
+                <td class="has-text-left">{{ location.description }}</td>
+                <td class="has-text-left">{{ location.url_link }}</td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+{% endblock %}

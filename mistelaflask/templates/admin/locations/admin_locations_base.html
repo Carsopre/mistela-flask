@@ -1,0 +1,33 @@
+{% extends "admin/admin.html" %}
+
+{% block content %}
+<div class="column">
+    <h3 class="title">Manage Locations</h3>
+    <div class="box">
+        <div class="tabs is-centered is-medium is-boxed">
+            <ul>
+                <li><a href="{{ url_for('admin.locations_list') }}">List</a></li>
+                <li><a href="{{ url_for('admin.locations_add') }}">Create</a></li>
+                <li><a>Extra</a></li>
+            </ul>
+        </div>
+        <div class="box">
+            {% with messages = get_flashed_messages(with_categories=true) %}
+            {% if messages %}
+                <ul class=flashes>
+                {% for category, message in messages %}
+                    <li class="notification is-{{ category }} is-light">{{ message }}</li>
+                {% endfor %}
+                </ul>
+            {% endif %}
+            {% endwith %}
+            <div class="columns is-mobile is-centered">
+                <div class="column is-half">
+                    {% block location_content %}
+                    {% endblock %}
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

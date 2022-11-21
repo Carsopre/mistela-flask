@@ -1,0 +1,33 @@
+{% macro location_form(location) %}
+<div class="field is-horizontal">
+    <div class="field-label is-normal">
+        <label class="label">Name</label>
+    </div>  
+    <div class="field-body">
+        <div class="control">
+            <input value="{{ location.name if location.name }}" class="input" type="text" name="name" placeholder="Name" autofocus="">
+        </div>
+    </div>
+</div>
+<div class="field is-horizontal">
+    <div class="field-label is-normal">
+        <label class="label">Description</label>
+    </div>  
+    <div class="field-body">
+        <div class="control">
+            <input value="{{ location.description if location.description }}" class="input" type="text" name="description" placeholder="Description" autofocus="">
+        </div>
+    </div>
+</div>
+<div class="field is-horizontal">
+    <div class="field-label is-normal">
+        <label class="label">Link url</label>
+    </div>  
+    <div class="field-body">
+        <div class="control">
+            <input value="{{ location.url_link if location.url_link }}" class="input" type="text" name="url_link" placeholder="URL Link" autofocus="">
+        </div>
+    </div>
+</div>
+
+{% endmacro %}
