@@ -10,7 +10,7 @@ from werkzeug.security import generate_password_hash
 def initialize_mistelaflask():
     from mistelaflask import Flask, create_app, db, models
 
-    def init_test_db(self) -> Flask:
+    def init_test_db() -> Flask:
         _app = create_app()
         if "sqlite" in os.environ["DATABASE_URI"]:
             _db_file = Path(__file__).parent / "instance" / "db.sqlite"
