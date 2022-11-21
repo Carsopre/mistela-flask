@@ -6,7 +6,7 @@
             <tr>
                 <th>Actions</th>
                 <th>Id</th>
-                <th>Main</th> 
+                <!-- <th>Main</th>  -->
                 <th>Icon</th>
                 <th>Name</th>
                 <th>Description</th>
@@ -20,7 +20,7 @@
                     <a href="{{ url_for('admin.events_remove', model_id=event.id) }}"><i class="fas fa-trash"></i></a>
                 </td>
                 <td class="has-text-left">{{ event.id}}</td>
-                <td class="has-text-left">{{ event.main_event.name}}</td>
+                <!-- <td class="has-text-left">{{ event.main_event.name}}</td> -->
                 <td class="has-text-left"><i class="{{event.icon}}"></i></td>
                 <td class="has-text-left">{{ event.name }}</td>
                 <td class="has-text-left">{{ event.description }}</td>

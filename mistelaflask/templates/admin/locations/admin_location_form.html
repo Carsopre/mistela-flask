@@ -11,16 +11,6 @@
 </div>
 <div class="field is-horizontal">
     <div class="field-label is-normal">
-        <label class="label">Description</label>
-    </div>  
-    <div class="field-body">
-        <div class="control">
-            <input value="{{ location.description if location.description }}" class="input" type="text" name="description" placeholder="Description" autofocus="">
-        </div>
-    </div>
-</div>
-<div class="field is-horizontal">
-    <div class="field-label is-normal">
         <label class="label">Link url</label>
     </div>  
     <div class="field-body">
@@ -29,5 +19,24 @@
         </div>
     </div>
 </div>
-
+<div class="field is-horizontal">
+    <div class="field-label is-normal">
+        <label class="label">Map url</label>
+    </div>  
+    <div class="field-body">
+        <div class="control">
+            <input value="{{ location.url_map if location.url_map }}" class="input" type="text" name="url_map" placeholder="URL Map" autofocus="">
+        </div>
+    </div>
+</div>
+<div class="field is-horizontal">
+    <div class="field-label is-normal">
+        <label class="label">Description</label>
+    </div>  
+    <div class="field-body">
+        <div class="control">
+            <textarea value="{{ location.description if location.description }}" class="input" type="text" name="description" placeholder="Description" autofocus=""></textarea>
+        </div>
+    </div>
+</div>
 {% endmacro %}

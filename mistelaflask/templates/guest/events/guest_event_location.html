@@ -1,0 +1,34 @@
+<div class="tile is-ancestor is-vertical">
+    <div class="tile is-parent">   
+        <div class="tile is-parent is-horizontal">
+            <div class="tile is-parent is-4">
+                <article class="tile is-child notification">
+                    <div class="content text has-text-centered">
+                        <p class="title">
+                            <i class="fa fa-location-dot"></i>
+                            The location
+                        </p>
+                        <p class="subtitle">
+                            {{ main_event.location.name | capitalize }}
+                        </p>
+                        <div class="content">
+                            {{  main_event.location.description }}
+                            </br>
+                            <a href="{{ main_event.location.url_link }}" target="_blank">
+                                <i class="fa-solid fa-globe"></i>
+                                    Website
+                            </a>
+                        </div> 
+                    </div>
+                </article>    
+            </div>
+            <div class="tile is-parent is-8">
+                <article class="tile is-child">
+                    <div class="content">
+                        <iframe src="{{ main_event.location.url_map }}" width="600" height="450" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+                    </div>
+                </article>    
+            </div>
+        </div>          
+    </div>
+</div>

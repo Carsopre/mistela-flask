@@ -1,3 +1,5 @@
+import datetime
+
 from flask_login import UserMixin
 
 from mistelaflask import db
@@ -23,6 +25,7 @@ class Location(db.Model):
     name = db.Column(db.String(1000))
     description = db.Column(db.Text)
     url_link = db.Column(db.String(1000))
+    url_map = db.Column(db.String(1000))
 
 
 class MainEvent(db.Model):
@@ -37,6 +40,13 @@ class MainEvent(db.Model):
         "Location",
         backref=db.backref("location_main_events", lazy="dynamic"),
     )
+
+    # Other
+    @property
+    def main_date(self) -> datetime.datetime:
+        if not self.main_event_events:
+            return None
+        return self.main_event_events[0].start_time
 
 
 class Event(db.Model):

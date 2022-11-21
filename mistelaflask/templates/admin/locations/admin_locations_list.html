@@ -9,6 +9,7 @@
                 <th>Name</th>
                 <th>Description</th>
                 <th>URL Link</th>
+                <th>URL Map</th>
             </tr>
         </thead>
         <tbody>
@@ -18,10 +19,11 @@
                     <a href="{{ url_for('admin.locations_detail', model_id=location.id) }}"><i class="fas fa-pencil"></i></a>
                     <a href="{{ url_for('admin.locations_remove', model_id=location.id) }}"><i class="fas fa-trash"></i></a>
                 </td>
-                <td class="has-text-left">{{ location.id}}</td>
-                <td class="has-text-left">{{ location.name }}</td>
-                <td class="has-text-left">{{ location.description }}</td>
-                <td class="has-text-left">{{ location.url_link }}</td>
+                <td class="has-text-left">{{ location.id }}</td>
+                <td class="has-text-left">{{ location.name if location.name}}</td>
+                <td class="has-text-left">{{ location.description if location.description}}</td>
+                <td class="has-text-left">{{ location.url_link if location.url_link }}</td>
+                <td class="has-text-left">{{ location.url_map if location.url_map }}</td>
             </tr>
             {% endfor %}
         </tbody>

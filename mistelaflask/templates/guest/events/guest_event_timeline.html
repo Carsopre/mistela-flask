@@ -1,0 +1,29 @@
+<h3 class="title">The timeline</h3>
+<h4 class="subtitle">{{ main_event.main_date | format_datetime("%Y.%m.%d") }}</h4>
+<div class="tile is-ancestor is-vertical">
+    <div class="tile is-parent">   
+        {% for _event in main_event.main_event_events %}
+        <div class="tile is-parent is-vertical">
+            <article class="tile is-child notification">
+                <div class="content text">
+                    <p class="title">
+                        <i class="{{ _event.icon }} fa-3x"></i>
+                    </p>
+                </div>
+                <div class="content text has-text-centered">
+                    <p class="title">
+                        {{ _event.name | capitalize }}
+                    </p>
+                    <p class="subtitle">
+                        <i class="fa-regular fa-clock"></i>
+                        {{ _event.start_time | format_datetime("%H:%M")}}
+                    </p>
+                    <div class="content">
+                        {{ _event.description }}
+                    </div> 
+                </div>
+            </article>    
+        </div>          
+        {% endfor %}    
+    </div>
+</div>

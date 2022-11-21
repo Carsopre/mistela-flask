@@ -60,6 +60,7 @@ class AdminViewLocations(AdminViewBase):
         _location.name = request.form.get("name", _location.name)
         _location.description = request.form.get("description", _location.description)
         _location.url_link = request.form.get("url_link", _location.url_link)
+        _location.url_map = request.form.get("url_map", _location.url_map)
         db.session.commit()
         flash(f"Location '{_location.id}' updated", category="info")
         return redirect(url_for("admin.locations_list"))
@@ -82,6 +83,7 @@ class AdminViewLocations(AdminViewBase):
             name=name,
             description=request.form.get("description"),
             url_link=request.form.get("url_link"),
+            url_map=request.form.get("url_map"),
         )
         db.session.add(_new_location)
         db.session.commit()

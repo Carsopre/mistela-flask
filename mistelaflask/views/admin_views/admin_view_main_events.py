@@ -34,8 +34,11 @@ class AdminViewMainEvents(AdminViewBase):
 
     @admin_required
     def _remove_view(self, model_id: int):
-        _event: models.MainEvent = models.MainEvent.query.filter_by(id=model_id).first()
-        _name = _event.name
+        _main_event: models.MainEvent = models.MainEvent.query.filter_by(
+            id=model_id
+        ).first()
+        _name = _main_event.name
+        models.MainEvent.query.filter_by(id=model_id).delete()
         models.Event.query.filter_by(main_event_id=model_id).delete()
         db.session.commit()
         flash(
@@ -71,12 +74,10 @@ class AdminViewMainEvents(AdminViewBase):
 
     @admin_required
     def _create_view(self):
-
         name = request.form.get("name")
         _location = request.form.get("location", None)
-        _event = models.MainEvent.query.filter_by(name=name).first()
-        if _event:
-            flash("A main event with this name already exists.", category="danger")
+        if any(models.MainEvent.query.all()):
+            flash("A main event already exists.", category="danger")
             return redirect(url_for("admin.main_events_create"))
         _new_event = models.MainEvent(
             name=name,
