@@ -1,3 +1,14 @@
+## v0.10.0 (2022-11-21)
+
+### Feat
+
+- **guest/events**: Added location information to the event tab
+
+### Fix
+
+- **guest_view_events.py**: Fixed error when no main events present
+- **guest_views**: Fixed error when no main events available
+
 ## v0.9.0 (2022-11-21)
 
 ### Feat

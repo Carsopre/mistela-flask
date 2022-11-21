@@ -7,7 +7,7 @@ from flask_login import LoginManager
 from flask_sqlalchemy import SQLAlchemy
 
 # set optional bootswatch theme
-__version__ = "0.9.0"
+__version__ = "0.10.0"
 
 # init SQLAlchemy so we can use it later in our models
 db = SQLAlchemy()
