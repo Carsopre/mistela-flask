@@ -3,16 +3,6 @@ import secrets
 from datetime import datetime
 from pathlib import Path
 
-import pip
-
-try:
-    # pip.main(["install", "mistela-flask"])
-    _current_dir = Path(__file__).parent
-    pip.main(["install", _current_dir])
-except Exception as e_info:
-    pass
-
-
 from werkzeug.security import generate_password_hash
 
 from mistelaflask import Flask, create_app, db, models
