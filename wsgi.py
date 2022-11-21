@@ -102,3 +102,5 @@ def init_test_db() -> Flask:
 os.environ["SECRET_KEY"] = secrets.token_hex(16)  # Required environment variable.
 os.environ["DATABASE_URI"] = "sqlite:///db.sqlite"
 app = init_test_db()
+if __debug__:
+    app.run()
