@@ -1,3 +1,12 @@
+## v0.9.0 (2022-11-21)
+
+### Feat
+
+- **locations**: Added  html templates for locations admin view
+- **AdminViewLocations**: Created view for admin locations
+- **MainEvent**: It is now possible to encapsulate all events under a main one and display it in the index page
+- **models**: It is possible to add a new main event with a concrete location for the index view
+
 ## v0.8.1 (2022-11-21)
 
 ### Fix
