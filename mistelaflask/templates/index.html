@@ -3,12 +3,13 @@
 {% block content %}
 {% if current_user.is_authenticated %}
 <h1 class="title">
-  2023.05.20 - Myriam & Carles
+  {{ main_event.name }}
 </h1>
 <h2 class="subtitle">
-  We are getting married and would love to share this day with you.
+ 
 </h2>
 <div class="box">
+  {{ main_event.description }}
 </div>
 
 {% endif %}

@@ -18,6 +18,23 @@ class User(UserMixin, db.Model):
         return self.name
 
 
+class Location(db.Model):
+    id = db.Column(db.Integer, primary_key=True)
+    name = db.Column(db.String(1000))
+    description = db.Column(db.Text)
+    url_link = db.Column(db.String(1000))
+
+
+class MainEvent(db.Model):
+    id = db.Column(db.Integer, primary_key=True)
+    name = db.Column(db.String(1000))
+    description = db.Column(db.Text)
+    contact = db.Column(db.Text)
+
+    # Relationships
+    location_id = db.Column(db.Integer, db.ForeignKey("location.id"))
+
+
 class Event(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     icon = db.Column(db.String(1000))
@@ -25,6 +42,10 @@ class Event(db.Model):
     start_time = db.Column(db.DateTime)
     duration = db.Column(db.Integer)  # In Minutes
     description = db.Column(db.Text)
+
+    # Relationships
+    main_event_id = db.Column(db.Integer, db.ForeignKey("main_event.id"))
+    location_id = db.Column(db.Integer, db.ForeignKey("location.id"))
 
     def __str__(self) -> str:
         return self.name

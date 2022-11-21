@@ -3,7 +3,6 @@ import os
 
 from flask import Flask
 from flask_admin import Admin
-from flask_admin.contrib.sqla import ModelView
 from flask_login import LoginManager
 from flask_sqlalchemy import SQLAlchemy
 
@@ -23,7 +22,6 @@ def create_app() -> Flask:
     app.config["SQLALCHEMY_DATABASE_URI"] = os.environ.get(
         "DATABASE_URI", default_database_uri
     )
-
     db.init_app(app)
 
     @app.context_processor

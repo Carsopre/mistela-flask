@@ -21,9 +21,7 @@ classifiers = [
 ]
 
 [tool.poetry.scripts]
-init_db = 'scripts.db_scripts:init_db'
-create_test_admin = 'scripts.db_scripts:create_test_admin'
-test_db = 'scripts.db_scripts:init_test_db'
+wsgi = 'wsgi:init_mistelaflask'
 
 [tool.poetry.dependencies]
 python = "~3.9"

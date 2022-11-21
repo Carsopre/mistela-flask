@@ -3,16 +3,15 @@ import secrets
 from datetime import datetime
 from pathlib import Path
 
+from mistelaflask import Flask, create_app, db, models
 
-def initialize_mistelaflask():
-    from mistelaflask import Flask, create_app, db, models
 
+def init_mistelaflask():
     def init_test_db() -> Flask:
         _app = create_app()
         if "sqlite" in os.environ["DATABASE_URI"]:
             _db_file = Path(__file__).parent / "instance" / "db.sqlite"
             _db_file.unlink(missing_ok=True)
-
         with _app.app_context():
             db.create_all()
             admin = models.User(
@@ -45,6 +44,13 @@ def initialize_mistelaflask():
             def _correct_datetime(**kwargs):
                 return wedding_date.replace(**kwargs)
 
+            _location = models.Location(name="Test location")
+            db.session.add(_location)
+            db.session.commit()
+            _main_event = models.MainEvent(name="Main event", location_id=_location.id)
+            db.session.add(_main_event)
+            db.session.commit()
+
             events = [
                 models.Event(
                     name="reception",
@@ -52,6 +58,7 @@ def initialize_mistelaflask():
                     start_time=_correct_datetime(hour=16, minute=00),
                     duration=30,
                     description="Guests can gather at the venue and enjoy a welcome drink.",
+                    main_event_id=_main_event.id,
                 ),
                 models.Event(
                     name="ceremony",
@@ -59,6 +66,7 @@ def initialize_mistelaflask():
                     start_time=_correct_datetime(hour=16, minute=30),
                     duration=45,
                     description="Wedding ceremony with ring exchange.",
+                    main_event_id=_main_event.id,
                 ),
                 models.Event(
                     name="cake and toast",
@@ -66,6 +74,7 @@ def initialize_mistelaflask():
                     start_time=_correct_datetime(hour=17, minute=15),
                     duration=75,
                     description="A toast with cava and cake to celebrate the moment.",
+                    main_event_id=_main_event.id,
                 ),
                 models.Event(
                     name="dinner",
@@ -73,6 +82,7 @@ def initialize_mistelaflask():
                     description="BBQ Buffet with dessert table.",
                     start_time=_correct_datetime(hour=18, minute=30),
                     duration=150,
+                    main_event_id=_main_event.id,
                 ),
                 models.Event(
                     name="party",
@@ -80,6 +90,7 @@ def initialize_mistelaflask():
                     description="We will play some musice to dance and finish the day with a warm party",
                     start_time=_correct_datetime(hour=21),
                     duration=4 * 60,
+                    main_event_id=_main_event.id,
                 ),
             ]
 
@@ -102,18 +113,4 @@ def initialize_mistelaflask():
     return init_test_db()
 
 
-def get_dummy():
-    from flask import Flask
-
-    app = Flask(__name__)
-
-    @app.route("/")
-    def hello_world():
-        _error = os.environ.get("MISTELA_ERROR", "(no error found)")
-        return f"<p>Hello, World! {_error}</p>"
-
-    return app
-
-
-app = initialize_mistelaflask()
-app.run()
+app = init_mistelaflask()
