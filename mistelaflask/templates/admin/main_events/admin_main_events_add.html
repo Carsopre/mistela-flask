@@ -1,0 +1,9 @@
+{% extends "admin/main_events/admin_main_events_base.html" %}
+
+{% block main_event_content %}
+    <form method="POST" action="/admin/main_events/add">
+        {% from 'admin/main_events/admin_main_event_form.html' import main_event_form %}
+        {{ main_event_form(main_event, locations) }}
+        <button class="button is-block is-info is-medium is-fullwidth">Save Main event</button>
+    </form>
+{% endblock %}

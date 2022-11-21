@@ -33,6 +33,10 @@ class MainEvent(db.Model):
 
     # Relationships
     location_id = db.Column(db.Integer, db.ForeignKey("location.id"))
+    location = db.relationship(
+        "Location",
+        backref=db.backref("location_main_events", lazy="dynamic"),
+    )
 
 
 class Event(db.Model):
@@ -46,6 +50,11 @@ class Event(db.Model):
     # Relationships
     main_event_id = db.Column(db.Integer, db.ForeignKey("main_event.id"))
     location_id = db.Column(db.Integer, db.ForeignKey("location.id"))
+
+    main_event = db.relationship(
+        "MainEvent",
+        backref=db.backref("main_event_events", lazy="dynamic"),
+    )
 
     def __str__(self) -> str:
         return self.name

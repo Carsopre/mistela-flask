@@ -1,9 +1,9 @@
 from __future__ import annotations
 
-from flask import Blueprint, redirect, render_template, request, url_for
-from flask_login import current_user, login_required
+from flask import Blueprint, render_template
+from flask_login import login_required
 
-from mistelaflask import db, models
+from mistelaflask import models
 from mistelaflask.views.guest_views.guest_view_protocol import GuestViewProtocol
 
 
