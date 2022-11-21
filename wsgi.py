@@ -3,6 +3,15 @@ import secrets
 from datetime import datetime
 from pathlib import Path
 
+# Work with the development environment
+# add your project directory to the sys.path
+_dev_mistela_app = Path(__file__).parent / "mistelaflask"
+if _dev_mistela_app.is_dir():
+    import sys
+
+    if _dev_mistela_app not in sys.path:
+        sys.path = [_dev_mistela_app] + sys.path
+
 from mistelaflask import Flask, create_app, db, models
 
 
