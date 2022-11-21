@@ -1,3 +1,9 @@
+## v0.8.0 (2022-11-21)
+
+### Feat
+
+- **guest_events.html**: Added detailed timeline
+
 ## v0.7.0 (2022-11-20)
 
 ### Feat

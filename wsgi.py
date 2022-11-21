@@ -11,9 +11,9 @@ try:
     _dev_mistelaflask = Path(__file__).parent / "mistelaflask"
     if _dev_mistelaflask.is_dir():
         _pip_package = str(_dev_mistelaflask)
-    pip.main(["install"], _pip_package)
-except Exception:
-    pass
+    pip.main(["install", _pip_package])
+except Exception as e_info:
+    print(e_info)
 
 from mistelaflask import Flask, create_app, db, models
 
