@@ -34,7 +34,7 @@ def index():
     return render_template(
         "index.html",
         timeline=list(map(_transform, _events)),
-        main_event=models.MainEvent.query.one(),
+        main_event=models.MainEvent.query.all()[0],
     )
 
 
