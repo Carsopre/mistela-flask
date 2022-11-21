@@ -35,7 +35,7 @@ class AdminViewGuests(AdminViewBase):
 
         _events = models.Event.query.all()
         guest_list = []
-        for _guest in models.User.query.filter_by(admin=False):
+        for _guest in models.User.query.filter_by():
             _invitations = []
             for _event in _events:
                 gi = GuestInvitation()

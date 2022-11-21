@@ -31,10 +31,16 @@ def index():
             description=event.description,
         )
 
+    _main_event = (
+        models.MainEvent.query.one()
+        if any(models.MainEvent.query.all())
+        else models.MainEvent()
+    )
+
     return render_template(
         "index.html",
         timeline=list(map(_transform, _events)),
-        main_event=models.MainEvent.query.all()[0],
+        main_event=_main_event,
     )
 
 
