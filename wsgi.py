@@ -119,9 +119,9 @@ def get_dummy():
 
 try:
     _pip_package = "mistela-flask"
-    _dev_mistelaflask = Path(__file__).parent / "mistelaflask"
-    if _dev_mistelaflask.is_dir():
-        _pip_package = str(_dev_mistelaflask)
+    _dev_mistelaflask = Path(__file__).parent / "pyproject.toml"
+    if _dev_mistelaflask.is_file():
+        _pip_package = str(_dev_mistelaflask.parent)
     pip.main(["install", _pip_package])
     app = initialize_mistelaflask()
 except Exception as e_info:
