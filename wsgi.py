@@ -8,8 +8,6 @@ def initialize_mistelaflask():
     from mistelaflask import Flask, create_app, db, models
 
     def init_test_db() -> Flask:
-        from werkzeug.security import generate_password_hash
-
         _app = create_app()
         if "sqlite" in os.environ["DATABASE_URI"]:
             _db_file = Path(__file__).parent / "instance" / "db.sqlite"
@@ -19,7 +17,7 @@ def initialize_mistelaflask():
             db.create_all()
             admin = models.User(
                 username="admin",
-                password=generate_password_hash("admin", method="sha256"),
+                otp="1234",
                 admin=True,
             )
             db.session.add(admin)
@@ -115,6 +113,7 @@ def get_dummy():
         return f"<p>Hello, World! {_error}</p>"
 
     return app
+
 
 app = initialize_mistelaflask()
 app.run()
