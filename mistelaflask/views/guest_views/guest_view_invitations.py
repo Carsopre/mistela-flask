@@ -1,6 +1,6 @@
 from __future__ import annotations
 
-from flask import Blueprint, redirect, render_template, request, url_for
+from flask import Blueprint, flash, redirect, render_template, request, url_for
 from flask_login import current_user, login_required
 
 from mistelaflask import db, models
@@ -42,6 +42,12 @@ class GuestViewInvitations(GuestViewProtocol):
             (ui.response, ui.n_adults, ui.n_children, ui.n_babies, ui.remarks)
             for ui in user_invitations
         ]
+        if not _all_values:
+            flash(
+                f"An error occured while loading your invitation. Please contact us if the problem persists.",
+                category="danger",
+            )
+            return redirect(url_for("main.index"))
         _list_values = list(zip(*_all_values))
         _assisting = all(_list_values[0])
         if not _assisting:

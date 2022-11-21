@@ -1,7 +1,8 @@
 {% extends "admin/main_events/admin_main_events_base.html" %}
 
 {% block main_event_content %}
-    <table class="table is-striped">
+<div class="table-container">
+    <table class="table is-striped is-full-width">
         <thead>
             <tr>
                 <th>Actions</th>
@@ -26,4 +27,5 @@
             {% endfor %}
         </tbody>
     </table>
+</div>
 {% endblock %}

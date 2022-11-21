@@ -2,7 +2,7 @@
 <h4 class="subtitle">{{ main_event.main_date | format_datetime("%Y.%m.%d") }}</h4>
 <div class="tile is-ancestor is-vertical">
     <div class="tile is-parent">   
-        {% for _event in main_event.main_event_events %}
+        {% for _event in main_event.events %}
         <div class="tile is-parent is-vertical">
             <article class="tile is-child notification">
                 <div class="content text">

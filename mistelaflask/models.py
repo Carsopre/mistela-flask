@@ -44,8 +44,8 @@ class MainEvent(db.Model):
     # Other
     @property
     def main_date(self) -> datetime.datetime:
-        if not self.main_event_events:
-            return None
+        if not self.main_event_events or len(self.main_event_events.all()) == 0:
+            return datetime.datetime.now()
         return self.main_event_events[0].start_time
 
 
