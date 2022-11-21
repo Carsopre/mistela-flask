@@ -1,3 +1,10 @@
+## v0.8.1 (2022-11-21)
+
+### Fix
+
+- **wsgi.py**: Removed self from local method
+- **wsgi.py**: We can now install the development environment when provided
+
 ## v0.8.0 (2022-11-21)
 
 ### Feat
