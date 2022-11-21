@@ -23,7 +23,11 @@ class GuestViewEvents(GuestViewProtocol):
 
     @login_required
     def _list_view(self):
-        _main_event = models.MainEvent.query.one()
+        _main_event = (
+            models.MainEvent.query.one()
+            if any(models.MainEvent.query.all())
+            else models.MainEvent()
+        )
         _dummy_main_event = models.MainEvent()
         _dummy_main_event.name = _main_event.name
         _dummy_main_event.contact = _main_event.contact
