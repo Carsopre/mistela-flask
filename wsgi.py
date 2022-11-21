@@ -3,14 +3,13 @@ import secrets
 from datetime import datetime
 from pathlib import Path
 
-import pip
-from werkzeug.security import generate_password_hash
-
 
 def initialize_mistelaflask():
     from mistelaflask import Flask, create_app, db, models
 
     def init_test_db() -> Flask:
+        from werkzeug.security import generate_password_hash
+
         _app = create_app()
         if "sqlite" in os.environ["DATABASE_URI"]:
             _db_file = Path(__file__).parent / "instance" / "db.sqlite"
@@ -112,20 +111,10 @@ def get_dummy():
 
     @app.route("/")
     def hello_world():
-        return "<p>Hello, World!</p>"
+        _error = os.environ.get("MISTELA_ERROR", "(no error found)")
+        return f"<p>Hello, World! {_error}</p>"
 
     return app
 
-
-try:
-    _pip_package = "mistela-flask"
-    _dev_mistelaflask = Path(__file__).parent / "pyproject.toml"
-    if _dev_mistelaflask.is_file():
-        _pip_package = str(_dev_mistelaflask.parent)
-    pip.main(["install", _pip_package])
-    app = initialize_mistelaflask()
-except Exception as e_info:
-    app = get_dummy()
-
-if __debug__:
-    app.run()
+app = initialize_mistelaflask()
+app.run()
