@@ -24,11 +24,11 @@
             </div>
             <div class="tile is-parent is-8">
                 <article class="tile is-child">
-                    <div class="content">
+                    <figure class="image is-4by3">
                         {% if main_event.location.url_map %}
-                        <iframe src="{{ main_event.location.url_map }}" width="600" height="450" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
-                        {% endif %}
-                    </div>
+                        <iframe class="has-ratio" src="{{ main_event.location.url_map }}" width="600" height="450" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+                        {% endif%}
+                    </figure>
                 </article>    
             </div>
         </div>          
