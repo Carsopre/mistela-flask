@@ -2,9 +2,11 @@
 
 {% block content %}
   {% if current_user.is_authenticated %}
-    <h1 class="title">
-      {{ main_event.name }}
-    </h1>
+  {% with _logo = url_for('static', filename='img/logo.png') %}         
+      <h1 class="title">
+        <img src="{{_logo}}" alt="{{ main_event.name }}">
+      </h1>
+  {% endwith %}
     <h2 class="subtitle">
       {{ main_event.main_date | format_datetime("%d | %m | %Y") }}
     </h2>

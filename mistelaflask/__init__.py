@@ -24,7 +24,7 @@ def create_app() -> Flask:
 
     @app.context_processor
     def inject_general_variables():
-        return dict(version=__version__)
+        return dict(version=__version__, os=os)
 
     @app.template_filter()
     def format_datetime(date_value: datetime.datetime, strftime_format: str) -> str:
