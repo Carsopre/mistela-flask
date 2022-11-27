@@ -75,7 +75,7 @@ def generate_test_data():
         models.Event(
             name="dinner",
             icon="fa fa-utensils",
-            description="BBQ Buffet with dessert table.",
+            description="Dinner.",
             start_time=_correct_datetime(hour=18, minute=30),
             duration=150,
             main_event_id=_main_event.id,
@@ -83,7 +83,7 @@ def generate_test_data():
         models.Event(
             name="party",
             icon="fa fa-music",
-            description="We will play some musice to dance and finish the day with a warm party",
+            description="Time for music and drinks.",
             start_time=_correct_datetime(hour=21),
             duration=4 * 60,
             main_event_id=_main_event.id,
