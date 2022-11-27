@@ -66,6 +66,9 @@ def login_post():
         or not _user.password
         or not check_password_hash(_user.password, _password)
     ):
+        if not _user.password:
+            flash("Please try logging in with your OTP")
+            return redirect(url_for("auth.login_otp"))
         flash("Please check your login details and try again.")
         return redirect(
             url_for("auth.login")
