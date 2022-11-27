@@ -119,6 +119,7 @@ def init_mistelaflask():
                     )
                     db.session.add(admin)
                     db.session.commit()
+                    generate_test_data()
             return _app
 
     os.environ["SECRET_KEY"] = secrets.token_hex(16)  # Required environment variable.
