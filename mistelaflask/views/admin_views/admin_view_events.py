@@ -52,7 +52,7 @@ class AdminViewEvents(AdminViewBase):
             flash("Event not found.", category="danger")
             return redirect(url_for("admin.events_list"))
 
-        _event.main_event_id = int(request.form.get("select_main_event"))
+        # _event.main_event_id = int(request.form.get("select_main_event"))
         _event.name = request.form.get("name", _event.name)
         _event.description = request.form.get("description", _event.description)
         _event.icon = request.form.get("icon", _event.icon)
@@ -63,7 +63,9 @@ class AdminViewEvents(AdminViewBase):
     @admin_required
     def _add_view(self):
         return self._render_admin_view_template(
-            "admin_events_add.html", event=models.Event(), main_events=models.MainEvent.query.all()
+            "admin_events_add.html",
+            event=models.Event(),
+            main_events=models.MainEvent.query.all(),
         )
 
     @admin_required

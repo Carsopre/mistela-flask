@@ -1,0 +1,18 @@
+body {
+    background-color: #EFE0CE;
+    color: #495775;
+    font: 400 15px/1.8 "Serif", serif;
+}
+
+.footer {
+    background-color: #EFE0CE;
+    padding: 3rem 1.5rem 3rem;
+}
+
+a.navbar-item:hover {
+    background-color: #EFE0CE;
+}
+
+.tile .notification {
+    background-color: #EFE0CE;
+}
