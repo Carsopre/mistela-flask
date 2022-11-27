@@ -24,8 +24,10 @@ a.navbar-item:hover {
 
 h1.title {
     font-size: 12rem;
+    font-size: 15vw;
 }
 
 h2.subtitle {
     font-size: 4rem;
+    font-size: 5vw;
 }
