@@ -2,23 +2,24 @@
 
 {% block content %}
   {% if current_user.is_authenticated %}
+    <h1 class="title">
+      {{ main_event.name }}
+    </h1>
+    <h2 class="subtitle">
+      {{ main_event.main_date | format_datetime("%Y | %m | %d") }}
+    </h2>
+
+    <div class="">
+      {{ main_event.description if main_event.description }}
+    </div>
     {% with messages = get_flashed_messages(with_categories=true) %}
-    {% if messages %}
-        <ul class=flashes>
-        {% for category, message in messages %}
-            <li class="notification is-{{ category }} is-light">{{ message }}</li>
-        {% endfor %}
-        </ul>
-    {% endif %}
+      {% if messages %}
+          <ul class=flashes>
+          {% for category, message in messages %}
+              <li class="notification is-{{ category }} is-light">{{ message }}</li>
+          {% endfor %}
+          </ul>
+      {% endif %}
     {% endwith %}
-  <h1 class="title">
-    {{ main_event.name }}
-  </h1>
-  <h2 class="subtitle">
-    
-  </h2>
-  <div class="box">
-    {{ main_event.description if main_event.description }}
-  </div>
   {% endif %}
 {% endblock %}

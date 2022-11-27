@@ -1,18 +1,31 @@
-body {
+body,
+h1,
+h2,
+.title,
+.subtitle,
+.footer,
+a.navbar-item {
     background-color: #EFE0CE;
     color: #495775;
-    font: 400 15px/1.8 "Serif", serif;
+    font-family: "Serif", serif;
 }
 
 .footer {
-    background-color: #EFE0CE;
     padding: 3rem 1.5rem 3rem;
 }
 
 a.navbar-item:hover {
-    background-color: #EFE0CE;
+    background-color: #d4c6b5;
 }
 
 .tile .notification {
     background-color: #EFE0CE;
+}
+
+h1.title {
+    font-size: 12rem;
+}
+
+h2.subtitle {
+    font-size: 4rem;
 }
