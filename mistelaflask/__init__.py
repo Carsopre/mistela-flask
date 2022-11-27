@@ -30,6 +30,10 @@ def create_app() -> Flask:
     def format_datetime(date_value: datetime.datetime, strftime_format: str) -> str:
         return date_value.strftime(strftime_format)
 
+    @app.template_filter()
+    def from_mistela_env(value: str, key: str) -> str:
+        return os.getenv(key, value)
+
     login_manager = LoginManager()
     login_manager.login_view = "auth.login"
     login_manager.init_app(app)

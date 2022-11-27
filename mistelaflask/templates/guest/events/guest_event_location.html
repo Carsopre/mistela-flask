@@ -25,7 +25,9 @@
             <div class="tile is-parent is-8">
                 <article class="tile is-child">
                     <div class="content">
+                        {% if main_event.location.url_map %}
                         <iframe src="{{ main_event.location.url_map }}" width="600" height="450" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+                        {% endif %}
                     </div>
                 </article>    
             </div>

@@ -14,6 +14,7 @@
                 "FLASK_DEBUG": "1",
                 "DATABASE_URI": "sqlite:///db.sqlite",
                 "SECRET_KEY": "30f545baaecde395ed8673836fd05d34",
+                "MISTELA_TITLE": "M & C Wedding",
             },
             "args": [
                 "run",
