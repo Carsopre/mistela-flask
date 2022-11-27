@@ -2,7 +2,6 @@ import datetime
 import os
 
 from flask import Flask
-from flask_admin import Admin
 from flask_login import LoginManager
 from flask_sqlalchemy import SQLAlchemy
 
@@ -12,7 +11,6 @@ __version__ = "0.10.0"
 # init SQLAlchemy so we can use it later in our models
 db = SQLAlchemy()
 default_database_uri = "sqlite:///db.sqlite"
-admin: Admin = None
 
 
 def create_app() -> Flask:

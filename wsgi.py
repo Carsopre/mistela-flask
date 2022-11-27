@@ -109,16 +109,16 @@ def init_mistelaflask():
         _app = create_app()
         if "sqlite" in os.environ["DATABASE_URI"]:
             _db_file = Path(__file__).parent / "instance" / "db.sqlite"
-            _db_file.unlink(missing_ok=True)
-        with _app.app_context():
-            db.create_all()
-            admin = models.User(
-                username="admin",
-                otp="1234",
-                admin=True,
-            )
-            db.session.add(admin)
-            db.session.commit()
+            if not _db_file.is_file():
+                with _app.app_context():
+                    db.create_all()
+                    admin = models.User(
+                        username="admin",
+                        otp="1234",
+                        admin=True,
+                    )
+                    db.session.add(admin)
+                    db.session.commit()
             return _app
 
     os.environ["SECRET_KEY"] = secrets.token_hex(16)  # Required environment variable.
