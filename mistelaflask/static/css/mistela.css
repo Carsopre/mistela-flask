@@ -27,8 +27,8 @@ h1.title {
     font-size: 15vw;
 }
 
-title.img {
-    font-size: 20vw;
+h1.title img {
+    height: 20vw;
 }
 
 h2.subtitle {
