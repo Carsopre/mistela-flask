@@ -34,10 +34,13 @@ class GuestViewEvents(GuestViewProtocol):
         _dummy_main_event.description = _main_event.description
         _dummy_main_event.location = _main_event.location
         _dummy_main_event.events = []
-        for _invitation in models.UserEventInvitation.query.filter_by(
-            guest_id=current_user.id
-        ):
-            _dummy_main_event.events.append(_invitation.event)
+        if current_user.admin:
+            _dummy_main_event.events = models.Event.query.all()
+        else:
+            for _invitation in models.UserEventInvitation.query.filter_by(
+                guest_id=current_user.id
+            ):
+                _dummy_main_event.events.append(_invitation.event)
 
         return self._render_guest_view_template(
             "guest_event_base.html", main_event=_dummy_main_event
