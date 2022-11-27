@@ -20,6 +20,16 @@ def create_app() -> Flask:
     app.config["SQLALCHEMY_DATABASE_URI"] = os.environ.get(
         "DATABASE_URI", default_database_uri
     )
+
+    mail_settings = {
+        "MAIL_SERVER": "smtp.gmail.com",
+        "MAIL_PORT": 465,
+        "MAIL_USE_TLS": False,
+        "MAIL_USE_SSL": True,
+        "MAIL_USERNAME": os.environ.get("MAIL_USERNAME", ""),
+        "MAIL_PASSWORD": os.environ.get("MAIL_PASSWORD", ""),
+    }
+    app.config.update(mail_settings)
     db.init_app(app)
 
     @app.context_processor
@@ -58,4 +68,9 @@ def create_app() -> Flask:
     from mistelaflask.views.guest_views import main_view as guest_blueprint
 
     app.register_blueprint(guest_blueprint)
+    from flask_mail import Mail, Message
+
+    with app.app_context():
+        _mail = Mail(app)
+
     return app

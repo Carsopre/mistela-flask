@@ -15,6 +15,8 @@
                 "DATABASE_URI": "sqlite:///db.sqlite",
                 "SECRET_KEY": "30f545baaecde395ed8673836fd05d34",
                 "MISTELA_TITLE": "M & C Wedding",
+                "MAIL_USERNAME": "wedding.myriam.carles@gmail.com",
+                "MAIL_PASSWORD": "bdchmlyyvpjmhgxv"
             },
             "args": [
                 "run",

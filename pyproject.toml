@@ -31,6 +31,7 @@ flask-sqlalchemy = "^3.0.2"
 Flask-Login = "^0.6.2"
 pyOpenSSL = "^22.1.0"
 gunicorn = "^20.1.0"
+Flask-Mail = "^0.9.1"
 
 [tool.poetry.dev-dependencies]
 pytest = "^7.1.3"
