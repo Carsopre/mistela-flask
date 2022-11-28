@@ -1,3 +1,9 @@
+## v0.12.0 (2022-11-28)
+
+### Feat
+
+- **static**: We now provide the static files through flask environment variables
+
 ## v0.11.0 (2022-11-28)
 
 ### Feat
