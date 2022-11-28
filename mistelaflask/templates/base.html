@@ -2,16 +2,18 @@
 <html>
 
 {% include 'header.html' %}
-<body class="background" style="background-image: url({{url_for('static', filename='img/background.jpg')}})">
-    <section class="hero is-fullheight" >
-        {% include 'navbar.html' %}
-        <div class="hero-body">
-            <div class="container has-text-centered">
-               {% block content %}
-               {% endblock %}
+<body>
+    <div class="mistela-background" style="background-image: url({{url_for('static', filename='img/background.jpg')}})">
+        <section class="hero is-fullheight" >
+            {% include 'navbar.html' %}
+            <div class="hero-body">
+                <div class="container has-text-centered">
+                {% block content %}
+                {% endblock %}
+                </div>
             </div>
-        </div>
-    </section>
+        </section>
+    </div>
 </body>
 {% include 'footer.html' %}
 </html>
