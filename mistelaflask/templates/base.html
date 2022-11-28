@@ -2,8 +2,8 @@
 <html>
 
 {% include 'header.html' %}
-<body>
-    <section class="hero is-fullheight">
+<body class="background" style="background-image: url({{url_for('static', filename='img/background.jpg')}})">
+    <section class="hero is-fullheight" >
         {% include 'navbar.html' %}
         <div class="hero-body">
             <div class="container has-text-centered">

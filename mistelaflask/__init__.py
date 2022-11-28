@@ -14,12 +14,14 @@ default_database_uri = "sqlite:///db.sqlite"
 
 
 def create_app() -> Flask:
-    app = Flask(__name__)
+    app = Flask(__name__, static_folder=os.environ.get("STATIC_FOLDER", None))
 
     app.config["SECRET_KEY"] = os.environ["SECRET_KEY"]
     app.config["SQLALCHEMY_DATABASE_URI"] = os.environ.get(
         "DATABASE_URI", default_database_uri
     )
+
+    # app.config["STATIC_FOLDER"] = os.environ.get("STATIC_FOLDER", None)
 
     mail_settings = {
         "MAIL_SERVER": "smtp.gmail.com",
