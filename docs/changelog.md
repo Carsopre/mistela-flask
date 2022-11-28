@@ -1,3 +1,14 @@
+## v0.11.0 (2022-11-28)
+
+### Feat
+
+- **flask-mail**: Added support to send mails when a user has sent their RSVP
+
+### Fix
+
+- **auth.py**: Fixed logging in
+- **auth.py**: Small bug fix when no password still present
+
 ## v0.10.0 (2022-11-21)
 
 ### Feat

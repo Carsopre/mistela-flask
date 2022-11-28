@@ -2,7 +2,7 @@
 
 {% block content %}
   {% if current_user.is_authenticated %}
-  {% with _logo = url_for('static', filename='img/logo.png') %}         
+  {% with _logo = url_for('static', filename='img/logo_svg.svg') %}         
       <h1 class="title">
         <img src="{{_logo}}" alt="{{ main_event.name }}">
       </h1>
