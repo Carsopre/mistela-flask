@@ -4,13 +4,13 @@ from pathlib import Path
 from PIL import Image
 
 
-def downsize_image(img_path: str, down_factor: float) -> Path:
+def image_rescale(img_path: str, down_factor: float) -> Path:
     """
-    Reduces the size of an image in the most optimal way so that its weight its reduced without giving up too much of its qualities.
+    Rescales the size of an image in the most optimal way so that its weight its reduced without giving up too much of its qualities.
 
     Args:
         img_path (str): Image path source.
-        down_factor (float): Float factor to apply when downsizing ]0, 1[
+        down_factor (float): Float factor to apply when rescaling.
 
     Returns:
         Path: Location of the new generated image.
@@ -22,9 +22,7 @@ def downsize_image(img_path: str, down_factor: float) -> Path:
     _img_path = Path(img_path)
     assert _img_path.is_file(), "No image found at {}".format(img_path)
 
-    assert (
-        down_factor > 0 and down_factor <= 1
-    ), "Downsize factor needs to be a float value between 0 and 1."
+    assert down_factor > 0, "Downsize factor needs to be greater than 0."
 
     _out_img_path = _img_path.with_stem(f"{_img_path.stem}_downsized")
 
@@ -45,7 +43,7 @@ def downsize_image(img_path: str, down_factor: float) -> Path:
     return _out_img_path
 
 
-def opacity_image(img_path: str, opacity_factor: int) -> Path:
+def image_opacity(img_path: str, opacity_factor: int) -> Path:
     """
     Applies an alpha layer with a factor of `opacity_Factor` to the provided image at `img_path`.
 
@@ -84,5 +82,5 @@ def opacity_image(img_path: str, opacity_factor: int) -> Path:
 _static_dir = Path(__file__).parent.parent / "static"
 _hd_bck = _static_dir / "img" / "background_hd.jpg"
 
-_hd_downsized = downsize_image(_hd_bck, 0.5)
-_hd_opacity = opacity_image(_hd_downsized, 170)
+_hd_downsized = image_rescale(_hd_bck, 0.5)
+_hd_opacity = image_opacity(_hd_downsized, 170)
