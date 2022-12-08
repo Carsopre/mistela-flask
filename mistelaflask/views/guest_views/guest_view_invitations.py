@@ -97,6 +97,7 @@ class GuestViewInvitations(GuestViewProtocol):
         _remarks = request.form.get(f"remarks", "").strip()
         if _remarks:
             _remarks = _remarks.splitlines()
+        _email = request.form.get("email", "")
         for _idx, _inv in enumerate(
             models.UserEventInvitation.query.filter_by(guest_id=current_user.id)
         ):
@@ -124,8 +125,9 @@ class GuestViewInvitations(GuestViewProtocol):
                 Children: {}
                 Babies: {}
                 Remarks: {}
+                Email: {}
                 """.format(
-                    _response, _n_adults, _n_children, _n_babies, _remarks
+                    _response, _n_adults, _n_children, _n_babies, _remarks, _email
                 ),
             )
             _mail = Mail(current_app)

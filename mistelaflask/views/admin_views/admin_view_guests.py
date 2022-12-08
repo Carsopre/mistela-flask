@@ -159,11 +159,11 @@ class AdminViewGuests(AdminViewBase):
             if _invited:
                 _invitations.append(_event)
 
-        for name in _names_list.splitlines():
+        for _idx, name in enumerate(_names_list.splitlines()):
             _full_name = name.strip()
             _username = _full_name[0:3] + _full_name[-4:-1]
             if models.User.query.filter_by(username=_username).first():
-                _username = _username + str(len(models.User.query.all()))
+                _username = _username + str(_idx)
             _user = models.User(
                 username=_username,
                 name=_full_name,

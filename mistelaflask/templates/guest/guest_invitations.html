@@ -73,6 +73,16 @@
                     </div>
                 </div>
             </div>
+            <div class="field is-horizontal">
+                <div class="field-label is-normal column is-6">
+                    <label class="label">Contact e-mail (not required)</label>
+                </div>  
+                <div class="field-body column is-4">
+                    <div class="control">
+                        <textarea value="" class="input" type="textarea" name="email" {% if response_submitted %}disabled{% endif %}></textarea>
+                    </div>
+                </div>
+            </div>
         {% if response_submitted %}
             <div class="notification is-danger is-light">
                 Please contact us to modify your invitation.
