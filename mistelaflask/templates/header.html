@@ -4,7 +4,9 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>{{ "Mistela Flask" | from_mistela_env("MISTELA_TITLE")}}</title>
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.9.4/css/bulma.min.css">
+    {% if current_user.is_authenticated %}
     <link rel="stylesheet" href="{{ url_for('static', filename='css/mistela.css') }}">
+    {% endif %}
     <link rel="icon" type="image/img-x" href="{{url_for('static', filename='img/logo_svg.svg')}}">
     <script src="https://kit.fontawesome.com/7ccc420639.js" crossorigin="anonymous"></script>
 </head>
