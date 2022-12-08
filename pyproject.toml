@@ -41,6 +41,7 @@ isort = "^5.10.1"
 mkdocs = "^1.4.1"
 termcolor = "^2.0.1"
 coverage = "^6.5.0"
+Pillow = "^9.3.0"
 
 
 [tool.commitizen]
