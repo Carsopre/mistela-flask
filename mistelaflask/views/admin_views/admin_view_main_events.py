@@ -58,7 +58,7 @@ class AdminViewMainEvents(AdminViewBase):
         _event.name = request.form.get("name", _event.name)
         _event.description = request.form.get("description", _event.description)
         _event.contact = request.form.get("contact", _event.description)
-        _location = request.form.get("location", None)
+        _location = request.form.get("select_location", None)
         _event.location_id = int(_location) if _location else _event.location_id
         db.session.commit()
         flash(f"Event '{_event.id}' updated", category="info")
