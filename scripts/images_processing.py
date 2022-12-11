@@ -80,7 +80,7 @@ def image_opacity(img_path: str, opacity_factor: int) -> Path:
 
 
 _static_dir = Path(__file__).parent.parent / "static"
-_hd_bck = _static_dir / "img" / "background_hd.jpg"
+_hd_bck = _static_dir / "img" / "original.jpg"
 
-_hd_downsized = image_rescale(_hd_bck, 0.5)
-_hd_opacity = image_opacity(_hd_downsized, 170)
+_hd_opacity = image_opacity(_hd_bck, 170)
+_hd_downsized = image_rescale(_hd_opacity, 0.25)

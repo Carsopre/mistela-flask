@@ -73,7 +73,7 @@ class AdminViewGuests(AdminViewBase):
         _guest: models.User = models.User.query.filter_by(id=model_id).first()
         _name = _guest.name
         models.User.query.filter_by(id=model_id).delete()
-        models.UserEventInvitation.query.filter_by(user_id=model_id).delete()
+        models.UserEventInvitation.query.filter_by(guest_id=model_id).delete()
         db.session.commit()
         flash(f"User {_name} has been removed.", category="danger")
         return redirect(url_for("admin.guests_list"))
