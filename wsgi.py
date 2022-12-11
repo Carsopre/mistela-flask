@@ -34,6 +34,10 @@ def init_mistelaflask():
 
     os.environ["SECRET_KEY"] = secrets.token_hex(16)  # Required environment variable.
     os.environ["DATABASE_URI"] = "sqlite:///db.sqlite"
+    os.environ["MISTELA_TITLE"] = "My big event"
+    os.environ["STATIC_FOLDER"] = "path//to//my//static//folder"
+    os.environ["MAIL_USERNAME"] = "joe.doe@email.com"
+    os.environ["MAIL_PASSWORD"] = "1234"
     return init_test_db()
 
 

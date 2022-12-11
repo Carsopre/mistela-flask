@@ -15,12 +15,17 @@ import secrets
 import os
 os.environ["SECRET_KEY"] = secrets.token_hex(16) # Required environment variable.
 os.environ["DATABASE_URI"] = "sqlite:///db.sqlite"
+os.environ["MISTELA_TITLE"] = "My big event"
+os.environ["STATIC_FOLDER"] = "path//to//my//static//folder"
+os.environ["MAIL_USERNAME"] = "joe.doe@email.com"
+os.environ["MAIL_PASSWORD"] = "1234"
+
 app = create_app() 
 app.run()
 ```
 > By default, mistelaflask will run on a `SQLite` database.
 
-A more detailed example can be found in the root of the repository as `wsgi.py`.
+A more 'real' example can be found in the root of the repository as `wsgi.py`.
 
 ## Installing the repository.
 To develop on the repository you should be using `Poetry`. Once installed, simply run the install command `poetry install` and all development and production dependencies will be added to your virtual environment.
