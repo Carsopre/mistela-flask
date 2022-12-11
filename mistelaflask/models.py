@@ -1,3 +1,5 @@
+import datetime
+
 from flask_login import UserMixin
 
 from mistelaflask import db
@@ -18,6 +20,35 @@ class User(UserMixin, db.Model):
         return self.name
 
 
+class Location(db.Model):
+    id = db.Column(db.Integer, primary_key=True)
+    name = db.Column(db.String(1000))
+    description = db.Column(db.Text)
+    url_link = db.Column(db.String(1000))
+    url_map = db.Column(db.String(1000))
+
+
+class MainEvent(db.Model):
+    id = db.Column(db.Integer, primary_key=True)
+    name = db.Column(db.String(1000))
+    description = db.Column(db.Text)
+    contact = db.Column(db.Text)
+
+    # Relationships
+    location_id = db.Column(db.Integer, db.ForeignKey("location.id"))
+    location = db.relationship(
+        "Location",
+        backref=db.backref("location_main_events", lazy="dynamic"),
+    )
+
+    # Other
+    @property
+    def main_date(self) -> datetime.datetime:
+        if not self.main_event_events or len(self.main_event_events.all()) == 0:
+            return datetime.datetime.now()
+        return self.main_event_events[0].start_time
+
+
 class Event(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     icon = db.Column(db.String(1000))
@@ -25,6 +56,15 @@ class Event(db.Model):
     start_time = db.Column(db.DateTime)
     duration = db.Column(db.Integer)  # In Minutes
     description = db.Column(db.Text)
+
+    # Relationships
+    main_event_id = db.Column(db.Integer, db.ForeignKey("main_event.id"))
+    location_id = db.Column(db.Integer, db.ForeignKey("location.id"))
+
+    main_event = db.relationship(
+        "MainEvent",
+        backref=db.backref("main_event_events", lazy="dynamic"),
+    )
 
     def __str__(self) -> str:
         return self.name

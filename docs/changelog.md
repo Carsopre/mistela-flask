@@ -1,3 +1,59 @@
+## v0.13.0 (2022-12-11)
+
+### Feat
+
+- **scripts**: We now have available scripts to process images while sandboxing
+
+## v0.12.0 (2022-11-28)
+
+### Feat
+
+- **static**: We now provide the static files through flask environment variables
+
+## v0.11.0 (2022-11-28)
+
+### Feat
+
+- **flask-mail**: Added support to send mails when a user has sent their RSVP
+
+### Fix
+
+- **auth.py**: Fixed logging in
+- **auth.py**: Small bug fix when no password still present
+
+## v0.10.0 (2022-11-21)
+
+### Feat
+
+- **guest/events**: Added location information to the event tab
+
+### Fix
+
+- **guest_view_events.py**: Fixed error when no main events present
+- **guest_views**: Fixed error when no main events available
+
+## v0.9.0 (2022-11-21)
+
+### Feat
+
+- **locations**: Added  html templates for locations admin view
+- **AdminViewLocations**: Created view for admin locations
+- **MainEvent**: It is now possible to encapsulate all events under a main one and display it in the index page
+- **models**: It is possible to add a new main event with a concrete location for the index view
+
+## v0.8.1 (2022-11-21)
+
+### Fix
+
+- **wsgi.py**: Removed self from local method
+- **wsgi.py**: We can now install the development environment when provided
+
+## v0.8.0 (2022-11-21)
+
+### Feat
+
+- **guest_events.html**: Added detailed timeline
+
 ## v0.7.0 (2022-11-20)
 
 ### Feat

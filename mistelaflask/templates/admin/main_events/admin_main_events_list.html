@@ -1,0 +1,31 @@
+{% extends "admin/main_events/admin_main_events_base.html" %}
+
+{% block main_event_content %}
+<div class="table-container">
+    <table class="table is-striped is-full-width">
+        <thead>
+            <tr>
+                <th>Actions</th>
+                <th>Id</th>
+                <th>Location</th>
+                <th>Name</th>
+                <th>Description</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for main_event in main_events %}
+            <tr>
+                <td class="has-text-centered">
+                    <a href="{{ url_for('admin.main_events_detail', model_id=main_event.id) }}"><i class="fas fa-pencil"></i></a>
+                    <a href="{{ url_for('admin.main_events_remove', model_id=main_event.id) }}"><i class="fas fa-trash"></i></a>
+                </td>
+                <td class="has-text-left">{{ main_event.id}}</td>
+                <td class="has-text-left">{{ main_event.location.name if main_event.location_id }}</td>
+                <td class="has-text-left">{{ main_event.name }}</td>
+                <td class="has-text-left">{{ main_event.description }}</td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</div>
+{% endblock %}

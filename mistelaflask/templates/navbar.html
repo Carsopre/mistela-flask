@@ -1,0 +1,43 @@
+<div class="hero-head">
+    <nav class="navbar">
+        <div class="container">
+            <div id="navBarMenu" class="navbar-menu">
+                <div class="navbar-end">
+                    <a href="{{ url_for('main.index') }}" class="navbar-item">
+                        Home
+                    </a>
+                    {% if current_user.admin %}
+                    <a href="{{ url_for('admin.index') }}" class="navbar-item">
+                        Admin page
+                    </a>
+                    {% endif %}
+                    {% if current_user.is_authenticated %}
+                    <a href="{{ url_for('main.events_list') }}" class="navbar-item">
+                        The event
+                    </a>
+                    <a href="{{ url_for('main.invitations_list') }}" class="navbar-item">
+                        My Invitation
+                    </a>
+                    <a href="{{ url_for('auth.logout') }}" class="navbar-item">
+                        Logout
+                    </a>
+                    {% endif %}
+                    {% if not current_user.is_authenticated %}
+                    <a href="{{ url_for('auth.login') }}" class="navbar-item">
+                        Login
+                    </a>
+                    <a href="{{ url_for('auth.login_otp') }}" class="navbar-item">
+                        Otp Login
+                    </a>
+                    {% endif %}
+                </div>
+            </div>
+            <a role="button" class="navbar-burger" aria-label="menu" aria-expanded="false" data-target="navBarMenu">
+                <span aria-hidden="true"></span>
+                <span aria-hidden="true"></span>
+                <span aria-hidden="true"></span>
+              </a>
+        </div>
+    </nav>
+</div>
+

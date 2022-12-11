@@ -31,7 +31,17 @@ def index():
             description=event.description,
         )
 
-    return render_template("index.html", timeline=list(map(_transform, _events)))
+    _main_event = (
+        models.MainEvent.query.one()
+        if any(models.MainEvent.query.all())
+        else models.MainEvent()
+    )
+
+    return render_template(
+        "index.html",
+        timeline=list(map(_transform, _events)),
+        main_event=_main_event,
+    )
 
 
 invitations_view = GuestViewInvitations.register(main_view)

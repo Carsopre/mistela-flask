@@ -3,7 +3,7 @@
 {% block event_content %}
     <form method="POST" action="/admin/events/add">
         {% from 'admin/events/admin_event_form.html' import event_form %}
-        {{ event_form(event) }}
+        {{ event_form(event, main_events) }}
         <button class="button is-block is-info is-medium is-fullwidth">Save event</button>
     </form>
 {% endblock %}

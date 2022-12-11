@@ -29,6 +29,7 @@ class AdminViewEvents(AdminViewBase):
         return self._render_admin_view_template(
             "admin_events_detail.html",
             event=_event,
+            main_events=models.MainEvent.query.all(),
         )
 
     @admin_required
@@ -51,6 +52,7 @@ class AdminViewEvents(AdminViewBase):
             flash("Event not found.", category="danger")
             return redirect(url_for("admin.events_list"))
 
+        # _event.main_event_id = int(request.form.get("select_main_event"))
         _event.name = request.form.get("name", _event.name)
         _event.description = request.form.get("description", _event.description)
         _event.icon = request.form.get("icon", _event.icon)
@@ -61,19 +63,24 @@ class AdminViewEvents(AdminViewBase):
     @admin_required
     def _add_view(self):
         return self._render_admin_view_template(
-            "admin_events_add.html", event=models.Event()
+            "admin_events_add.html",
+            event=models.Event(),
+            main_events=models.MainEvent.query.all(),
         )
 
     @admin_required
     def _create_view(self):
+        main_event_id = int(request.form.get("select_main_event"))
         name = request.form.get("name")
         description = request.form.get("description")
         icon = request.form.get("icon")
         _event = models.Event.query.filter_by(name=name).first()
         if _event:
             flash("An event with this name already exists.", category="danger")
-            return redirect(url_for("events_create"))
-        _new_event = models.Event(name=name, description=description, icon=icon)
+            return redirect(url_for("admin.events_create"))
+        _new_event = models.Event(
+            main_event_id=main_event_id, name=name, description=description, icon=icon
+        )
         db.session.add(_new_event)
         db.session.commit()
         flash(f"Added event '{name}'.", category="success")

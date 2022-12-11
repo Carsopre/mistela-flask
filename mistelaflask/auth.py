@@ -61,7 +61,14 @@ def login_post():
 
     # check if the user actually exists
     # take the user-supplied password, hash it, and compare it to the hashed password in the database
-    if not _user or not check_password_hash(_user.password, _password):
+    if (
+        not _user
+        or not _user.password
+        or not check_password_hash(_user.password, _password)
+    ):
+        if not _user.password:
+            flash("Please try logging in with your OTP")
+            return redirect(url_for("auth.login_otp"))
         flash("Please check your login details and try again.")
         return redirect(
             url_for("auth.login")

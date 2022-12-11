@@ -1,19 +1,26 @@
 {% extends "base.html" %}
 
 {% block content %}
-{% if current_user.is_authenticated %}
-<h1 class="title">
-  Our Event
-</h1>
-<h2 class="subtitle">
-  Timeline
-</h2>
-  <div class="box">
-  {% for _event in timeline %}
-    <div class="row">
-      {{ _event.start_time }} - {{ _event.end_time}} :<b>{{_event.name}}</b>
+  {% if current_user.is_authenticated %}
+  {% with _logo = url_for('static', filename='img/logo_svg.svg') %}         
+      <h1 class="title">
+        <img src="{{_logo}}" alt="{{ main_event.name }}">
+      </h1>
+  {% endwith %}
+    <h2 class="subtitle">
+      {{ main_event.main_date | format_datetime("%d | %m | %Y") }}
+    </h2>
+    <div class="">
+      {{ main_event.description if main_event.description }}
     </div>
-  {% endfor %}
-  </div>
-{% endif %}
+    {% with messages = get_flashed_messages(with_categories=true) %}
+      {% if messages %}
+          <ul class=flashes>
+          {% for category, message in messages %}
+              <li class="notification is-{{ category }} is-light">{{ message }}</li>
+          {% endfor %}
+          </ul>
+      {% endif %}
+    {% endwith %}
+  {% endif %}
 {% endblock %}

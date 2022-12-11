@@ -1,0 +1,9 @@
+{% extends "admin/locations/admin_locations_base.html" %}
+
+{% block location_content %}
+    <form method="POST" action="/admin/locations/add">
+        {% from 'admin/locations/admin_location_form.html' import location_form %}
+        {{ location_form(location) }}
+        <button class="button is-block is-info is-medium is-fullwidth">Save location</button>
+    </form>
+{% endblock %}

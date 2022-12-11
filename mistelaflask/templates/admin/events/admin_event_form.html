@@ -1,11 +1,27 @@
-{% macro event_form(event) %}
+{% macro event_form(event, main_events) %}
+<div class="field is-horizontal">
+    <div class="field-label is-normal">
+        <label class="label">Main Event</label>
+    </div>  
+    <div class="field-body">
+        <div class="select" >
+            {% set _disable_sel_event = event.id != None %}
+            <select name="select_main_event" {{ 'disabled' if _disable_sel_event}}>
+            {% for _main_event in main_events %}
+              {% set _selected_event = event.main_event_id == _main_event.id %}
+                <option {{'selected' if _selected_event}} value="{{_main_event.id}}">{{_main_event.name | capitalize }}</option>
+            {% endfor %}
+            </select>
+          </div>
+    </div>
+</div>
 <div class="field is-horizontal">
     <div class="field-label is-normal">
         <label class="label">Name</label>
     </div>  
     <div class="field-body">
         <div class="control">
-            <input value="{{event.name}}" class="input" type="text" name="name" placeholder="Name" autofocus="">
+            <input value="{{ event.name if event.name }}" class="input" type="text" name="name" placeholder="Name" autofocus="">
         </div>
     </div>
 </div>
@@ -25,7 +41,7 @@
     </div>  
     <div class="field-body">
         <div class="control">
-            <input value="{{event.description}}" class="input" type="text" name="description" placeholder="Description" autofocus="">
+            <input value="{{ event.description if event.description }}" class="input" type="text" name="description" placeholder="Description" autofocus="">
         </div>
     </div>
 </div>
