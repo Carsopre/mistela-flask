@@ -1,3 +1,9 @@
+## v0.14.6 (2022-12-11)
+
+### Fix
+
+- **templates/events**: Replaced way of adding icons so that more animations are available
+
 ## v0.14.5 (2022-12-11)
 
 ### Fix
