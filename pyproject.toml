@@ -27,7 +27,7 @@ add_test_users = 'scripts.generate_initial_db:generate_test_data'
 
 
 [tool.poetry.dependencies]
-python = "~3.9"
+python = "^3.9"
 Flask = "^2.2.2"
 commitizen = "^2.35.0"
 flask-sqlalchemy = "^3.0.2"
