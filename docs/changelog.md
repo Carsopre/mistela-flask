@@ -1,3 +1,9 @@
+## v0.14.7 (2022-12-11)
+
+### Fix
+
+- **guest_event_location.html**: Location -description also parses html code now
+
 ## v0.14.6 (2022-12-11)
 
 ### Fix
