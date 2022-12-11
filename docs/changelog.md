@@ -1,3 +1,9 @@
+## v0.14.5 (2022-12-11)
+
+### Fix
+
+- **templates/event**: it is now possible to add html code into an event description and properly format it with jinja safe
+
 ## v0.14.4 (2022-12-11)
 
 ### Fix
