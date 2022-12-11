@@ -37,6 +37,26 @@
 </div>
 <div class="field is-horizontal">
     <div class="field-label is-normal">
+        <label class="label">Start time</label>
+    </div>  
+    <div class="field-body">
+        <div class="control">
+            <input value="{{ event.start_time if event.start_time }}" class="input" type="datetime" name="start_time" placeholder="Start time" autofocus="">
+        </div>
+    </div>
+</div>
+<div class="field is-horizontal">
+    <div class="field-label is-normal">
+        <label class="label">Duration</label>
+    </div>  
+    <div class="field-body">
+        <div class="control">
+            <input value="{{ event.duration if event.duration }}" class="input" type="number" name="duration" placeholder="Duration" autofocus="">
+        </div>
+    </div>
+</div>
+<div class="field is-horizontal">
+    <div class="field-label is-normal">
         <label class="label">Description</label>
     </div>  
     <div class="field-body">

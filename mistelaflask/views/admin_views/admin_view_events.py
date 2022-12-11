@@ -1,5 +1,7 @@
 from __future__ import annotations
 
+from datetime import datetime
+
 from flask import Blueprint, flash, redirect, request, url_for
 
 from mistelaflask import db, models
@@ -55,6 +57,10 @@ class AdminViewEvents(AdminViewBase):
         # _event.main_event_id = int(request.form.get("select_main_event"))
         _event.name = request.form.get("name", _event.name)
         _event.description = request.form.get("description", _event.description)
+        _event.start_time = datetime.strptime(
+            request.form.get("start_time"), "%Y-%m-%d %H:%M:%S"
+        )
+        _event.duration = int(request.form.get("duration"))
         _event.icon = request.form.get("icon", _event.icon)
         db.session.commit()
         flash(f"Event '{_event.id}' updated", category="info")
@@ -74,12 +80,21 @@ class AdminViewEvents(AdminViewBase):
         name = request.form.get("name")
         description = request.form.get("description")
         icon = request.form.get("icon")
+        _start_time = datetime.strptime(
+            request.form.get("start_time"), "%Y-%m-%d %H:%M:%S"
+        )
+        _duration = int(request.form.get("duration"))
         _event = models.Event.query.filter_by(name=name).first()
         if _event:
             flash("An event with this name already exists.", category="danger")
             return redirect(url_for("admin.events_create"))
         _new_event = models.Event(
-            main_event_id=main_event_id, name=name, description=description, icon=icon
+            main_event_id=main_event_id,
+            name=name,
+            start_time=_start_time,
+            duration=_duration,
+            description=description,
+            icon=icon,
         )
         db.session.add(_new_event)
         db.session.commit()
