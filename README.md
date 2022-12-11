@@ -7,6 +7,21 @@ A multi-event planner elaborated with Flask.
 
 Initial steps done following this [Digital Ocean guide](https://www.digitalocean.com/community/tutorials/how-to-add-authentication-to-your-app-with-flask-login#step-7-setting-up-the-authorization-function)
 
+## Why Mistela>
+As recognition to a drink from my region, common during celebrations, I decided to name this repository mistela-flask.
+In short, this version of `Flask` aims to provide a simpile solution to manage an event such as a wedding with different 'sub-events'. The tool also provides a custom-defined admin page as `Flask` does not really provide one itself (and I did not like `Flask-admin` as all users seemed to have admin rights).
+
+Either way, this was a nice user-case for me to get hands-on with Flask.
+
+## Downloading the package.
+For the moment only github is available as package manager, to download the package:
+```cli
+pip install git+https://github.com/Carsopre/mistela-flask.git
+```
+
+## Installing the repository.
+To develop on the repository you should be using `Poetry`. Once installed, simply run the install command `poetry install` and all development and production dependencies will be added to your virtual environment.
+
 ## Usage
 Mistela-flask can be used as a package and easily deployed as any regular flask app.
 ```python
@@ -27,5 +42,4 @@ app.run()
 
 A more 'real' example can be found in the root of the repository as `wsgi.py`.
 
-## Installing the repository.
-To develop on the repository you should be using `Poetry`. Once installed, simply run the install command `poetry install` and all development and production dependencies will be added to your virtual environment.
+
