@@ -22,6 +22,9 @@ classifiers = [
 
 [tool.poetry.scripts]
 wsgi = 'wsgi:init_mistelaflask'
+init_mistelaflask = 'scripts.generate_initial_db:init_mistelaflask'
+add_test_users = 'scripts.generate_initial_db:generate_test_data'
+
 
 [tool.poetry.dependencies]
 python = "~3.9"
