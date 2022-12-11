@@ -1,3 +1,9 @@
+## v0.14.3 (2022-12-11)
+
+### Fix
+
+- **admin_view_main_events.py**: Fix updating location from a main event
+
 ## v0.14.2 (2022-12-11)
 
 ### Fix
