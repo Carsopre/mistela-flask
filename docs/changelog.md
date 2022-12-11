@@ -1,3 +1,9 @@
+## v0.14.2 (2022-12-11)
+
+### Fix
+
+- **admin/events**: Now we can manage an event time (Start / duration)
+
 ## v0.14.1 (2022-12-11)
 
 ### Fix
