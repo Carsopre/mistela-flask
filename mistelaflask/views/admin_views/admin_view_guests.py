@@ -93,7 +93,7 @@ class AdminViewGuests(AdminViewBase):
             ).first()
             if _form_value and not _exists:
                 db.session.add(
-                    models.UserEventInvitation(guest_id=guest.id, event=_event.id)
+                    models.UserEventInvitation(guest_id=guest.id, event_id=_event.id)
                 )
             elif not _form_value and _exists:
                 models.UserEventInvitation.query.filter_by(
