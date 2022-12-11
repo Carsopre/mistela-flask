@@ -1,3 +1,9 @@
+## v0.14.4 (2022-12-11)
+
+### Fix
+
+- **admin_view_guests**: Fixed wrong field during UserEventInvitation
+
 ## v0.14.3 (2022-12-11)
 
 ### Fix
