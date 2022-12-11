@@ -1,3 +1,9 @@
+## v0.13.0 (2022-12-11)
+
+### Feat
+
+- **scripts**: We now have available scripts to process images while sandboxing
+
 ## v0.12.0 (2022-11-28)
 
 ### Feat
