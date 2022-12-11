@@ -19,7 +19,7 @@
                         {{ _event.name | capitalize }}
                     </p>
                     <div class="content">
-                        {{ _event.description }}
+                        {{ _event.description | safe }}
                     </div> 
                 </div>
             </article>    

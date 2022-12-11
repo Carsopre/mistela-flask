@@ -61,7 +61,7 @@
     </div>  
     <div class="field-body">
         <div class="control">
-            <input value="{{ event.description if event.description }}" class="input" type="text" name="description" placeholder="Description" autofocus="">
+            <textarea value="{{ event.description if event.description }}" class="input" type="text" name="description" placeholder="Description" autofocus="">{{ event.description if event.description }}</textarea>
         </div>
     </div>
 </div>
