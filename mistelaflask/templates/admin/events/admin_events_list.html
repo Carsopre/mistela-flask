@@ -23,11 +23,11 @@
                 </td>
                 <td class="has-text-left">{{ event.id}}</td>
                 <!-- <td class="has-text-left">{{ event.main_event.name}}</td> -->
-                <td class="has-text-left"><i class="{{event.icon}}"></i></td>
+                <td class="has-text-left">{{event.icon | safe }}</td>
                 <td class="has-text-left">{{ event.name }}</td>
                 <td class="has-text-left">{{ event.start_time }}</td>
                 <td class="has-text-left">{{ event.duration }}</td>
-                <td class="has-text-left">{{ event.description }}</td>
+                <td class="has-text-left">{{ event.description | safe }}</td>
             </tr>
             {% endfor %}
         </tbody>
