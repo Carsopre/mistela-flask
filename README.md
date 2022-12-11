@@ -15,13 +15,17 @@ Either way, this was a nice user-case for me to get hands-on with Flask.
 Mistela is 'sort of a wine' quite common in my region (València, Spain) for celebrations or simply after a family dinner. It made sense that if this flask 'flavour' is about events (celebrations) management, it should have an appropiate name, therefore, mistela-flask :).
 
 ## Downloading the package.
-For the moment only github is available as package manager, to download the package:
+* Directly from the source:
 ```cli
 pip install git+https://github.com/Carsopre/mistela-flask.git
 ```
+* Or from pypi:
+```cli
+pip install mistela-flask
+```
 
 ## Installing the repository.
-To develop on the repository you should be using `Poetry`. Once installed, simply run the install command `poetry install` and all development and production dependencies will be added to your virtual environment.
+To develop on the repository you should be using `Poetry`. Once installed, simply run the install command`poetry install` and all development and production dependencies will be added to your virtual environment.
 
 ## Usage
 Mistela-flask can be used as a package and easily deployed as any regular flask app.
