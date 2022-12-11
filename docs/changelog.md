@@ -1,3 +1,37 @@
+## v0.14.0 (2022-12-11)
+
+## v0.7.0 (2022-11-20)
+
+### Feat
+
+- **GuestViewEvents**: Added view for events (timeline)
+- **guest_invitations**: Guests handle their invitation as 'one' instead of per event
+- **guest_invitations.html**: Guest can now manage their own invitations
+- **admin_invitation_edit_bulk**: It is now possible to do a bulk edit from the admin menu
+- **admin_invitations_summary.html**: Added summary for invitations
+- **admin_views/invitations**: Added templates for create, read, delete invitations
+- **admin_required**: Added method admin_required to replace and enforce a better decorator
+- **admin/guests**: We can now do full CRUD operations on Guests (users without admin rights)
+- **admin/guests**: We can now display an admin menu for listing all registered guests and their invitations
+- **admin_view_guests.py**: Created new admin view guests file and class
+- **admin_events**: Added better admin page for events via tabs
+- **auth.py**: Users can now do a first login with a OTP
+- **flask_admin**: Added flask admin layer to better handle the models CRUD panel
+
+### Fix
+
+- **auth.py**: Fix mismatch between user and username
+
+## v0.4.0 (2022-11-13)
+
+### Feat
+
+- **mistelaflask/__init__.py**: SECRET_KEY and DATABASE_URI are now read from the environment variables
+
+### Fix
+
+- **pyproject.toml**: Forgot a closing statement
+
 ## v0.13.0 (2022-12-11)
 
 ### Feat
