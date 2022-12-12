@@ -1,3 +1,9 @@
+## v0.15.1 (2022-12-12)
+
+### Fix
+
+- **admin_main_events_list**: Added missing column name
+
 ## v0.15.0 (2022-12-12)
 
 ### Feat
