@@ -22,7 +22,8 @@
                 <td class="has-text-left">{{ main_event.id}}</td>
                 <td class="has-text-left">{{ main_event.location.name if main_event.location_id }}</td>
                 <td class="has-text-left">{{ main_event.name }}</td>
-                <td class="has-text-left">{{ main_event.description }}</td>
+                <td class="has-text-left">{{ main_event.description | safe}}</td>
+                <td class="has-text-left">{{ main_event.contact | safe}}</td>
             </tr>
             {% endfor %}
         </tbody>

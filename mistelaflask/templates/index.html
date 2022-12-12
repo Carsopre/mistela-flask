@@ -10,9 +10,6 @@
     <h2 class="subtitle">
       {{ main_event.main_date | format_datetime("%d | %m | %Y") }}
     </h2>
-    <div class="">
-      {{ main_event.description if main_event.description }}
-    </div>
     {% with messages = get_flashed_messages(with_categories=true) %}
       {% if messages %}
           <ul class=flashes>
