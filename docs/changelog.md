@@ -1,3 +1,9 @@
+## v0.16.0 (2022-12-12)
+
+### Feat
+
+- **index.html**: Added links to the timeline and invitation to avoid confussion
+
 ## v0.15.1 (2022-12-12)
 
 ### Fix
