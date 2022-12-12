@@ -1,3 +1,9 @@
+## v0.15.0 (2022-12-12)
+
+### Feat
+
+- **guest_event_extra**: Added extra template that allows to inject html code into the event tab through the MainEvent contact and description fields
+
 ## v0.14.7 (2022-12-11)
 
 ### Fix
