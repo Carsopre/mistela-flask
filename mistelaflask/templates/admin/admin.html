@@ -4,48 +4,7 @@
 {% include 'header.html' %}
 <body>
     <section class="hero is-fullheight">
-        <div class="hero-head">
-            <nav class="navbar">
-                <div class="container">
-                    <div id="navBarMenu" class="navbar-menu">
-                        <div class="navbar-end">
-                            <a href="{{ url_for('main.index') }}" class="navbar-item">
-                                Home
-                            </a>
-                            {% if current_user.admin %}
-                            <a href="{{ url_for('admin.index') }}" class="navbar-item">
-                                Admin page
-                            </a>
-                            <a href="{{ url_for('admin.guests_list') }}" class="navbar-item">
-                                Guests
-                            </a>
-                            <a href="{{ url_for('admin.main_events_list') }}" class="navbar-item">
-                                Main events
-                            </a>
-                            <a href="{{ url_for('admin.events_list') }}" class="navbar-item">
-                                Events
-                            </a>
-                            <a href="{{ url_for('admin.locations_list') }}" class="navbar-item">
-                                Locations
-                            </a>
-                            <a href="{{ url_for('admin.invitations_list') }}" class="navbar-item">
-                                Invitations
-                            </a>
-                            <a href="{{ url_for('auth.logout') }}" class="navbar-item">
-                                Logout
-                            </a>
-                            {% endif %}
-                        </div>
-                    </div>
-                    <a role="button" class="navbar-burger" aria-label="menu" aria-expanded="false" data-target="navBarMenu">
-                        <span aria-hidden="true"></span>
-                        <span aria-hidden="true"></span>
-                        <span aria-hidden="true"></span>
-                      </a>
-                </div>
-            </nav>
-        </div>
-
+        {% include 'admin/admin_navbar.html' %}
         <div class="hero-body">
             <div class="container has-text-centered">
                {% block content %}
