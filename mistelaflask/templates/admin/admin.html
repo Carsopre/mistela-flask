@@ -4,11 +4,10 @@
 {% include 'header.html' %}
 <body>
     <section class="hero is-fullheight">
-
         <div class="hero-head">
             <nav class="navbar">
                 <div class="container">
-                    <div id="navbarMenuHeroA" class="navbar-menu">
+                    <div id="navBarMenu" class="navbar-menu">
                         <div class="navbar-end">
                             <a href="{{ url_for('main.index') }}" class="navbar-item">
                                 Home
@@ -38,6 +37,11 @@
                             {% endif %}
                         </div>
                     </div>
+                    <a role="button" class="navbar-burger" aria-label="menu" aria-expanded="false" data-target="navBarMenu">
+                        <span aria-hidden="true"></span>
+                        <span aria-hidden="true"></span>
+                        <span aria-hidden="true"></span>
+                      </a>
                 </div>
             </nav>
         </div>
