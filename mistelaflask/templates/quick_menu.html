@@ -1,31 +1,33 @@
-<div class="tile is-ancestor is-vertical is-half">
-        <div class="tile is-parent"> 
-            <div class="tile is-parent is-vertical is-3">
-            </div>
-            <div class="tile is-parent is-vertical is-3">
-              <a href="{{ url_for('main.events_list') }}"> 
-                <article class="tile is-child notification">
-                    <div class="content text has-text-centered">
-                        <p class="title">
-                          <i class="fa-regular fa-calendar"></i>
-                          Over the event
-                        </p>
-                    </div>
-                </article>
+<div class="columns quickmenu"> 
+    <div class="column is-three-fifths is-offset-one-fifth">
+        <div class="tile is-ancestor is-vertical">
+            <div class="tile is-parent"> 
+                <div class="tile is-parent is-vertical">
+                    <a href="{{ url_for('main.events_list') }}"> 
+                    <article class="tile is-child notification">
+                        <div class="content text has-text-centered">
+                            <p class="title">
+                                <i class="fa-regular fa-calendar"></i>
+                                Over the event
+                            </p>
+                        </div>
+                    </article>
+                    </a>
+                </div>
+                <div class="tile is-parent is-vertical">
+                    <a href="{{ url_for('main.invitations_list') }}">
+                    <article class="tile is-child notification">
+                        <div class="content text has-text-centered">
+                            <p class="title">
+                                <i class="fa-solid fa-envelope"></i>
+                                Your invitation
+                            </p>
+                        </div>
+                    </article>
+                    </a>
+                </div> 
                 </a>
             </div>
-            <div class="tile is-parent is-vertical is-3">
-                <a href="{{ url_for('main.invitations_list') }}">
-                <article class="tile is-child notification">
-                    <div class="content text has-text-centered">
-                        <p class="title">
-                            <i class="fa-solid fa-envelope"></i>
-                            Your invitation
-                        </p>
-                    </div>
-                </article>
-                </a>
-            </div> 
-            </a>
         </div>
     </div>
+</div>
