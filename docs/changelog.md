@@ -1,3 +1,9 @@
+## v0.16.1 (2022-12-13)
+
+### Fix
+
+- **templates/admin.html**: Fixed burger menu in admin page not showing on phone view
+
 ## v0.16.0 (2022-12-12)
 
 ### Feat
