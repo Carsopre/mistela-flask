@@ -16,6 +16,15 @@
             </br>
             <b>Babies (from 0 to 2 years) || Children (from 3 to 9 years)</b>
         </div>
+        {% with messages = get_flashed_messages(with_categories=true) %}
+            {% if messages %}
+                <ul class=flashes>
+                {% for category, message in messages %}
+                    <li class="notification is-{{ category }} is-light">{{ message }}</li>
+                {% endfor %}
+                </ul>
+            {% endif %}
+        {% endwith %}
         <form method="POST" action="/invitations/">
             <div class="field is-horizontal">
                 <div class="field-label column is-6">

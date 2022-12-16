@@ -87,7 +87,11 @@ class GuestViewInvitations(GuestViewProtocol):
         if _response:
             _response = _response.lower() == "true"
         else:
-            _response = None
+            flash(
+                f"Please provide a valid answer for the main question `Will you be assisting to our event?`",
+                category="danger",
+            )
+            return redirect(url_for("main.invitations_list"))
         _n_adults = min(
             int(request.form.get(f"n_adults")),
             current_user.max_adults,
