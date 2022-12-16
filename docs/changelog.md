@@ -1,3 +1,9 @@
+## v0.16.3 (2022-12-16)
+
+### Fix
+
+- **guest_view_invitations.py**: It is now no longer possible to submit an invitation without responding to the main question
+
 ## v0.16.2 (2022-12-16)
 
 ### Fix
