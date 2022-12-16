@@ -1,3 +1,9 @@
+## v0.16.2 (2022-12-16)
+
+### Fix
+
+- **admin_invitation_edit_bulk.html**: Fix updating bulk changes, all fields were returning the baby n value
+
 ## v0.16.1 (2022-12-13)
 
 ### Fix
